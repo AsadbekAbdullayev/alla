@@ -1,20 +1,21 @@
 import React from 'react';
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import Navbar from '@/shared/navbar';
+import Header from './ui/Header';
+import Content from './ui/Content';
+import CartoonSlides from './ui/CartoonSlides';
+import Opportunitites from './ui/Opportunitites';
+import ChildSecurity from './ui/ChildSecurity';
+import Footer from '@/shared/footer';
 
 const Main = () => {
-	const { data, error, isLoading } = useQuery({
-		queryKey: ['todos'],
-		queryFn: async () => {
-			const response = await axios.get('https://catfact.ninja/fact');
-			return response.data;
-		},
-	});
-	if (isLoading) return <div>Loading...</div>;
-	if (error) return <div>Error: {error.message}</div>;
 	return (
-		<div className="w-full min-h-screen bg-slate-600 p-[20px] flex justify-center items-center text-[20px] text-[#fff] font-bold">
-			{data.fact}
+		<div className=" w-full h-full bg-[#001145]">
+			<Header />
+			<CartoonSlides/>
+			<Content />
+			<Opportunitites/>
+			<ChildSecurity/>
+			<Footer/>
 		</div>
 	);
 };
