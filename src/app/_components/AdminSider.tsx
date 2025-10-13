@@ -25,12 +25,12 @@ export default function AdminSider() {
 
   return (
     <aside
-      className={`bg-[#0f0f0f] text-white h-full transition-all ${
+      className={`bg-[#0f0f0f]  text-white h-full transition-all ${
         collapsed ? "w-16" : "w-56"
       } flex flex-col`}
     >
       <div
-        className="text-center py-4 text-lg font-bold border-b border-gray-800 cursor-pointer"
+        className="text-center py-4 text-lg font-bold h-[60px] border-b border-gray-800 cursor-pointer"
         onClick={() => setCollapsed(!collapsed)}
       >
         {collapsed ? "💫" : "Admin Panel"}

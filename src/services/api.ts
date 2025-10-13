@@ -57,9 +57,9 @@ request.interceptors.response.use(
 
         // 🔹 Admin va normal foydalanuvchini ajratib yo'naltirish
         if (isAdminRoute) {
-          window.location.pathname = "/dashboard/login";
+          // window.location.pathname = "/dashboard/login";
         } else {
-          window.location.pathname = "/login";
+          // window.location.pathname = "/login";
         }
       }
     }
