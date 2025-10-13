@@ -3,13 +3,51 @@
 @import 'tailwindcss/utilities';
 @import url('https://fonts.googleapis.com/css2?family=Vollkorn&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+@font-face {
+	font-family: 'Nunito';
+	src: url('/src/assets/fonts/Nunito-Italic.ttf');
+	font-weight: 400;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Nunito';
+	src: url('/src/assets/fonts/Nunito-MediumItalic.ttf');
+	font-weight: 500;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Nunito';
+	src: url('/src/assets/fonts/Nunito-BoldItalic.ttf');
+	font-weight: 600;
+	font-style: italic;
+}
+@font-face {
+	font-family: 'Nunito';
+	src: url('/src/assets/fonts/Nunito-ExtraBoldItalic.ttf');
+	font-weight: 800;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Barcelona';
+	src: url('/src/assets/fonts/Barcelona-Graffiti-Bombing.otf');
+}
+@font-face {
+	font-family: 'Inter';
+	src: url('/src/assets/fonts/Inter_18pt-Regular.ttf');
+}
+@font-face {
+	font-family: 'Fredoka';
+	src: url('/src/assets/fonts/Fredoka-Regular.ttf');
+}
 * {
 	margin: 0;
 	box-sizing: border-box;
-	font-family: 'Mulish';
+	font-family: 'Nunito';
 }
 p {
-	font-family: 'Mulish';
+	font-family: 'Nunito';
 }
 h1,
 h2,

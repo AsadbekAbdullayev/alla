@@ -3,6 +3,11 @@ import Kids from '@/assets/icons/kids.svg';
 import { Button } from 'antd';
 import Navbar from '@/shared/navbar';
 import headerBg from '@/assets/images/headerBg.png';
+import headerSun from '@/assets/icons/headerSun.svg';
+import headerCloud from '@/assets/icons/headerCloud.svg';
+import headerSaturn from '@/assets/icons/headerSaturn.svg';
+import headerRabbit from '@/assets/icons/headerRabbit.svg';
+import headerRabbit2 from '@/assets/icons/headerRabbit2.svg';
 
 const Header = () => {
 	const buttonItem1 = (
@@ -145,7 +150,7 @@ const Header = () => {
 		</svg>
 	);
 	return (
-		<div className='w-full relative min-h-[900px] h-full flex flex-col justify-start overflow-hidden'>
+		<div className="w-full relative min-h-[900px] h-full flex flex-col justify-start overflow-hidden">
 			<Navbar />
 			<div className="py-[120px] px-[120px] flex w-full h-full items-center justify-start relative z-10">
 				<div>
@@ -220,6 +225,11 @@ const Header = () => {
 				</div>
 			</div>
 			<img src={headerBg} alt="" className="absolute top-0  w-full h-fit" />
+			<img src={headerCloud} alt="" className='absolute top-[191px] right-[108px]'/>
+			<img src={headerSaturn} alt="" className='absolute top-[271px] right-[171px]'/>
+			<img src={headerSun} alt="" className='absolute top-[39px] left-0'/>
+			<img src={headerRabbit} alt="" className='absolute left-[343px] bottom-[204px]'/>
+			<img src={headerRabbit2} alt="" className='absolute left-0 bottom-0'/>
 		</div>
 	);
 };

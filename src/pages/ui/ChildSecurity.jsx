@@ -4,6 +4,9 @@ import icon2 from '@/assets/icons/security2.svg';
 import icon3 from '@/assets/icons/security3.svg';
 import icon4 from '@/assets/icons/security4.svg';
 import icon5 from '@/assets/icons/security5.svg';
+import knight from '@/assets/icons/knight.svg';
+import tree from '@/assets/icons/tree.svg';
+
 
 const ChildSecurity = () => {
 	const security = [
@@ -39,7 +42,7 @@ const ChildSecurity = () => {
 		},
 	];
 	return (
-		<div className="p-[120px] w-full flex flex-col items-center ">
+		<div className="p-[120px] w-full flex flex-col items-center relative">
 			<div>
 				<h2 className="text-white text-[48px] font-[800] leading-[56px] text-center">
 					Bolalar xavfsizligi
@@ -92,6 +95,8 @@ const ChildSecurity = () => {
 					))}
 				</div>
 			</div>
+			<img src={tree} alt="" className='absolute top-0 right-0' />
+			<img src={knight} alt="" className='absolute top-[89px] left-[81px]'/>
 		</div>
 	);
 };
