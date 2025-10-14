@@ -24,7 +24,7 @@ export default function Player() {
     >
       <ReactPlayer
         slot="media"
-        src="https://api.alla.itic.uz/api/stream/video/6/f686597c-7384-4110-816a-286e3904261a.mp4"
+        src="6/f686597c-7384-4110-816a-286e3904261a.mp4"
         controls={false}
         style={{
           width: "100%",
