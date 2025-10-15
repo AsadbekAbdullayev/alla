@@ -20,7 +20,7 @@ const fetchCategories = async (): Promise<Category[]> => {
     success: boolean;
     message: string;
     data: Category[];
-  }>("/content/categories", { baseURL: "https://api.alla.itic.uz/api" });
+  }>("/content/categories");
   return data.data;
 };
 
@@ -39,9 +39,7 @@ const fetchCategoryStats = async (key: string): Promise<CategoryStats> => {
     success: boolean;
     message: string;
     data: CategoryStats;
-  }>(`/content/categories/${key}/stats`, {
-    baseURL: "https://api.alla.itic.uz/api",
-  });
+  }>(`/content/categories/${key}/stats`);
   return data.data;
 };
 
