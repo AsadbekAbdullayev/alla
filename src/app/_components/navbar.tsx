@@ -16,7 +16,7 @@ export default function Navbar() {
   const iconRef = useRef<HTMLDivElement>(null);
 
   const handleStarClick = () => {
-    if (!bgRef.current || !iconRef.current) return;
+    /* if (!bgRef.current || !iconRef.current) return;
 
     const stars: SVGSVGElement[] = [];
     for (let i = 0; i < 30; i++) {
@@ -55,7 +55,8 @@ export default function Navbar() {
         stars.forEach((star) => star.remove());
         router.push("/profile");
       },
-    });
+    }); */
+    router.push("/login");
   };
   const buttonItem1 = (
     <svg
