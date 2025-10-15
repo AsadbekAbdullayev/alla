@@ -56,9 +56,7 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-black to-gray-900 text-white">
-      <Navbar />
-
+    <div className="min-h-screen flex flex-col ">
       <main className="flex-1 pt-28 pb-16 px-6 md:px-16">
         <h2
           ref={titleRef}
@@ -97,8 +95,6 @@ export default function ProfilePage() {
           ))}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

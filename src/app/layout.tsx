@@ -1,7 +1,7 @@
 // app/layout.tsx (Server Component)
-import "./globals.css";
+import RootWrapper from "./_components/RootWrapper";
 import type { Metadata } from "next";
-import RootWrapper from "./_components/RootWrapper"; // client wrapper
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Alla — Bolalar uchun xavfsiz internet makoni",
@@ -18,7 +18,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* Client-side wrapper */}
         <RootWrapper>{children}</RootWrapper>
       </body>
     </html>

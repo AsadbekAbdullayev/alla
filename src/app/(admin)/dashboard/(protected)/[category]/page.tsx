@@ -14,7 +14,7 @@ const CategoryPage: React.FC = () => {
   const router = useRouter();
   const statRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
-
+  console.log(category, "category");
   const { data: stats, isLoading: statsLoading } = useCategoryStats(
     category as string
   );
