@@ -65,12 +65,6 @@ cd alla
 npm install
 ```
 
-### 3️⃣ `.env.local` fayl yaratish
-
-```
-NEXT_PUBLIC_API_URL=https://api.alla.itic.uz/api
-```
-
 ### 4️⃣ Ishga tushirish
 
 ```bash

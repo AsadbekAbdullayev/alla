@@ -41,21 +41,17 @@ export interface Book {
   audioPosition?: number;
 }
 
-const BASE_URL = "https://api.alla.itic.uz/api/admin";
-
 // =============== VIDEO APIs ===============
 
 // Get all videos
 const fetchVideos = async ({ page = 0, size = 20 }) => {
-  const { data } = await request.get(
-    `${BASE_URL}/videos?page=${page}&size=${size}`
-  );
+  const { data } = await request.get(`/admin/videos?page=${page}&size=${size}`);
   return data;
 };
 
 // Create new video
 const createVideo = async (videoData: Video) => {
-  const { data } = await request.post(`${BASE_URL}/videos`, videoData);
+  const { data } = await request.post(`/admin/videos`, videoData);
   return data;
 };
 
@@ -67,27 +63,24 @@ const updateVideo = async ({
   id: number;
   data: Video;
 }) => {
-  const { data: res } = await request.put(
-    `${BASE_URL}/videos/${id}`,
-    videoData
-  );
+  const { data: res } = await request.put(`/admin/videos/${id}`, videoData);
   return res;
 };
 
 // Delete video
 const deleteVideo = async (id: number) => {
-  await request.delete(`${BASE_URL}/videos/${id}`);
+  await request.delete(`/admin/videos/${id}`);
 };
 
 // Approve video
 const approveVideo = async (id: number) => {
-  const { data } = await request.post(`${BASE_URL}/videos/${id}/approve`);
+  const { data } = await request.post(`/admin/videos/${id}/approve`);
   return data;
 };
 
 // Reject video
 const rejectVideo = async (id: number) => {
-  const { data } = await request.post(`${BASE_URL}/videos/${id}/reject`);
+  const { data } = await request.post(`/admin/videos/${id}/reject`);
   return data;
 };
 
@@ -95,15 +88,13 @@ const rejectVideo = async (id: number) => {
 
 // Get books
 const fetchBooks = async ({ page = 0, size = 20 }) => {
-  const { data } = await request.get(
-    `${BASE_URL}/books?page=${page}&size=${size}`
-  );
+  const { data } = await request.get(`/admin/books?page=${page}&size=${size}`);
   return data;
 };
 
 // Create book
 const createBook = async (bookData: Book) => {
-  const { data } = await request.post(`${BASE_URL}/books`, bookData);
+  const { data } = await request.post(`/admin/books`, bookData);
   return data;
 };
 
@@ -115,24 +106,24 @@ const updateBook = async ({
   id: number;
   data: Book;
 }) => {
-  const { data: res } = await request.put(`${BASE_URL}/books/${id}`, bookData);
+  const { data: res } = await request.put(`/admin/books/${id}`, bookData);
   return res;
 };
 
 // Delete book
 const deleteBook = async (id: number) => {
-  await request.delete(`${BASE_URL}/books/${id}`);
+  await request.delete(`/admin/books/${id}`);
 };
 
 // Approve book
 const approveBook = async (id: number) => {
-  const { data } = await request.post(`${BASE_URL}/books/${id}/approve`);
+  const { data } = await request.post(`/admin/books/${id}/approve`);
   return data;
 };
 
 // Reject book
 const rejectBook = async (id: number) => {
-  const { data } = await request.post(`${BASE_URL}/books/${id}/reject`);
+  const { data } = await request.post(`/admin/books/${id}/reject`);
   return data;
 };
 
@@ -147,7 +138,7 @@ const uploadFile = async ({
 }) => {
   const formData = new FormData();
   formData.append("file", file);
-  const { data } = await request.post(`${BASE_URL}/upload/${type}`, formData, {
+  const { data } = await request.post(`/admin/upload/${type}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
   return data;

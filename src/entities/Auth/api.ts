@@ -30,9 +30,7 @@ interface VerifyOtpBody {
 
 // ======== Send OTP ========
 const sendOtp = async (body: SendOtpBody): Promise<SendOtpResponse> => {
-  const { data } = await request.post<SendOtpResponse>("/auth/send-otp", body, {
-    baseURL: "https://api.alla.itic.uz/api",
-  });
+  const { data } = await request.post<SendOtpResponse>("/auth/send-otp", body);
   return data;
 };
 
@@ -46,8 +44,7 @@ export const useSendOtp = () => {
 const verifyOtp = async (body: VerifyOtpBody): Promise<VerifyOtpResponse> => {
   const { data } = await request.post<VerifyOtpResponse>(
     "/auth/verify-otp",
-    body,
-    { baseURL: "https://api.alla.itic.uz/api" }
+    body
   );
   return data;
 };
