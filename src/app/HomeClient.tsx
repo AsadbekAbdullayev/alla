@@ -4,6 +4,11 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Navbar from "@/app/_components/navbar";
 import Footer from "@/app/_components/footer";
+import Header from "./_components/Header";
+import CartoonSlides from "./_components/CartoonSlides";
+import Content from "./_components/Content";
+import Opportunitites from "./_components/Opportunities";
+import ChildSecurity from "./_components/ChildSecurity";
 
 // ⭐ Shooting star interface
 interface ShootingStar {
@@ -149,13 +154,17 @@ export default function HomeClient() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-[#001145]">
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
-      <Navbar />
+      <Header />
+      <CartoonSlides/>
+      <Content/>
+      <Opportunitites/>
+      <ChildSecurity/>
 
       {/* Hero content */}
-      <main className="relative z-10 flex flex-col items-center justify-center h-screen text-center text-white">
+      {/* <main className="relative z-10 flex flex-col items-center justify-center h-screen text-center text-white">
         <h1
           ref={titleRef}
           className="text-6xl font-bold tracking-tight text-yellow-400 drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]"
@@ -166,7 +175,7 @@ export default function HomeClient() {
           Golden fireflies dance in the dark — experience smooth GSAP animations
           and beauty in motion.
         </p>
-      </main>
+      </main> */}
 
       <Footer />
     </div>
