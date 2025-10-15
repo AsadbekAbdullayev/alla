@@ -15,6 +15,7 @@ import {
 } from "media-chrome/react";
 
 export default function Player() {
+  const token = sessionStorage.getItem("token");
   return (
     <MediaController
       style={{
@@ -24,7 +25,7 @@ export default function Player() {
     >
       <ReactPlayer
         slot="media"
-        src="6/f686597c-7384-4110-816a-286e3904261a.mp4"
+        src={`https://api.alla.itic.uz/api/stream/video/6?token=${token}`}
         controls={false}
         style={{
           width: "100%",
@@ -32,6 +33,7 @@ export default function Player() {
           "--controls": "none",
         }}
       ></ReactPlayer>
+
       <MediaControlBar>
         <MediaPlayButton />
         <MediaSeekBackwardButton seekOffset={10} />
