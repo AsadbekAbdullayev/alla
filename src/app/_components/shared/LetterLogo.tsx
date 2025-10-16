@@ -3,11 +3,30 @@ import React, { memo } from "react";
 
 type LetterLogoProps = {
   letter?: string;
+  onClick?: () => {};
+  bgColor?: string;
+  icon?: React.ReactNode;
+  width?: string;
+  height?: string;
 };
 
-const LetterLogo = ({ letter }: LetterLogoProps) => {
+const LetterLogo = ({
+  height,
+  letter,
+  width,
+  bgColor,
+  icon,
+  onClick,
+}: LetterLogoProps) => {
   return (
-    <div className="rounded-full relative bg-gradient-to-r from-[#9F80C6] to-[#BA7A9C] min-w-12 min-h-12 flex items-center justify-center text-white font-nunito text-[28px] font-bold leading-normal tracking-tight">
+    <div
+      onClick={onClick && onClick}
+      className={`rounded-full relative ${
+        bgColor ? bgColor : "bg-gradient-to-r from-[#9F80C6] to-[#BA7A9C]"
+      } ${width ? width : " min-w-12"} ${
+        height ? height : " min-h-12"
+      }  flex items-center justify-center text-white font-nunito text-[28px] font-bold leading-normal tracking-tight`}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="17"
@@ -46,7 +65,7 @@ const LetterLogo = ({ letter }: LetterLogoProps) => {
         </g>
       </svg>
 
-      {letter || "A"}
+      {icon ? icon : letter || "A"}
     </div>
   );
 };

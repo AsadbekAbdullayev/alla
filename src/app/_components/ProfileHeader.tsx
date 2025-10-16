@@ -2,7 +2,7 @@
 
 export default function AdminHeader() {
   return (
-    <header className="bg-[#1c1c1e] px-6 py-3 h-[60px] rounded-t-[24px]  shadow-md flex flex-col justify-between items-start">
+    <header className="bg-[#1c1c1e] px-6 py-3 h-[65px] rounded-t-[24px]  shadow-md flex flex-col justify-between items-start">
       <div className="text-gray-400 flex gap-2 items-center">
         <div className="p-1  rounded-md bg-[linear-gradient(90deg,#A580E9_0%,#E07FAF_100%)]">
           <svg
@@ -18,7 +18,10 @@ export default function AdminHeader() {
             />
           </svg>
         </div>
-        Bosh sahifa
+
+        <p className="text-white font-nunito text-[20px] italic font-extrabold leading-[26px] tracking-[0.2px]">
+          Bosh sahifa
+        </p>
       </div>
       <div className="w-full h-[1px] bg-[#FFFFFF1A]"></div>
     </header>
