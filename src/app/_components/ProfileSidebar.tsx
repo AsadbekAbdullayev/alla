@@ -1,21 +1,18 @@
 "use client";
 
-import React, { useState, useMemo, useRef, useEffect } from "react";
-import LetterLogo from "@/app/_components/LetterLogo";
-import { useParams } from "next/navigation";
-import { Menu, Spin } from "antd";
+import React, { useState, useRef, useEffect } from "react";
+import LetterLogo from "@/app/_components/shared/LetterLogo";
+import Coverphone1 from "../../../public/assets/imgs/coverphone1.png";
+import Coverphone2 from "../../../public/assets/imgs/coverphone2.png";
 import {
   PlayCircleOutlined,
   HomeOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import gsap from "gsap";
 
-const iconMap: Record<string, React.ReactNode> = {
-  ALLALAR: <HomeOutlined />,
-  MOVIES_SERIES: <PlayCircleOutlined />,
-  USER: <UserOutlined />,
-};
+import { useParams } from "next/navigation";
+import { Menu } from "antd";
+import gsap from "gsap";
 
 const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
