@@ -11,10 +11,6 @@ import UserAuth from "./ui/UserAuth";
 export default function LoginPage() {
   const router = useRouter();
   const cardRef = useRef(null);
-  const [form] = Form.useForm();
-  const [isOtpSent, setIsOtpSent] = useState(false);
-  const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
-  const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
   const searchParams = useSearchParams();
   const step = searchParams.get("step") || "phone-number";

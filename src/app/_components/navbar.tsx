@@ -1,14 +1,25 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { Physics2DPlugin } from "gsap/Physics2DPlugin";
-import { Button } from "antd";
+import { Button, Switch } from "antd";
 
 gsap.registerPlugin(Physics2DPlugin);
 
 export default function Navbar() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const themeParam = searchParams.get("theme") || "light";
+  const isDark = themeParam === "dark";
+
+  const handleToggle = (checked: boolean) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("theme", checked ? "dark" : "light");
+
+    router.replace(`?${params.toString()}`);
+  };
 
   const handleStarClick = () => {
     router.push("/login");
@@ -155,11 +166,24 @@ export default function Navbar() {
 
   return (
     <nav className="py-3 px-[64px] flex items-center justify-between border-b border-[#D1DBFF1F] h-fit relative z-10">
-      <img
-        src="/assets/icons/logo.svg"
-        alt=""
-        onClick={() => router.push("/")}
-      />
+      <div className="flex items-center gap-2">
+        <div className="w-[72px] h-[55px]">
+          {isDark ? (
+            <img
+              src="/assets/icons/logo.svg"
+              alt=""
+              onClick={() => router.push("/")}
+            />
+          ) : (
+            <img
+              src="/assets/icons/logoLight.svg"
+              alt=""
+              onClick={() => router.push("/")}
+            />
+          )}
+        </div>
+        <Switch checked={isDark} onChange={handleToggle} />
+      </div>
       <div>
         <ul className="flex items-center">
           <li className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white">

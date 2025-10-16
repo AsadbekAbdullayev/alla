@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import Navbar from "@/app/_components/navbar";
 import Footer from "@/app/_components/footer";
 import Header from "./_components/Header";
 import CartoonSlides from "./_components/CartoonSlides";
 import Content from "./_components/Content";
 import Opportunitites from "./_components/Opportunities";
 import ChildSecurity from "./_components/ChildSecurity";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+
 
 // ⭐ Shooting star interface
 interface ShootingStar {
@@ -31,6 +32,11 @@ interface Firefly {
 
 export default function HomeClient() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+  const [mode, setMode] = useState("light");
+
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -135,6 +141,22 @@ export default function HomeClient() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   const urlMode = params.get("mode");
+
+  //   if (urlMode === "dark" || urlMode === "light") {
+  //     setMode(urlMode);
+  //     localStorage.setItem("mode", urlMode);
+  //   } else {
+  //     // If no param, check localStorage or default to light
+  //     const saved = localStorage.getItem("mode") || "light";
+  //     setMode(saved);
+  //     const search = new URLSearchParams(params);
+  //     search.set("mode", saved);
+  //     router.replace(`${pathname}?${search.toString()}`);
+  //   }
+  // }, [params, pathname, router]);
+
   // GSAP title animation
   const titleRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
@@ -158,25 +180,10 @@ export default function HomeClient() {
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
       <Header />
-      <CartoonSlides/>
-      <Content/>
-      <Opportunitites/>
-      <ChildSecurity/>
-
-      {/* Hero content */}
-      {/* <main className="relative z-10 flex flex-col items-center justify-center h-screen text-center text-white">
-        <h1
-          ref={titleRef}
-          className="text-6xl font-bold tracking-tight text-yellow-400 drop-shadow-[0_0_15px_rgba(255,215,0,0.6)]"
-        >
-          Welcome to Alla ✨
-        </h1>
-        <p ref={textRef} className="mt-4 text-lg text-gray-300 max-w-2xl">
-          Golden fireflies dance in the dark — experience smooth GSAP animations
-          and beauty in motion.
-        </p>
-      </main> */}
-
+      <CartoonSlides />
+      <Content />
+      <Opportunitites />
+      <ChildSecurity />
       <Footer />
     </div>
   );

@@ -1,8 +1,12 @@
 import React from "react";
 import { Button } from "antd";
 import Navbar from "./navbar";
+import { useSearchParams } from "next/navigation";
 
 const Header = () => {
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
+  const isDark = theme === "dark";
   const buttonItem1 = (
     <svg
       className="absolute top-2 left-1"
@@ -143,13 +147,18 @@ const Header = () => {
     </svg>
   );
   return (
-    <div className="w-full relative min-h-[900px] h-full flex flex-col justify-start overflow-hidden">
+    <div className={`w-full relative min-h-[900px] h-full flex flex-col justify-start overflow-hidden ${!isDark && 'bg-[#133CCA]'}`}>
       <Navbar />
       <div className="py-[120px] px-[120px] flex w-full h-full items-center justify-start relative z-10">
         <div>
           <h2 className="text-white text-[64px] font-[900] flex flex-wrap items-end max-w-[922px] leading-[80px]">
             Bolalar uchun{" "}
-            <img src="/assets/icons/kids.svg" alt="" className="w-[184px] h-[122px]" /> xavfsiz
+            <img
+              src="/assets/icons/kids.svg"
+              alt=""
+              className="w-[184px] h-[122px]"
+            />{" "}
+            xavfsiz
             <span>internet makoni – Alla platformasi</span>
           </h2>
           <p className="text-white text-[22px] font-[500] max-w-[666px] pt-3">
@@ -217,11 +226,13 @@ const Header = () => {
           </Button>
         </div>
       </div>
-      <img
-        src="/assets/images/headerBg.png"
-        alt=""
-        className="absolute top-0  w-full h-fit"
-      />
+      {isDark && (
+        <img
+          src="/assets/images/headerBg.png"
+          alt=""
+          className="absolute top-0  w-full h-fit"
+        />
+      )}
       <img
         src="/assets/icons/headerCloud.svg"
         alt=""
