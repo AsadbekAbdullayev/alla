@@ -2,19 +2,18 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { Card, Row, Col, Progress, Spin } from "antd";
 import { useCategoryStats } from "@/entities/Categories/api";
 import { useVideosByCategory } from "@/entities/Videos/api";
-import gsap from "gsap";
+import { useParams, useRouter } from "next/navigation";
+import { Card, Row, Col, Progress, Spin } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
+import gsap from "gsap";
 
 const CategoryPage: React.FC = () => {
   const { category } = useParams();
   const router = useRouter();
   const statRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
-  console.log(category, "category");
   const { data: stats, isLoading: statsLoading } = useCategoryStats(
     category as string
   );

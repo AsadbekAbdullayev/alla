@@ -2,20 +2,22 @@
 
 import { useEffect, useRef } from "react";
 import SkeletonCards from "@/app/_components/shared/SkeletonCard";
-import { useCategories } from "@/entities/Categories/api";
+import { useVideosByCategory } from "@/entities/Videos/api";
+import { useRouter, useParams } from "next/navigation";
 import Card from "@/app/_components/shared/Card";
-import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
-import { Empty } from "antd";
 
 export default function ProfilePage() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const { data: categories, isLoading } = useCategories();
+  const { category } = useParams();
   const router = useRouter();
 
+  const { data: videos, isLoading: videosLoading } = useVideosByCategory(
+    category as string
+  );
+
   useEffect(() => {
-    // Title animation
     gsap.fromTo(
       titleRef.current,
       { opacity: 0, y: -40 },
@@ -39,30 +41,41 @@ export default function ProfilePage() {
       );
     }
   }, []);
-
+  console.log(videos, "videos");
   return (
     <div className="min-h-screen flex-1 p-6 md:px-16">
-      {isLoading ? (
+      {videosLoading ? (
         <SkeletonCards />
       ) : (
         <div ref={listRef} className="flex flex-wrap gap-4">
-          {!categories?.length ? (
+          {!videos?.content?.length ? (
             <div className="w-full h-full flex justify-center pt-24 items-center ">
               <h3 className="text-lg font-semibold truncate">
                 Malumotlar topilmadi 🙁
               </h3>
             </div>
           ) : (
-            categories?.map(({ key, name, description }, i) => (
-              <Card
-                key={i}
-                title={name}
-                desc={description}
-                onClick={() => {
-                  router.push(`/profile/${key}`);
-                }}
-              />
-            ))
+            videos?.content?.map(
+              ({ title, duration, thumbnailUrl, id }: any) => {
+                const poster = thumbnailUrl?.split("/")?.pop();
+
+                return (
+                  <Card
+                    key={id}
+                    title={title}
+                    canPerformance
+                    duration={duration}
+                    bgColor={"bg-[#FF8B2D]"}
+                    poster={`https://api.alla.itic.uz/api/stream/image/${
+                      poster || ""
+                    }`}
+                    onClick={() => {
+                      router.push(`/profile/${category}/${id}`);
+                    }}
+                  />
+                );
+              }
+            )
           )}
         </div>
       )}

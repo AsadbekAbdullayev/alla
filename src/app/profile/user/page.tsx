@@ -1,12 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import SkeletonCards from "@/app/_components/shared/SkeletonCard";
-import { useCategories } from "@/entities/Categories/api";
-import Card from "@/app/_components/shared/Card";
-import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
-import { Empty } from "antd";
+import Card from "@/app/_components/shared/Card";
+import { useCategories } from "@/entities/Categories/api";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -43,27 +41,10 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen flex-1 p-6 md:px-16">
       {isLoading ? (
-        <SkeletonCards />
+        "Loading"
       ) : (
         <div ref={listRef} className="flex flex-wrap gap-4">
-          {!categories?.length ? (
-            <div className="w-full h-full flex justify-center pt-24 items-center ">
-              <h3 className="text-lg font-semibold truncate">
-                Malumotlar topilmadi 🙁
-              </h3>
-            </div>
-          ) : (
-            categories?.map(({ key, name, description }, i) => (
-              <Card
-                key={i}
-                title={name}
-                desc={description}
-                onClick={() => {
-                  router.push(`/profile/${key}`);
-                }}
-              />
-            ))
-          )}
+          User detail
         </div>
       )}
     </div>
