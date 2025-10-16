@@ -2,7 +2,6 @@
 "use client";
 
 import React, { useState } from "react";
-import Sidebar from "../../../_components/Sidebar";
 import { useCategoryStats } from "@/entities/Categories/api";
 import { Spin } from "antd";
 
