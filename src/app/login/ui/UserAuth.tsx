@@ -1,4 +1,5 @@
-import { Button, Form, Input } from "antd";
+import { useUpdateUser } from "@/entities/Profile/api";
+import { Button, Form, Input, message } from "antd";
 import React from "react";
 type Props = {
   onBack: () => void;
@@ -6,6 +7,8 @@ type Props = {
 
 const UserAuth: React.FC<Props> = ({ onBack }) => {
   const [form] = Form.useForm();
+
+  const { mutateAsync: updateUser, isLoading } = useUpdateUser();
 
   const buttonItem1 = (
     <svg
@@ -48,6 +51,26 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
       </g>
     </svg>
   );
+
+  const handleSubmitUser = () => {
+    const firstName = form.getFieldValue("firstName");
+    if (!firstName) {
+      message.error("Ismni kiriting");
+      return;
+    }
+    updateUser(
+      { firstName },
+      {
+        onSuccess: () => {
+          message.success("Ismingiz muvaffaqiyatli saqlandi!");
+        },
+        onError: (error: any) => {
+          message.error(error?.message || "Xatolik yuz berdi!");
+        },
+      }
+    );
+  };
+
   return (
     <div className="bg-[#436EFF45] max-w-[500px] w-full p-8 rounded-[32px] border border-[33CEFF] ">
       <h2 className="text-white text-[28px] font-[800] text-center">
@@ -59,7 +82,7 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
       </p>
       <Form form={form} layout="vertical" className="pt-[48px]">
         <Form.Item
-          name={"userName"}
+          name={"firstName"}
           label={
             <p className="text-[#FFFFFFCC] text-[14px] font-[500]">
               Ismingizni kiriting
@@ -76,7 +99,8 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
           {() => (
             <>
               <Button
-                disabled={!form.getFieldValue("userName")}
+                disabled={!form.getFieldValue("firstName")}
+                loading={isLoading}
                 className="border-none text-[20px] w-full h-[52px] rounded-full !text-white font-[900] disabled:opacity-50"
                 style={{
                   background:
@@ -84,7 +108,7 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
                   boxShadow:
                     "-1px -4px 0px 0px #0000001C inset, 1px 1px 1px 0px #FF8A8C4D inset",
                 }}
-                //   onClick={handleSubmitPhoneNumber}
+                onClick={handleSubmitUser}
               >
                 Davom etish
                 {buttonItem1}

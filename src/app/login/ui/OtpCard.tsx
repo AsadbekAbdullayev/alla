@@ -89,8 +89,9 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
     verifyOtp(
       { phoneNumber: formData.phoneNumber, otpCode: formData.otpCode },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           onNext();
+          sessionStorage.setItem("token", data.data?.token || "");
           message.success("OTP muvaffaqiyatli tasdiqlandi!");
         },
         onError: (error) => {

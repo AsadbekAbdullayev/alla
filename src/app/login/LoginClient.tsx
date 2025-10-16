@@ -51,7 +51,9 @@ export default function LoginPage() {
           onBack={() => handleNavigate("phone")}
         />
       )}
-      {step === "verify-user" && <UserAuth onBack={() => handleNavigate("phone")}/>}
+      {step === "verify-user" && (
+        <UserAuth onBack={() => handleNavigate("profile")} />
+      )}
       <img
         src="/assets/images/kids3.png"
         alt=""
@@ -215,7 +217,11 @@ export default function LoginPage() {
           fill-opacity="0.2"
         />
       </svg>
-      <img src="/assets/icons/headerSun.svg" alt="" className="absolute top-[15px] right-[-20px]"/>
+      <img
+        src="/assets/icons/headerSun.svg"
+        alt=""
+        className="absolute top-[15px] right-[-20px]"
+      />
     </div>
   );
 }
