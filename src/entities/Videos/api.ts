@@ -24,10 +24,7 @@ const fetchVideosByCategory = async (
   size = 20
 ): Promise<any> => {
   const { data } = await request.get<ApiResponse<Video[]>>(
-    `/videos/category/${category}?page=${page}&size=${size}`,
-    {
-      baseURL: "https://api.alla.itic.uz/api",
-    }
+    `/videos/category/${category}?page=${page}&size=${size}`
   );
   return data.data;
 };

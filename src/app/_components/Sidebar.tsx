@@ -12,6 +12,7 @@ import {
 } from "@ant-design/icons";
 import gsap from "gsap";
 import { useRouter, useParams } from "next/navigation";
+import { useNavigate } from "react-router-dom";
 
 const iconMap: Record<string, React.ReactNode> = {
   ALLALAR: <HomeOutlined />,
@@ -31,6 +32,7 @@ const Sidebar: React.FC = () => {
   const [current, setCurrent] = useState(categoryName);
   const titleRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const navigate = useNavigate();
 
   const items = useMemo(() => {
     const homeItem = {

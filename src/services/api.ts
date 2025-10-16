@@ -1,9 +1,9 @@
 // src/services/api.ts
 import { message } from "antd";
 import axios, {
-  AxiosResponse,
   InternalAxiosRequestConfig,
   AxiosRequestHeaders,
+  AxiosResponse,
 } from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -55,11 +55,10 @@ request.interceptors.response.use(
         message.error("Iltimos qayta tizimga kiring.");
         sessionStorage.clear();
 
-        // 🔹 Admin va normal foydalanuvchini ajratib yo'naltirish
         if (isAdminRoute) {
-          // window.location.pathname = "/dashboard/login";
+          window.location.pathname = "/dashboard/login";
         } else {
-          // window.location.pathname = "/login";
+          window.location.pathname = "/login";
         }
       }
     }
