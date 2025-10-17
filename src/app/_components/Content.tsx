@@ -1,9 +1,12 @@
-"use-client"
+"use-client";
 
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
-
 const Content = () => {
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
+  const isDark = theme === "dark";
   const contents = [
     {
       id: 1,
@@ -56,7 +59,11 @@ const Content = () => {
   ];
 
   return (
-    <div className="relative z-10 pt-[80px] px-[120px] pb-[278px] w-full flex flex-col items-center min-h-[1000px] ">
+    <div
+      className={`relative z-10 pt-[80px] px-[120px] pb-[278px] w-full flex flex-col items-center min-h-[1000px] ${
+        isDark ? "" : "bg-gradient-to-b from-[#133CCA] to-[#C6D0F2]"
+      }`}
+    >
       <div className="max-w-[700px] w-full">
         <h2 className="text-white text-[48px] font-[800]  text-center">
           📚 Bolajonlar uchun bilim va maroqli kontent
@@ -70,24 +77,47 @@ const Content = () => {
       </div>
       <div className="w-full flex items-center justify-center flex-wrap gap-[20px] pt-[80px] relative z-30">
         {contents?.map((item) => (
-          <div
-            key={item?.id}
-            className="max-w-[285px] w-full h-[434px]  rounded-[16px] flex flex-col items-center p-5 bg-[#436EFF45] "
-          >
-            <span
-              className="text-white text-[48px] font-[400] leading-[68%] pb-[24px]"
-              style={{ fontFamily: "Barcelona" }}
-            >
-              #0{item?.id}
-            </span>
-            <img src={item.image} alt="" />
-            <p className="text-[#FFDBDB] text-[22px] font-[800] leading-[28px] pt-6 text-center">
-              {item?.title}
-            </p>
-            <p className="text-[#FFDBDBE5] text-[14px] font-[600] leading-[20px] pt-4 text-center line-clamp-3">
-              {item?.desc}
-            </p>
-          </div>
+          <>
+            {isDark ? (
+              <div
+                key={item?.id}
+                className="max-w-[285px] w-full h-[434px]  rounded-[16px] flex flex-col items-center p-5 bg-[#436EFF45] "
+              >
+                <span
+                  className="text-white text-[48px] font-[400] leading-[68%] pb-[24px]"
+                  style={{ fontFamily: "Barcelona" }}
+                >
+                  #0{item?.id}
+                </span>
+                <img src={item.image} alt="" />
+                <p className="text-[#FFDBDB] text-[22px] font-[800] leading-[28px] pt-6 text-center">
+                  {item?.title}
+                </p>
+                <p className="text-[#FFDBDBE5] text-[14px] font-[600] leading-[20px] pt-4 text-center line-clamp-3">
+                  {item?.desc}
+                </p>
+              </div>
+            ) : (
+              <div
+                key={item?.id}
+                className="max-w-[285px] w-full h-[434px]  rounded-[16px] flex flex-col items-center p-5 bg-[#FFFFFF] "
+              >
+                <span
+                  className="text-[#505050] text-[48px] font-[400] leading-[68%] pb-[24px]"
+                  style={{ fontFamily: "Barcelona" }}
+                >
+                  #0{item?.id}
+                </span>
+                <img src={item.image} alt="" />
+                <p className="text-[#505050] text-[22px] font-[800] leading-[28px] pt-6 text-center">
+                  {item?.title}
+                </p>
+                <p className="text-[#505050CC] text-[14px] font-[600] leading-[20px] pt-4 text-center line-clamp-3">
+                  {item?.desc}
+                </p>
+              </div>
+            )}
+          </>
         ))}
       </div>
       <img

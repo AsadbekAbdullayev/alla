@@ -146,6 +146,9 @@ const Header = () => {
       </defs>
     </svg>
   );
+
+  
+
   return (
     <div className={`w-full relative min-h-[900px] h-full flex flex-col justify-start overflow-hidden ${!isDark && 'bg-[#133CCA]'}`}>
       <Navbar />

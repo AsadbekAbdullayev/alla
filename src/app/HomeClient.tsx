@@ -10,7 +10,6 @@ import Opportunitites from "./_components/Opportunities";
 import ChildSecurity from "./_components/ChildSecurity";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-
 // ⭐ Shooting star interface
 interface ShootingStar {
   x: number;
@@ -37,6 +36,9 @@ export default function HomeClient() {
   const params = useSearchParams();
   const [mode, setMode] = useState("light");
 
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
+  const isDark = theme === "dark";
 
   useEffect(() => {
     const canvas = canvasRef.current!;
@@ -176,7 +178,7 @@ export default function HomeClient() {
   }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#001145]">
+    <div className={`relative min-h-screen overflow-hidden ${isDark ? 'bg-[#001145]' : ''}`}>
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
       <Header />

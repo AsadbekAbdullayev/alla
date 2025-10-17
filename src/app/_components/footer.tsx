@@ -1,16 +1,34 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 
 export default function Footer() {
+  const searchParams = useSearchParams();
+  const theme = searchParams.get("theme") || "light";
+  const isDark = theme === "dark";
   return (
-    <footer className="w-full relative min-h-[900px] flex flex-col justify-end">
-      <div className="px-[120px] pt-[120px] border-t border-[#FFFFFF1A] relative  z-10" style={{
-        background: "linear-gradient(360deg, #211A61 0%, rgba(181, 229, 252, 0) 100%)"
-
-      }}>
+    <footer
+      className={`w-full relative min-h-[900px] flex flex-col justify-end ${
+        !isDark ? "bg-gradient-to-b from-[#C2D9C6] to-[#76A97E]" : ""
+      }`}
+    >
+      <div
+        className="px-[120px] pt-[120px] relative z-10"
+        style={{
+          background: isDark
+            ? "linear-gradient(360deg, #211A61 0%, rgba(181, 229, 252, 0) 100%)"
+            : "linear-gradient(360deg, #2D8934 0%, rgba(181, 229, 252, 0) 100%)",
+        }}
+      >
         <div className="w-full flex justify-between pb-[80px] relative z-50 border-b border-[#FFFFFF33]">
           <div className="max-w-[567px] w-full">
-            <img src="/assets/icons/footerLogo.svg" alt="" width={120} height={157} />`
+            <img
+              src={isDark ? "/assets/icons/footerLogo.svg" : "/assets/icons/allaLight.svg"}
+              alt=""
+              width={120}
+              height={157}
+            />
+            `
             <p
               className="text-[18px] font-[600] text-white leading-[24px] pt-8"
               style={{ fontFamily: "Fredoka" }}
@@ -97,7 +115,11 @@ export default function Footer() {
           </div>
         </div>
       </div>
-        <img src="/assets/images/footerBg.png" alt=""  className='absolute top-[-200px] left-0 w-screen'/>
+      <img
+        src="/assets/images/footerBg.png"
+        alt=""
+        className="absolute top-[-200px] left-0 w-screen"
+      />
     </footer>
   );
 }
