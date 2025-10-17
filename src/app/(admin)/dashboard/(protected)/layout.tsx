@@ -15,7 +15,7 @@ export default function AdminLayout({
     <AntdProvider>
       <QueryProvider>
         <AuthProvider>
-          <div className="bg-[#101010] text-white flex h-screen overflow-hidden">
+          <div className=" text-white flex h-screen overflow-hidden">
             <AdminSider />
             <div className="flex flex-col flex-1">
               <AdminHeader />

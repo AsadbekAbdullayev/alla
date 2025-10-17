@@ -44,8 +44,8 @@ export interface Book {
 // =============== VIDEO APIs ===============
 
 // Get all videos
-const fetchVideos = async ({ page = 0, size = 20 }) => {
-  const { data } = await request.get(`/admin/videos?page=${page}&size=${size}`);
+const fetchVideos = async (search: string) => {
+  const { data } = await request.get(`/admin/videos${search}`);
   return data;
 };
 
@@ -147,10 +147,10 @@ const uploadFile = async ({
 // =============== QUERIES & MUTATIONS ===============
 
 // ---- VIDEOS ----
-export const useGetVideos = (params: { page?: number; size?: number }) => {
+export const useGetAdminVideos = (search: string) => {
   return useQuery({
-    queryKey: ["videos", params],
-    queryFn: () => fetchVideos(params),
+    queryKey: ["useGetAdminVideos", search],
+    queryFn: () => fetchVideos(search),
     refetchOnWindowFocus: false,
   });
 };
