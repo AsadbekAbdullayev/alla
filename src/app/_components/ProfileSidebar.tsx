@@ -2,13 +2,16 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import LetterLogo from "@/app/_components/shared/LetterLogo";
-import Coverphone1 from "../../../public/assets/imgs/coverphone1.png";
+import Coverphone1 from "../../../public/assets/imgs/bg1.png";
 import Coverphone2 from "../../../public/assets/imgs/coverphone2.png";
+import DownloadButton from "../../../public/assets/icons/download_button.svg";
 import {
   PlayCircleOutlined,
   HomeOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 import { useParams } from "next/navigation";
 import { Menu } from "antd";
@@ -19,20 +22,21 @@ const Sidebar: React.FC = () => {
   const { category: categoryName } = useParams();
   const [current, setCurrent] = useState(categoryName);
   const titleRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const categoryItems = [
     {
-      key: 1,
+      key: "",
       icon: <HomeOutlined />,
       label: "Bosh sahifa",
     },
     {
-      key: 2,
+      key: "/download",
       icon: <PlayCircleOutlined />,
       label: "Yuklanganlar",
     },
     {
-      key: 3,
+      key: "/user",
       icon: <UserOutlined />,
       label: "Profil",
     },
@@ -220,7 +224,7 @@ const Sidebar: React.FC = () => {
           selectedKeys={typeof current === "string" ? [current] : []}
           onClick={(info) => {
             setCurrent(info.key);
-            // router.push(`/dashboard/${info.key}`);
+            router.push(`/profile/${info.key}`);
           }}
           items={categoryItems}
           style={{
@@ -231,9 +235,44 @@ const Sidebar: React.FC = () => {
             fontSize: collapsed ? 12 : 14,
           }}
           inlineCollapsed={collapsed}
-          className="!bg-transparent select-none  !border-none !text-[#979797] !text-[12px] md:!text-[14px]"
+          className="!bg-transparent z-10 select-none  !border-none !text-[#979797] !text-[12px] md:!text-[14px]"
         />
       </>
+      <div className="w-full px-3 pb-5">
+        <div className="relative flex overflow-hidden text-center flex-col items-start gap-1 self-stretch p-6 pt-4 pb-4 w-full h-[400px] rounded-2xl border  border-[#A580E9] bg-gradient-to-r from-[rgba(165,128,233,0.10)] to-[rgba(224,127,175,0.10)] shadow-[0_64px_64px_-32px_rgba(102,37,0,0.65)]">
+          <h3 className="text-[14px] font-bold truncate">
+            Ilovani hozir yuklab oling!
+          </h3>
+
+          <span className="block text-[11px] font-normal opacity-80 ">
+            Barcha imkoniyatlardan hoziroq foydalaning.
+          </span>
+
+          <Image
+            src={Coverphone1}
+            fill
+            unoptimized
+            alt="rasm1"
+            className="absolute !top-[100px] z-30 !left-6 w-16 h-16 rotate-[9.23deg]"
+          />
+
+          <Image
+            src={Coverphone2}
+            fill
+            unoptimized
+            alt="rasm1"
+            className="absolute !top-[112px] z-20 !-left-10 w-16 h-16 rotate-[9.23deg]"
+          />
+
+          <Image
+            src={DownloadButton}
+            fill
+            unoptimized
+            alt="rasm1"
+            className="!w-[230px] !h-[80px] !absolute !top-[300px] !z-40 hover:scale-[1.05] duration-300 cursor-pointer"
+          />
+        </div>
+      </div>
     </div>
   );
 };

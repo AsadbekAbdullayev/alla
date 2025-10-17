@@ -43,3 +43,17 @@ export const useVideosByCategory = (
     cacheTime: 5 * 60 * 1000,
   });
 };
+
+// ======== Fetch single video by ID ========
+const fetchVideoById = async (id: string | number): Promise<Video> => {
+  const { data } = await request.get(`/videos/${id}`);
+  return data.data;
+};
+
+export const useVideoById = (id: string | number) => {
+  return useQuery({
+    queryKey: ["useVideoById", id],
+    queryFn: () => fetchVideoById(id),
+    refetchOnWindowFocus: false,
+  });
+};
