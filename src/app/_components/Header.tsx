@@ -147,10 +147,12 @@ const Header = () => {
     </svg>
   );
 
-  
-
   return (
-    <div className={`w-full relative min-h-[900px] h-full flex flex-col justify-start overflow-hidden ${!isDark && 'bg-[#133CCA]'}`}>
+    <div
+      className={`w-full relative min-h-[900px] h-full flex flex-col justify-start overflow-hidden ${
+        !isDark && "bg-[#133CCA]"
+      }`}
+    >
       <Navbar />
       <div className="py-[120px] px-[120px] flex w-full h-full items-center justify-start relative z-10">
         <div>
@@ -169,7 +171,7 @@ const Header = () => {
             qo‘shiqlar, kitoblar va interaktiv mashqlar.
           </p>
           <Button
-            className="relative p-4 mt-12 rounded-full text-[#162561] text-[17px] font-[800] max-w-[201px] w-full h-[50px]"
+            className="relative !bg-white  p-4 mt-12 rounded-full text-[#162561] text-[17px] font-[800] max-w-[201px] w-full h-[50px]"
             style={{
               boxShadow:
                 "-1px -4px 0px 0px #0000001C inset, 1px 1px 1px 0px #FF8A8C4D inset",
