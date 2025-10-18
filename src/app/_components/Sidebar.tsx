@@ -8,9 +8,10 @@ import {
   VideoCameraOutlined,
   PlayCircleOutlined,
   MenuUnfoldOutlined,
+  DashboardOutlined,
   MenuFoldOutlined,
-  HomeOutlined,
   FilePdfOutlined,
+  HomeOutlined,
   AudioOutlined,
   UserOutlined,
   TeamOutlined,
@@ -49,8 +50,7 @@ const Sidebar: React.FC = () => {
       : [];
 
     const bookItems = [
-      { key: "audio-books", icon: <AudioOutlined />, label: "Audio kitoblar" },
-      { key: "pdf-books", icon: <FilePdfOutlined />, label: "PDF kitoblar" },
+      { key: "books", icon: <FilePdfOutlined />, label: "Kitoblar" },
     ];
 
     const userItems = [
@@ -94,7 +94,15 @@ const Sidebar: React.FC = () => {
             </span>
           </div>
         ),
-        children: videoItems,
+        children: [
+          {
+            key: "",
+            icon: <DashboardOutlined />,
+            label: "Dashboard",
+          },
+          ,
+          ...videoItems,
+        ],
       },
       {
         type: "group",

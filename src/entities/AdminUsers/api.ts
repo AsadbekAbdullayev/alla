@@ -1,6 +1,27 @@
 import request from "@/services/api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
+// api.ts fayliga qo'shing
+export interface User {
+  id: number;
+  phoneNumber: string;
+  firstName: string;
+  lastName: string;
+  role: "USER" | "ADMIN";
+  status: "ACTIVE" | "INACTIVE" | "BLOCKED";
+  createdAt: string;
+  lastLoginAt?: string;
+  childProfiles?: ChildProfile[];
+}
+
+export interface ChildProfile {
+  id: number;
+  name: string;
+  age: number;
+  avatarUrl?: string;
+  createdAt: string;
+}
+
 const fetchUserById = async (id: number) => {
   const { data } = await request.get(`/admin/users/${id}`);
   return data;

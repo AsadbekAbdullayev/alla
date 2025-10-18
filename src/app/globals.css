@@ -21,3 +21,56 @@
 body {
   font-family: "Nunito", sans-serif;
 }
+
+.custom-table .ant-table-thead > tr > th {
+  background-color: #2d2d2d !important;
+  color: white !important;
+  border-bottom: 1px solid #444;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  background-color: #1f1f1f !important;
+  color: white !important;
+  border-bottom: 1px solid #333;
+}
+
+.custom-table .ant-table-tbody > tr:hover > td {
+  background-color: #2d2d2d !important;
+}
+
+/* Audio player custom styles */
+.rhap_container {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.rhap_progress-filled {
+  background-color: #3b82f6 !important;
+}
+
+.rhap_progress-indicator {
+  background-color: #3b82f6 !important;
+}
+
+.rhap_button-clear {
+  color: #3b82f6 !important;
+}
+
+.rhap_volume-button {
+  color: #3b82f6 !important;
+}
+
+.rhap_volume-bar,
+.rhap_volume-indicator {
+  background-color: #3b82f6 !important;
+}
+
+/* PDF viewer styles */
+.react-pdf__Page {
+  margin: 0 auto;
+}
+
+.react-pdf__Page__canvas {
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
