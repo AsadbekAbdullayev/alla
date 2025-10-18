@@ -44,8 +44,8 @@ export interface Book {
 // =============== VIDEO APIs ===============
 
 // Get all videos
-const fetchVideos = async ({ page = 0, size = 20 }) => {
-  const { data } = await request.get(`/admin/videos?page=${page}&size=${size}`);
+const fetchVideos = async (search: string) => {
+  const { data } = await request.get(`/admin/videos${search}`);
   return data;
 };
 
@@ -147,10 +147,10 @@ const uploadFile = async ({
 // =============== QUERIES & MUTATIONS ===============
 
 // ---- VIDEOS ----
-export const useGetVideos = (params: { page?: number; size?: number }) => {
+export const useGetAdminVideos = (search: string) => {
   return useQuery({
-    queryKey: ["videos", params],
-    queryFn: () => fetchVideos(params),
+    queryKey: ["useGetAdminVideos", search],
+    queryFn: () => fetchVideos(search),
     refetchOnWindowFocus: false,
   });
 };
@@ -158,42 +158,42 @@ export const useGetVideos = (params: { page?: number; size?: number }) => {
 export const useCreateVideo = () => {
   const queryClient = useQueryClient();
   return useMutation(createVideo, {
-    onSuccess: () => queryClient.invalidateQueries(["videos"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 export const useUpdateVideo = () => {
   const queryClient = useQueryClient();
   return useMutation(updateVideo, {
-    onSuccess: () => queryClient.invalidateQueries(["videos"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 export const useDeleteVideo = () => {
   const queryClient = useQueryClient();
   return useMutation(deleteVideo, {
-    onSuccess: () => queryClient.invalidateQueries(["videos"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 export const useApproveVideo = () => {
   const queryClient = useQueryClient();
   return useMutation(approveVideo, {
-    onSuccess: () => queryClient.invalidateQueries(["videos"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 export const useRejectVideo = () => {
   const queryClient = useQueryClient();
   return useMutation(rejectVideo, {
-    onSuccess: () => queryClient.invalidateQueries(["videos"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 // ---- BOOKS ----
 export const useGetBooks = (params: { page?: number; size?: number }) => {
   return useQuery({
-    queryKey: ["books", params],
+    queryKey: ["useGetBooks", params],
     queryFn: () => fetchBooks(params),
     refetchOnWindowFocus: false,
   });
@@ -202,35 +202,35 @@ export const useGetBooks = (params: { page?: number; size?: number }) => {
 export const useCreateBook = () => {
   const queryClient = useQueryClient();
   return useMutation(createBook, {
-    onSuccess: () => queryClient.invalidateQueries(["books"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 export const useUpdateBook = () => {
   const queryClient = useQueryClient();
   return useMutation(updateBook, {
-    onSuccess: () => queryClient.invalidateQueries(["books"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 export const useDeleteBook = () => {
   const queryClient = useQueryClient();
   return useMutation(deleteBook, {
-    onSuccess: () => queryClient.invalidateQueries(["books"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 export const useApproveBook = () => {
   const queryClient = useQueryClient();
   return useMutation(approveBook, {
-    onSuccess: () => queryClient.invalidateQueries(["books"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 
 export const useRejectBook = () => {
   const queryClient = useQueryClient();
   return useMutation(rejectBook, {
-    onSuccess: () => queryClient.invalidateQueries(["books"]),
+    onSuccess: () => queryClient.invalidateQueries(["useGetAdminVideos"]),
   });
 };
 

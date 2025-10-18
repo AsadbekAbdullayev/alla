@@ -41,7 +41,7 @@ export default function ProfilePage() {
       );
     }
   }, []);
-  console.log(videos, "videos");
+
   return (
     <div className="min-h-screen flex-1 p-6 md:px-16">
       {videosLoading ? (
