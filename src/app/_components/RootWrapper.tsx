@@ -4,7 +4,6 @@
 import { QueryProvider } from "@/providers/QueryProvider";
 import { AntdProvider } from "@/providers/AntdProvider";
 import AuthProvider from "@/providers/AuthProvider";
-import { BrowserRouter } from "react-router-dom";
 
 export default function RootWrapper({
   children,
@@ -12,16 +11,14 @@ export default function RootWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <BrowserRouter>
-      <AntdProvider>
-        <QueryProvider>
-          <AuthProvider
-            ignorePaths={["/", "/profile", "/login", "/dashboard/login"]}
-          >
-            {children}
-          </AuthProvider>
-        </QueryProvider>
-      </AntdProvider>
-    </BrowserRouter>
+    <AntdProvider>
+      <QueryProvider>
+        <AuthProvider
+          ignorePaths={["/", "/profile", "/login", "/dashboard/login"]}
+        >
+          {children}
+        </AuthProvider>
+      </QueryProvider>
+    </AntdProvider>
   );
 }
