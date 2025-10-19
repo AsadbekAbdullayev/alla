@@ -21,3 +21,4 @@ export default function Player() {
     </div>
   );
 }
+export const dynamic = "force-dynamic";

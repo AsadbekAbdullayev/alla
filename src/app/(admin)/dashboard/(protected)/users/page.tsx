@@ -534,3 +534,4 @@ const UserPage: React.FC = () => {
 };
 
 export default UserPage;
+export const dynamic = "force-dynamic";

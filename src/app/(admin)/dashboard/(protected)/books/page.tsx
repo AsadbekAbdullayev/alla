@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useUploadFile,
   useCreateBook,
@@ -36,6 +36,7 @@ const BookPage: React.FC = () => {
   const [pdfModalVisible, setPdfModalVisible] = useState(false);
   const [audioModalVisible, setAudioModalVisible] = useState(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -366,7 +367,11 @@ const BookPage: React.FC = () => {
     },
   ];
 
-  if (isLoading) {
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient || isLoading) {
     return (
       <div className="flex justify-center items-center h-full">
         <Spin size="large" />
@@ -471,3 +476,4 @@ const BookPage: React.FC = () => {
 };
 
 export default BookPage;
+export const dynamic = "force-dynamic";
