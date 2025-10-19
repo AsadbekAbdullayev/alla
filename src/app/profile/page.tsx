@@ -121,7 +121,7 @@ export default function ProfilePage() {
       {isLoading ? (
         <SkeletonCards />
       ) : (
-        <div ref={listRef} className="flex flex-wrap gap-6 justify-center">
+        <div ref={listRef} className="flex flex-wrap gap-6 justify-start ">
           {staticCategories.map(({ key, name, description, poster }, i) => (
             <Card
               key={i}
