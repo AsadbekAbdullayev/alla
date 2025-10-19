@@ -153,7 +153,7 @@ const DashboardPage: React.FC = () => {
     ],
   };
 
-  const lineChartOptions = {
+  const lineChartOptions: any = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {

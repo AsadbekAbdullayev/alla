@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export async function generateMetadata({
   params,
 }: {
-  params: { category: string };
+  params: any;
 }): Promise<Metadata> {
   const formattedName = params?.category
     ? params?.category.charAt(0).toUpperCase() +

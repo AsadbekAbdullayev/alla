@@ -182,7 +182,7 @@ const Opportunitites = () => {
 
     // Rectangle hover animatsiyalari
     const rectangles = [rectangle1Ref.current, rectangle2Ref.current];
-    rectangles.forEach((rect) => {
+    rectangles.forEach((rect: any) => {
       if (rect) {
         rect.addEventListener("mouseenter", () => {
           gsap.to(rect, {
@@ -204,7 +204,7 @@ const Opportunitites = () => {
 
     return () => {
       // Cleanup
-      rectangles.forEach((rect) => {
+      rectangles.forEach((rect: any) => {
         if (rect) {
           rect.removeEventListener("mouseenter", () => {});
           rect.removeEventListener("mouseleave", () => {});
