@@ -3,18 +3,21 @@
 import { Form, Input, Button, Card } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
+import { gsap } from "gsap";
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.fromTo(
-      cardRef.current,
-      { opacity: 0, scale: 0.9, rotateX: -20 },
-      { opacity: 1, scale: 1, rotateX: 0, duration: 1, ease: "back.out(1.7)" }
-    );
+    // Faqat client-side da ishlashini ta'minlash
+    if (typeof window !== "undefined" && cardRef.current) {
+      gsap.fromTo(
+        cardRef.current,
+        { opacity: 0, scale: 0.9, rotateX: -20 },
+        { opacity: 1, scale: 1, rotateX: 0, duration: 1, ease: "back.out(1.7)" }
+      );
+    }
   }, []);
 
   const onFinish = (values: any) => {
