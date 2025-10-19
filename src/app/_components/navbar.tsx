@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import gsap from "gsap";
 import { Physics2DPlugin } from "gsap/Physics2DPlugin";
 import { Button, Switch } from "antd";
+import { useEffect } from "react";
 
 gsap.registerPlugin(Physics2DPlugin);
 
@@ -24,6 +25,7 @@ export default function Navbar() {
   const handleStarClick = () => {
     router.push("/login");
   };
+
   const buttonItem1 = (
     <svg
       className="absolute top-2 left-1"
@@ -199,7 +201,7 @@ export default function Navbar() {
       </div>
       <Button
         onClick={handleStarClick}
-        className="relative p-4 rounded-full text-[#162561] text-[17px] font-[800] max-w-[174px] w-full h-[50px]"
+        className="relative p-4 !bg-white rounded-full text-[#162561] text-[17px] font-[800] max-w-[174px] w-full h-[50px]"
         style={{
           boxShadow:
             "-1px -4px 0px 0px #004CFF1C inset, 1px 1px 1px 0px #004CFF4D inset",

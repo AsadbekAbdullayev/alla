@@ -178,7 +178,11 @@ export default function HomeClient() {
   }, []);
 
   return (
-    <div className={`relative min-h-screen overflow-hidden ${isDark ? 'bg-[#001145]' : ''}`}>
+    <div
+      className={`relative min-h-screen overflow-hidden ${
+        isDark ? "bg-[#001145]" : ""
+      }`}
+    >
       <canvas ref={canvasRef} className="absolute inset-0 z-0" />
 
       <Header />

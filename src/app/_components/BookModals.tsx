@@ -34,9 +34,9 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+  const token = sessionStorage.getItem("token");
   const pdfFileName = pdfUrl?.toString()?.split("/")?.pop() || "";
-  const pdfStreamUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/stream/pdf/${id}`;
+  const pdfStreamUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/stream/pdf/${id}?token=${token}`;
   const pdfDownloadUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/stream/pdf/${id}?download=true`;
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {

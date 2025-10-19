@@ -1,6 +1,9 @@
+"use client";
+
 import { useSendOtp } from "@/entities/Auth/api";
 import { Button, Form, Input, message } from "antd";
 import React, { useCallback, useState } from "react";
+import { App } from "antd";
 
 type Props = {
   onNext: () => void;
@@ -9,6 +12,7 @@ type Props = {
 const PhoneNumberCard: React.FC<Props> = ({ onNext }) => {
   const [form] = Form.useForm();
   const { mutateAsync: sendOtp, isLoading: isOtpSending } = useSendOtp();
+  const { message } = App.useApp();
 
   const buttonItem1 = (
     <svg
@@ -45,8 +49,8 @@ const PhoneNumberCard: React.FC<Props> = ({ onNext }) => {
         <path
           d="M10.121 2.59092C17.622 2 24.123 9 25.1227 14.0002M4.1211 2.59093L2.19811 2.59093"
           stroke="white"
-          stroke-width="4"
-          stroke-linecap="round"
+          strokeWidth="4"
+          strokeLinecap="round"
         />
       </g>
     </svg>
@@ -68,14 +72,14 @@ const PhoneNumberCard: React.FC<Props> = ({ onNext }) => {
   const handleSubmitPhoneNumber = () => {
     const phoneNumber = form.getFieldValue("phoneNumber").replace(/\s/g, "");
     if (!phoneNumber) return;
-    console.log(phoneNumber);
     sendOtp(
       { phoneNumber: phoneNumber },
       {
         onSuccess: () => {
           sessionStorage.setItem("phoneNumber", phoneNumber);
+
           message.success("Sizning raqamingizga tasdiqlash kodi yuborildi!");
-          onNext();
+          // onNext();
         },
       }
     );
@@ -108,7 +112,7 @@ const PhoneNumberCard: React.FC<Props> = ({ onNext }) => {
           <Input
             placeholder="+998 91 123 45 67"
             className="!bg-transparent text-white h-[50px] rounded-[99px] px-[16px] py-[14px] placeholder:text-[#FFFFFF66] text-[18px] font-[500] "
-            style={{ fontFamily: "Nunito" , background: 'transparent' }}
+            style={{ fontFamily: "Nunito", background: "transparent" }}
           />
         </Form.Item>
         <Form.Item shouldUpdate>

@@ -36,7 +36,9 @@ const CartoonSlides = () => {
     "/assets/images/slide4.png",
   ];
   return (
-    <div className={`w-full min-h-[608px] h-full relative z-10 flex items-center justify-center overflow-hidden bg-white`}>
+    <div
+      className={`w-full min-h-[608px] h-full relative z-10 flex items-center justify-center overflow-hidden bg-white`}
+    >
       <div
         className={`w-[2100px] h-[412px] p-[30px] bg-white absolute top-[-310px] rounded-[60%] z-30`}
       ></div>
