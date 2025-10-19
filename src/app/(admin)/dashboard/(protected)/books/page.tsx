@@ -27,8 +27,28 @@ import {
   PlayCircleOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
-import { BookForm } from "@/app/_components/BookForms";
-import { PdfModal, AudioModal } from "@/app/_components/BookModals";
+import nextDynamic from "next/dynamic";
+
+const BookForm = nextDynamic(
+  () => import("@/app/_components/BookForms").then((mod) => mod.BookForm),
+  {
+    ssr: false,
+  }
+);
+
+const PdfModal = nextDynamic(
+  () => import("@/app/_components/BookModals").then((mod) => mod.PdfModal),
+  {
+    ssr: false,
+  }
+);
+
+const AudioModal = nextDynamic(
+  () => import("@/app/_components/BookModals").then((mod) => mod.AudioModal),
+  {
+    ssr: false,
+  }
+);
 
 const BookPage: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
