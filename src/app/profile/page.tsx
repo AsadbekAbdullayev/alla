@@ -6,65 +6,55 @@ import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import Card from "@/app/_components/shared/Card";
 
-// Static images import qilish
-import Content1 from "../../../public/assets/images/content1.png";
-import Content2 from "../../../public/assets/images/content2.png";
-import Content3 from "../../../public/assets/images/content3.png";
-import Content4 from "../../../public/assets/images/content4.png";
-import Content5 from "../../../public/assets/images/content5.png";
-import Content6 from "../../../public/assets/images/content6.png";
-import Content7 from "../../../public/assets/images/content7.png";
-import Content8 from "../../../public/assets/images/content1.png";
-
-// Static categories ma'lumotlari
+// Static categories ma'lumotlari URL bilan
 const staticCategories = [
   {
     name: "Allalar",
     description: "Bolalar uchun qiziqarli va ta'limiy allalar",
     key: "ALLALAR",
-    poster: Content1,
+    poster: "/assets/images/content1.png",
   },
   {
     name: "Milliy Multfilmlar",
     description: "O'zbek milliy multfilmlari",
     key: "NATIONAL_CARTOONS",
-    poster: Content2,
+    poster: "/assets/images/content2.png",
   },
   {
     name: "Filmlar & Seriallar",
     description: "Bolalar uchun filmlar va seriallar",
     key: "MOVIES_SERIES",
-    poster: Content3,
+    poster: "/assets/images/content3.png",
   },
   {
     name: "Ta'limiy Kontent",
     description: "Ta'limiy materiallar va raqamli kutubxona",
     key: "EDUCATIONAL_CONTENT",
-    poster: Content4,
+    poster: "/assets/images/content4.png", // URL bilan
   },
   {
     name: "Xorijiy Multfilmlar",
     description: "Xorijiy multfilmlar",
     key: "FOREIGN_CARTOONS",
-    poster: Content5,
+    poster: "/assets/images/content5.png",
   },
   {
     name: "Qo'shiqlar & Raqslar",
     description: "Qo'shiqlar va raqslar",
     key: "SONGS_DANCES",
-    poster: Content6,
+    poster: "/assets/images/content6.png",
   },
   {
     name: "Sog'lom Turmush",
     description: "Sog'lom turmush tarzi haqida",
     key: "HEALTHY_LIFESTYLE",
-    poster: Content7,
+    poster: "/assets/images/content7.png",
   },
   {
     name: "O'yinlar",
     description: "Ta'limiy o'yinlar",
     key: "GAMES",
-    poster: Content8,
+    poster: "/assets/images/content1.png", // content8 yo'q, content1 ishlatildi
   },
 ];
 
@@ -115,10 +105,23 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen flex-1 p-6 md:px-16">
+      {/* Sarlavha qo'shildi */}
+      <div className="mb-8">
+        <h1
+          ref={titleRef}
+          className="text-3xl font-bold text-white text-center"
+        >
+          Kategoriyalar
+        </h1>
+        <p className="text-gray-300 text-center mt-2">
+          Bolalar uchun qiziqarli va ta'limiy kontentlar
+        </p>
+      </div>
+
       {isLoading ? (
         <SkeletonCards />
       ) : (
-        <div ref={listRef} className="flex flex-wrap gap-4">
+        <div ref={listRef} className="flex flex-wrap gap-6 justify-center">
           {staticCategories.map(({ key, name, description, poster }, i) => (
             <Card
               key={i}
