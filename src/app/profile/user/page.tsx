@@ -2,15 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
-import Card from "@/app/_components/shared/Card";
-import { useCategories } from "@/entities/Categories/api";
-import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const { data: categories, isLoading } = useCategories();
-  const router = useRouter();
 
   useEffect(() => {
     // Title animation
@@ -40,13 +35,11 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen flex-1 p-6 md:px-16">
-      {isLoading ? (
-        "Loading"
-      ) : (
-        <div ref={listRef} className="flex flex-wrap gap-4">
-          User detail
-        </div>
-      )}
+      <div ref={listRef} className="flex flex-wrap gap-4">
+        User detail
+      </div>
     </div>
   );
 }
+
+export const dynamic = "force-dynamic";

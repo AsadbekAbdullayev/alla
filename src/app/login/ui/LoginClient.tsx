@@ -1,15 +1,17 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import PhoneNumberCard from "./ui/PhoneNumberCard";
-import { useEffect, useRef } from "react";
-import UserAuth from "./ui/UserAuth";
-import OtpCard from "./ui/OtpCard";
+import PhoneNumberCard from "./PhoneNumberCard";
+import { useEffect, useState, useRef } from "react";
+import UserAuth from "./UserAuth";
+import OtpCard from "./OtpCard";
 import gsap from "gsap";
+import { Spin } from "antd";
 
 export default function LoginPage() {
   const router = useRouter();
   const cardRef = useRef(null);
+  const [isClient, setIsClient] = useState(false);
 
   const searchParams = useSearchParams();
   const step = searchParams.get("step") || "phone-number";
@@ -33,6 +35,18 @@ export default function LoginPage() {
       router.replace("?step=phone");
     }
   }, [searchParams, router]);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center min-h-[866px] h-screen bg-[#211B64] relative overflow-hidden">
@@ -219,3 +233,4 @@ export default function LoginPage() {
     </div>
   );
 }
+export const dynamic = "force-dynamic";

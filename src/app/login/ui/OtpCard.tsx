@@ -93,6 +93,7 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
       { phoneNumber: formData.phoneNumber, otpCode: formData.otpCode },
       {
         onSuccess: (data) => {
+          console.log(formData, "formData");
           if (formData.phoneNumber == "+998901234567") {
             // it means admin
             sessionStorage.setItem("token", data.data?.token || "");
