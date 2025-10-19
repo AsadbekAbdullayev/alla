@@ -108,7 +108,7 @@ const Content = () => {
     );
 
     // Kartochkalar animatsiyasi
-    cardsRef.current.forEach((card, index) => {
+    cardsRef.current.forEach((card: any, index) => {
       if (card) {
         gsap.fromTo(
           card,
@@ -156,7 +156,7 @@ const Content = () => {
 
     return () => {
       // Cleanup
-      cardsRef.current.forEach((card) => {
+      cardsRef.current.forEach((card: any) => {
         if (card) {
           card.removeEventListener("mouseenter", () => {});
           card.removeEventListener("mouseleave", () => {});
@@ -164,13 +164,6 @@ const Content = () => {
       });
     };
   }, []);
-
-  // Kartochkalarni ref ga biriktirish
-  const addToRefs = (el: HTMLDivElement | null) => {
-    if (el && !cardsRef.current.includes(el)) {
-      cardsRef.current.push(el);
-    }
-  };
 
   return (
     <div
@@ -200,7 +193,6 @@ const Content = () => {
         {contents?.map((item, index) => (
           <div
             key={item?.id}
-            ref={addToRefs}
             className={`max-w-[285px] w-full h-[434px] rounded-[16px] flex flex-col items-center p-5 transition-all duration-100 cursor-pointer ${
               isDark
                 ? "bg-[#436EFF45] hover:bg-[#436EFF65] hover:shadow-2xl hover:shadow-blue-500/20"

@@ -102,7 +102,7 @@ const ChildSecurity = () => {
     );
 
     // Kartochkalar animatsiyasi
-    securityCardsRef.current.forEach((card, index) => {
+    securityCardsRef.current.forEach((card: any, index) => {
       if (card) {
         gsap.fromTo(
           card,
@@ -209,7 +209,7 @@ const ChildSecurity = () => {
 
     return () => {
       // Cleanup
-      securityCardsRef.current.forEach((card) => {
+      securityCardsRef.current.forEach((card: any) => {
         if (card) {
           card.removeEventListener("mouseenter", () => {});
           card.removeEventListener("mouseleave", () => {});
@@ -217,13 +217,6 @@ const ChildSecurity = () => {
       });
     };
   }, [isDark]);
-
-  // Kartochkalarni ref ga biriktirish
-  const addToRefs = (el: HTMLDivElement | null) => {
-    if (el && !securityCardsRef.current.includes(el)) {
-      securityCardsRef.current.push(el);
-    }
-  };
 
   return (
     <div
@@ -253,7 +246,6 @@ const ChildSecurity = () => {
           {security.slice(0, 3).map((item, index) => (
             <div
               key={item.id}
-              ref={addToRefs}
               className={`p-6 transition-all duration-300 cursor-pointer ${
                 isDark
                   ? "bg-[#436EFF45] hover:bg-[#436EFF65]"
@@ -298,7 +290,6 @@ const ChildSecurity = () => {
           {security.slice(3, 5).map((item, index) => (
             <div
               key={item.id}
-              ref={addToRefs}
               className={`p-6 transition-all duration-300 cursor-pointer ${
                 isDark
                   ? "bg-[#436EFF45] hover:bg-[#436EFF65]"

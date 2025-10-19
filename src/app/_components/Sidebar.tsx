@@ -52,7 +52,7 @@ const Sidebar: React.FC = () => {
     }
   }, [pathname, categoryName]);
 
-  const items = useMemo(() => {
+  const items: any = useMemo(() => {
     const videoItems = Array.isArray(categories)
       ? categories.map((category) => ({
           key: category.key,
