@@ -1,10 +1,9 @@
 "use client";
 
 import { useSendOtp } from "@/entities/Auth/api";
-import { Button, Form, Input, message } from "antd";
-import React, { useCallback, useState } from "react";
-import { App } from "antd";
-
+import { Button, Form, Input } from "antd";
+import React, { useCallback } from "react";
+import { toast } from "react-toastify";
 type Props = {
   onNext: () => void;
 };
@@ -12,7 +11,6 @@ type Props = {
 const PhoneNumberCard: React.FC<Props> = ({ onNext }) => {
   const [form] = Form.useForm();
   const { mutateAsync: sendOtp, isLoading: isOtpSending } = useSendOtp();
-  const { message } = App.useApp();
 
   const buttonItem1 = (
     <svg
@@ -72,14 +70,16 @@ const PhoneNumberCard: React.FC<Props> = ({ onNext }) => {
   const handleSubmitPhoneNumber = () => {
     const phoneNumber = form.getFieldValue("phoneNumber").replace(/\s/g, "");
     if (!phoneNumber) return;
+
     sendOtp(
       { phoneNumber: phoneNumber },
       {
-        onSuccess: () => {
+        onSuccess: (res: any) => {
           sessionStorage.setItem("phoneNumber", phoneNumber);
-
-          message.success("Sizning raqamingizga tasdiqlash kodi yuborildi!");
-          // onNext();
+          toast.success(`${res.message}: ${res.data}`, {
+            position: "top-right",
+          });
+          onNext();
         },
       }
     );

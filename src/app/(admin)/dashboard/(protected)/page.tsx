@@ -135,7 +135,6 @@ const DashboardPage: React.FC = () => {
     ],
   };
 
-  // 2. Oylik ko'rishlar statistikasi
   const monthlyChartData = {
     labels: monthlyViews.labels,
     datasets: [
@@ -143,11 +142,52 @@ const DashboardPage: React.FC = () => {
         label: "Oylik ko'rishlar",
         data: monthlyViews.data,
         borderColor: "#36A2EB",
-        backgroundColor: "rgba(54, 162, 235, 0.1)",
+        backgroundColor: "rgba(54, 162, 235, 0.3)",
+        pointBackgroundColor: "#36A2EB",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
+        pointRadius: 4,
         tension: 0.4,
         fill: true,
       },
     ],
+  };
+
+  const lineChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: "#fff",
+        },
+      },
+      tooltip: {
+        mode: "index",
+        intersect: false,
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        titleColor: "#fff",
+        bodyColor: "#fff",
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)",
+        },
+        ticks: {
+          color: "#fff",
+        },
+      },
+      y: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.1)",
+        },
+        ticks: {
+          color: "#fff",
+        },
+      },
+    },
   };
 
   // 3. User statistikasi
@@ -205,6 +245,25 @@ const DashboardPage: React.FC = () => {
       ),
     },
   ];
+
+  const data = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [
+      {
+        label: "First dataset",
+        data: [33, 53, 85, 41, 44, 65],
+        fill: true,
+        backgroundColor: "rgba(75,192,192,0.2)",
+        borderColor: "rgba(75,192,192,1)",
+      },
+      {
+        label: "Second dataset",
+        data: [33, 25, 35, 51, 54, 76],
+        fill: false,
+        borderColor: "#742774",
+      },
+    ],
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -333,48 +392,10 @@ const DashboardPage: React.FC = () => {
         <Col xs={24} lg={12}>
           <Card
             title="Oylik ko'rishlar statistikasi (2025)"
-            className="bg-[#1f1f1f] border-gray-700"
+            className="bg-[#1f1f1f] border-gray-700 transition-all duration-300 hover:shadow-xl"
           >
             <div className="h-64">
-              <Line
-                data={monthlyChartData}
-                options={{
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  plugins: {
-                    legend: {
-                      labels: {
-                        color: "#fff",
-                      },
-                    },
-                    tooltip: {
-                      mode: "index",
-                      intersect: false,
-                      backgroundColor: "rgba(0, 0, 0, 0.8)",
-                      titleColor: "#fff",
-                      bodyColor: "#fff",
-                    },
-                  },
-                  scales: {
-                    x: {
-                      grid: {
-                        color: "rgba(255, 255, 255, 0.1)",
-                      },
-                      ticks: {
-                        color: "#fff",
-                      },
-                    },
-                    y: {
-                      grid: {
-                        color: "rgba(255, 255, 255, 0.1)",
-                      },
-                      ticks: {
-                        color: "#fff",
-                      },
-                    },
-                  },
-                }}
-              />
+              <Line data={monthlyChartData} options={lineChartOptions} />
             </div>
           </Card>
         </Col>
