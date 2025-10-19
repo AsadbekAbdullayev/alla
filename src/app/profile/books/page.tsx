@@ -6,24 +6,19 @@ import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import Card from "@/app/_components/shared/Card";
 
-// Static images import qilish
-import Aladin from "../../../../public/assets/images/aladin.png";
-import Peter from "../../../../public/assets/images/peter.png";
-import Harry from "../../../../public/assets/images/harry.png";
-
-// Static categories ma'lumotlari
+// Static categories ma'lumotlari URL bilan
 const staticCategories = [
   {
-    name: "Ta’limiy kontentlar va raqamli kutubxona",
-    poster: Peter,
+    name: "Ta'limiy kontentlar va raqamli kutubxona",
+    poster: "/assets/images/peter.png", // URL bilan
   },
   {
     name: "Aladdin va sehrli chiroq",
-    poster: Aladin,
+    poster: "/assets/images/aladin.png", // URL bilan
   },
   {
     name: "Garri Potter va hikmatlar toshi",
-    poster: Harry,
+    poster: "/assets/images/harry.png", // URL bilan
   },
 ];
 
@@ -74,10 +69,23 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen flex-1 p-6 md:px-16">
+      {/* Sarlavha qo'shildi */}
+      <div className="mb-8">
+        <h1
+          ref={titleRef}
+          className="text-3xl font-bold text-white text-center"
+        >
+          Kitoblar
+        </h1>
+        <p className="text-gray-300 text-center mt-2">
+          Audio va elektron kitoblar
+        </p>
+      </div>
+
       {isLoading ? (
         <SkeletonCards />
       ) : (
-        <div ref={listRef} className="flex flex-wrap gap-4">
+        <div ref={listRef} className="flex flex-wrap gap-6 justify-center">
           {staticCategories.map(({ name, poster }, i) => (
             <Card
               key={i}

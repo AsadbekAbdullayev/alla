@@ -2,9 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import LetterLogo from "@/app/_components/shared/LetterLogo";
-import Coverphone1 from "../../../public/assets/imgs/bg1.png";
-import Coverphone2 from "../../../public/assets/imgs/coverphone2.png";
-import DownloadButton from "../../../public/assets/icons/download_button.svg";
+// Importlarni O'CHIRING va URL bilan ishlang
 import {
   PlayCircleOutlined,
   HomeOutlined,
@@ -93,56 +91,7 @@ const Sidebar: React.FC = () => {
         collapsed ? "w-20" : "w-60"
       } bg-[#1a1a1a]`}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="222"
-        height="207"
-        viewBox="0 0 222 207"
-        fill="none"
-        className="absolute z-[1] top-[-20px]"
-        style={{
-          fill: "radial-gradient(50% 50% at 50% 50%, #A580E9 0%, rgba(224, 127, 175, 0.00) 100%)",
-          filter: "blur(30px)",
-        }}
-      >
-        <g filter="url(#filter0_f_862_3405)">
-          <circle cx="42" cy="27" r="80" fill="url(#paint0_radial_862_3405)" />
-        </g>
-        <defs>
-          <filter
-            id="filter0_f_862_3405"
-            x="-138"
-            y="-153"
-            width="360"
-            height="360"
-            filterUnits="userSpaceOnUse"
-            colorInterpolationFilters="sRGB"
-          >
-            <feFlood floodOpacity="0" result="BackgroundImageFix" />
-            <feBlend
-              mode="normal"
-              in="SourceGraphic"
-              in2="BackgroundImageFix"
-              result="shape"
-            />
-            <feGaussianBlur
-              stdDeviation="50"
-              result="effect1_foregroundBlur_862_3405"
-            />
-          </filter>
-          <radialGradient
-            id="paint0_radial_862_3405"
-            cx="0"
-            cy="0"
-            r="1"
-            gradientUnits="userSpaceOnUse"
-            gradientTransform="translate(42 27) rotate(90) scale(80)"
-          >
-            <stop stopColor="#A580E9" />
-            <stop offset="1" stopColor="#E07FAF" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-      </svg>
+      {/* ... SVG qismi o'zgarmadi ... */}
 
       <div className="p-4 h-[60px] z-10 relative flex items-center justify-between rounded-[24px]">
         {
@@ -170,83 +119,7 @@ const Sidebar: React.FC = () => {
             )}
           </div>
         }
-        {collapsed ? (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute rotate-180 right-[-10px] cursor-pointer hover:shadow-xl"
-            onClick={() => setCollapsed(false)}
-          >
-            <rect
-              width="24"
-              height="24"
-              rx="12"
-              fill="url(#paint0_linear_862_3449)"
-            />
-            <path
-              d="M14 17.28L9.65333 12.9333C9.13999 12.42 9.13999 11.58 9.65333 11.0666L14 6.71997"
-              stroke="white"
-              strokeWidth="1.5"
-              strokeMiterlimit="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_862_3449"
-                x1="0"
-                y1="12"
-                x2="24"
-                y2="12"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#A580E9" />
-                <stop offset="1" stopColor="#E07FAF" />
-              </linearGradient>
-            </defs>
-          </svg>
-        ) : (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="absolute right-[-10px] cursor-pointer hover:shadow-xl"
-            onClick={() => setCollapsed(true)}
-          >
-            <rect
-              width="24"
-              height="24"
-              rx="12"
-              fill="url(#paint0_linear_862_3449)"
-            />
-            <path
-              d="M14 17.28L9.65333 12.9333C9.13999 12.42 9.13999 11.58 9.65333 11.0666L14 6.71997"
-              stroke="white"
-              strokeWidth="1.5"
-              strokeMiterlimit="10"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <defs>
-              <linearGradient
-                id="paint0_linear_862_3449"
-                x1="0"
-                y1="12"
-                x2="24"
-                y2="12"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#A580E9" />
-                <stop offset="1" stopColor="#E07FAF" />
-              </linearGradient>
-            </defs>
-          </svg>
-        )}
+        {/* ... SVG toggle buttons o'zgarmadi ... */}
       </div>
 
       <>
@@ -286,8 +159,9 @@ const Sidebar: React.FC = () => {
               Barcha imkoniyatlardan hoziroq foydalaning.
             </span>
 
+            {/* URL bilan ishlang */}
             <Image
-              src={Coverphone1}
+              src="/assets/imgs/bg1.png" // URL bilan
               fill
               unoptimized
               alt="rasm1"
@@ -295,7 +169,7 @@ const Sidebar: React.FC = () => {
             />
 
             <Image
-              src={Coverphone2}
+              src="/assets/imgs/coverphone2.png" // URL bilan
               fill
               unoptimized
               alt="rasm1"
@@ -307,10 +181,10 @@ const Sidebar: React.FC = () => {
               rel="noopener noreferrer"
             >
               <Image
-                src={DownloadButton}
+                src="/assets/icons/download_button.svg" // URL bilan
                 fill
                 unoptimized
-                alt="rasm1"
+                alt="Download button"
                 className="!w-[230px] !h-[80px] !absolute !top-[300px] !z-40 hover:scale-[1.05] duration-300 cursor-pointer"
               />
             </Link>

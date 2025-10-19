@@ -1,9 +1,10 @@
 "use client";
 import React, { memo } from "react";
 import Image from "next/image";
-import TalimiyContent from "../../../../public/assets/imgs/talimiy-content.png";
+// TalimiyContent importini O'CHIRING va URL bilan ishlang
 import LetterLogo from "./LetterLogo";
 import { formatDuration } from "@/lib";
+
 type CardProps = {
   title?: string;
   desc?: string;
@@ -56,7 +57,7 @@ const Card = ({
           </div>
         )}
         <Image
-          src={poster || TalimiyContent}
+          src={poster || "/assets/imgs/talimiy-content.png"} // URL bilan
           alt={title || "Image"}
           fill
           unoptimized
