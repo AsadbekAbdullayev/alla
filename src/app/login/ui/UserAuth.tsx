@@ -1,12 +1,16 @@
 import { useUpdateUser } from "@/entities/Profile/api";
 import { Button, Form, Input, message } from "antd";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 import React from "react";
+
 type Props = {
   onBack: () => void;
 };
 
 const UserAuth: React.FC<Props> = ({ onBack }) => {
   const [form] = Form.useForm();
+  const router = useRouter();
 
   const { mutateAsync: updateUser, isLoading } = useUpdateUser();
 
@@ -45,8 +49,8 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
         <path
           d="M10.121 2.59092C17.622 2 24.123 9 25.1227 14.0002M4.1211 2.59093L2.19811 2.59093"
           stroke="white"
-          stroke-width="4"
-          stroke-linecap="round"
+          strokeWidth="4"
+          strokeLinecap="round"
         />
       </g>
     </svg>
@@ -59,13 +63,17 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
       return;
     }
     updateUser(
-      { firstName },
+      { firstName, age: 40 },
       {
         onSuccess: () => {
           message.success("Ismingiz muvaffaqiyatli saqlandi!");
+          router.push(`/profile`);
+          toast.success(`Ismingiz muvaffaqiyatli saqlandi!`, {
+            position: "top-right",
+          });
         },
         onError: (error: any) => {
-          message.error(error?.message || "Xatolik yuz berdi!");
+          console.log(error, "Xatolik yuz berdi!");
         },
       }
     );
@@ -131,10 +139,10 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
                   <path
                     d="M10.07 5.92993L4 11.9999L10.07 18.0699M21 11.9999H4.17"
                     stroke="white"
-                    stroke-width="2"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeMiterlimit="10"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
                 Raqamni o’zgartirish

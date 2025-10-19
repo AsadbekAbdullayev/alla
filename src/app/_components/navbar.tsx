@@ -23,7 +23,11 @@ export default function Navbar() {
   };
 
   const handleStarClick = () => {
-    router.push("/login");
+    if (sessionStorage.getItem("token")) {
+      router.push("/profile");
+    } else {
+      router.push("/login");
+    }
   };
 
   const buttonItem1 = (
@@ -70,8 +74,8 @@ export default function Navbar() {
           y2="5.58181"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#8768E5" />
-          <stop offset="1" stop-color="#002E93" />
+          <stop stopColor="#8768E5" />
+          <stop offset="1" stopColor="#002E93" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_781_3787"
@@ -81,8 +85,8 @@ export default function Navbar() {
           y2="5.58181"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#8768E5" />
-          <stop offset="1" stop-color="#002E93" />
+          <stop stopColor="#8768E5" />
+          <stop offset="1" stopColor="#002E93" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_781_3787"
@@ -92,8 +96,8 @@ export default function Navbar() {
           y2="5.58181"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#8768E5" />
-          <stop offset="1" stop-color="#002E93" />
+          <stop stopColor="#8768E5" />
+          <stop offset="1" stopColor="#002E93" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_781_3787"
@@ -103,8 +107,8 @@ export default function Navbar() {
           y2="10.0276"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#253575" />
-          <stop offset="1" stop-color="#162561" />
+          <stop stopColor="#253575" />
+          <stop offset="1" stopColor="#162561" />
         </linearGradient>
         <linearGradient
           id="paint4_linear_781_3787"
@@ -114,8 +118,8 @@ export default function Navbar() {
           y2="5.58181"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#8768E5" />
-          <stop offset="1" stop-color="#002E93" />
+          <stop stopColor="#8768E5" />
+          <stop offset="1" stopColor="#002E93" />
         </linearGradient>
         <linearGradient
           id="paint5_linear_781_3787"
@@ -125,8 +129,8 @@ export default function Navbar() {
           y2="10.0276"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#253575" />
-          <stop offset="1" stop-color="#162561" />
+          <stop stopColor="#253575" />
+          <stop offset="1" stopColor="#162561" />
         </linearGradient>
       </defs>
     </svg>
@@ -145,9 +149,9 @@ export default function Navbar() {
         <path
           d="M10.121 2.7269C17.622 2.13599 24.123 9.13599 25.1227 14.1362M4.1211 2.72691L2.19811 2.72691"
           stroke="url(#paint0_linear_781_3786)"
-          stroke-opacity="0.5"
-          stroke-width="4"
-          stroke-linecap="round"
+          strokeOpacity="0.5"
+          strokeWidth="4"
+          strokeLinecap="round"
         />
       </g>
       <defs>
@@ -159,8 +163,8 @@ export default function Navbar() {
           y2="12.2779"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#253575" />
-          <stop offset="1" stop-color="#162561" />
+          <stop stopColor="#253575" />
+          <stop offset="1" stopColor="#162561" />
         </linearGradient>
       </defs>
     </svg>
@@ -170,19 +174,11 @@ export default function Navbar() {
     <nav className="py-3 px-[64px] flex items-center justify-between border-b border-[#D1DBFF1F] h-fit relative z-10">
       <div className="flex items-center gap-2">
         <div className="w-[72px] h-[55px]">
-          {isDark ? (
-            <img
-              src="/assets/icons/logo.svg"
-              alt=""
-              onClick={() => router.push("/")}
-            />
-          ) : (
-            <img
-              src="/assets/icons/logoLight.svg"
-              alt=""
-              onClick={() => router.push("/")}
-            />
-          )}
+          <img
+            src="/assets/icons/logoLight.svg"
+            alt=""
+            onClick={() => router.push("/")}
+          />
         </div>
         <Switch checked={isDark} onChange={handleToggle} />
       </div>
@@ -218,10 +214,10 @@ export default function Navbar() {
           <path
             d="M11.68 14.756L14.24 12.196L11.68 9.63599M4 12.196H14.17M12 4.13599C16.42 4.13599 20 7.13599 20 12.136C20 17.136 16.42 20.136 12 20.136"
             stroke="url(#paint0_linear_781_3788)"
-            stroke-width="2"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeMiterlimit="10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <defs>
             <linearGradient
@@ -232,8 +228,8 @@ export default function Navbar() {
               y2="20.136"
               gradientUnits="userSpaceOnUse"
             >
-              <stop stop-color="#253575" />
-              <stop offset="1" stop-color="#162561" />
+              <stop stopColor="#253575" />
+              <stop offset="1" stopColor="#162561" />
             </linearGradient>
           </defs>
         </svg>

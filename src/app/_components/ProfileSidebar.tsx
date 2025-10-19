@@ -9,10 +9,11 @@ import {
   PlayCircleOutlined,
   HomeOutlined,
   UserOutlined,
+  BookOutlined,
 } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
-
+import { useGetUser } from "@/entities/Profile/api";
 import { useParams } from "next/navigation";
 import { Menu } from "antd";
 import gsap from "gsap";
@@ -21,9 +22,30 @@ import Link from "next/link";
 const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { category: categoryName } = useParams();
-  const [current, setCurrent] = useState(categoryName);
+  const pathname = usePathname();
+  const [current, setCurrent] = useState("");
   const titleRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { data } = useGetUser();
+
+  // Current item ni pathname bo'yicha aniqlash
+  useEffect(() => {
+    if (pathname) {
+      // Pathni analiz qilish
+      if (pathname === "/profile" || pathname === "/profile/") {
+        setCurrent("");
+      } else if (pathname.includes("/profile/books")) {
+        setCurrent("/books");
+      } else if (pathname.includes("/profile/user")) {
+        setCurrent("/user");
+      } else {
+        // Boshqa categorylar uchun
+        const pathSegments = pathname.split("/");
+        const lastSegment = pathSegments[pathSegments.length - 1];
+        setCurrent(lastSegment);
+      }
+    }
+  }, [pathname, categoryName]);
 
   const categoryItems = [
     {
@@ -32,9 +54,9 @@ const Sidebar: React.FC = () => {
       label: "Bosh sahifa",
     },
     {
-      key: "/download",
-      icon: <PlayCircleOutlined />,
-      label: "Yuklanganlar",
+      key: "/books",
+      icon: <BookOutlined />,
+      label: "Kitoblar",
     },
     {
       key: "/user",
@@ -43,7 +65,6 @@ const Sidebar: React.FC = () => {
     },
   ];
 
-  // Animate "Alla Dashboard" title
   useEffect(() => {
     if (titleRef.current) {
       gsap.fromTo(
@@ -53,6 +74,18 @@ const Sidebar: React.FC = () => {
       );
     }
   }, [collapsed]);
+
+  // Menu item bosilganda
+  const handleMenuClick = (info: { key: string }) => {
+    setCurrent(info.key);
+
+    // Routing - key bo'yicha URL yaratish
+    if (info.key === "") {
+      router.push("/profile");
+    } else {
+      router.push(`/profile${info.key}`);
+    }
+  };
 
   return (
     <div
@@ -114,17 +147,24 @@ const Sidebar: React.FC = () => {
       <div className="p-4 h-[60px] z-10 relative flex items-center justify-between rounded-[24px]">
         {
           <div className="w-full flex items-center gap-3">
-            <LetterLogo />
+            <LetterLogo
+              letter={data?.data?.firstName?.charAt(0)?.toUpperCase() || "U"}
+            />
             {!collapsed && (
               <div className="flex flex-col gap-1 ml-1">
                 <p
                   className="text-white truncate text-[14px] italic font-bold leading-normal tracking-[0.14px] font-nunito"
                   style={{ textShadow: "0 0 1px #FFF" }}
                 >
-                  Asadbek
+                  {data?.data?.firstName || "Foydalanuvchi"}
                 </p>
                 <p className="text-[#979797] truncate  text-[10px] italic font-bold leading-normal tracking-[0.14px] font-nunito">
-                  +998 90 123 45 67
+                  {data?.data?.phoneNumber
+                    ?.replace(/\D/g, "")
+                    .replace(
+                      /^(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})$/,
+                      "+$1 $2 $3 $4 $5"
+                    ) || "+998 XX XXX XX XX"}
                 </p>
               </div>
             )}
@@ -218,15 +258,11 @@ const Sidebar: React.FC = () => {
           </div>
         )}
 
-        {/* Menu */}
         <Menu
           theme="dark"
           mode="inline"
-          selectedKeys={typeof current === "string" ? [current] : []}
-          onClick={(info) => {
-            setCurrent(info.key);
-            router.push(`/profile/${info.key}`);
-          }}
+          selectedKeys={[current]}
+          onClick={handleMenuClick}
           items={categoryItems}
           style={{
             flex: 1,
@@ -236,7 +272,7 @@ const Sidebar: React.FC = () => {
             fontSize: collapsed ? 12 : 14,
           }}
           inlineCollapsed={collapsed}
-          className="!bg-transparent z-10 select-none  !border-none !text-[#979797] !text-[12px] md:!text-[14px]"
+          className="!bg-transparent z-10 select-none !border-none !text-[#979797] !text-[12px] md:!text-[14px]"
         />
       </>
       {!collapsed && (

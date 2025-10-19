@@ -1,6 +1,8 @@
 import { useVerifyOtp } from "@/entities/Auth/api";
-import { Button, Form, Input, message } from "antd";
+import { Button, Form, Input } from "antd";
 import React, { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const OTP_TIMER_DURATION = 2 * 60 * 1000; // 2 minutes in ms
 const STORAGE_KEY = "otp_expiry_time";
@@ -16,6 +18,7 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
   const { mutateAsync: verifyOtp, isLoading: isOtpVerifying } = useVerifyOtp();
+  const router = useRouter();
 
   const buttonItem1 = (
     <svg
@@ -52,8 +55,8 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
         <path
           d="M10.121 2.59092C17.622 2 24.123 9 25.1227 14.0002M4.1211 2.59093L2.19811 2.59093"
           stroke="white"
-          stroke-width="4"
-          stroke-linecap="round"
+          strokeWidth="4"
+          strokeLinecap="round"
         />
       </g>
     </svg>
@@ -90,12 +93,25 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
       { phoneNumber: formData.phoneNumber, otpCode: formData.otpCode },
       {
         onSuccess: (data) => {
-          onNext();
-          sessionStorage.setItem("token", data.data?.token || "");
-          message.success("OTP muvaffaqiyatli tasdiqlandi!");
+          if (formData.phoneNumber == "+998901234567") {
+            // it means admin
+            sessionStorage.setItem("token", data.data?.token || "");
+            toast.success(`OTP muvaffaqiyatli tasdiqlandi!`, {
+              position: "top-right",
+            });
+            router.push(`/dashboard`);
+          } else {
+            onNext();
+            sessionStorage.setItem("token", data.data?.token || "");
+            toast.success(`OTP muvaffaqiyatli tasdiqlandi!`, {
+              position: "top-right",
+            });
+          }
         },
-        onError: (error) => {
-          message.error("OTP tasdiqlashda xatolik yuz berdi!");
+        onError: (error: any) => {
+          toast.error(error.response?.data?.message, {
+            position: "top-right",
+          });
         },
       }
     );
@@ -148,7 +164,7 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
           className="w-full  m-0"
           label={
             <p className="text-[#FFFFFFCC] text-[14px] font-[500]">
-              Telefon raqamingizni kiriting
+              Tasdiqlash kodi
             </p>
           }
         >
@@ -217,10 +233,10 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
                   <path
                     d="M10.07 5.92993L4 11.9999L10.07 18.0699M21 11.9999H4.17"
                     stroke="white"
-                    stroke-width="2"
-                    stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeMiterlimit="10"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
                 Raqamni o’zgartirish

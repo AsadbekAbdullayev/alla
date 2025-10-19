@@ -1,5 +1,5 @@
 import request from "@/services/api";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 // ======== Update User ========
 interface UserProfile {
@@ -14,8 +14,21 @@ const updateUser = async (body: UserProfile): Promise<UserProfile> => {
   return data;
 };
 
+const getUser = async (): Promise<any> => {
+  const { data } = await request.get<UserProfile>("/user/profile");
+  return data;
+};
+
 export const useUpdateUser = () => {
   return useMutation({
     mutationFn: updateUser,
+  });
+};
+
+export const useGetUser = () => {
+  return useQuery({
+    queryKey: ["useGetAdminVideos"],
+    queryFn: () => getUser(),
+    refetchOnWindowFocus: false,
   });
 };

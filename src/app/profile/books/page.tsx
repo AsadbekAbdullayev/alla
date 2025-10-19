@@ -7,64 +7,23 @@ import { gsap } from "gsap";
 import Card from "@/app/_components/shared/Card";
 
 // Static images import qilish
-import Content1 from "../../../public/assets/images/content1.png";
-import Content2 from "../../../public/assets/images/content2.png";
-import Content3 from "../../../public/assets/images/content3.png";
-import Content4 from "../../../public/assets/images/content4.png";
-import Content5 from "../../../public/assets/images/content5.png";
-import Content6 from "../../../public/assets/images/content6.png";
-import Content7 from "../../../public/assets/images/content7.png";
-import Content8 from "../../../public/assets/images/content1.png";
+import Aladin from "../../../../public/assets/images/aladin.png";
+import Peter from "../../../../public/assets/images/peter.png";
+import Harry from "../../../../public/assets/images/harry.png";
 
 // Static categories ma'lumotlari
 const staticCategories = [
   {
-    name: "Allalar",
-    description: "Bolalar uchun qiziqarli va ta'limiy allalar",
-    key: "ALLALAR",
-    poster: Content1,
+    name: "Ta’limiy kontentlar va raqamli kutubxona",
+    poster: Peter,
   },
   {
-    name: "Milliy Multfilmlar",
-    description: "O'zbek milliy multfilmlari",
-    key: "NATIONAL_CARTOONS",
-    poster: Content2,
+    name: "Aladdin va sehrli chiroq",
+    poster: Aladin,
   },
   {
-    name: "Filmlar & Seriallar",
-    description: "Bolalar uchun filmlar va seriallar",
-    key: "MOVIES_SERIES",
-    poster: Content3,
-  },
-  {
-    name: "Ta'limiy Kontent",
-    description: "Ta'limiy materiallar va raqamli kutubxona",
-    key: "EDUCATIONAL_CONTENT",
-    poster: Content4,
-  },
-  {
-    name: "Xorijiy Multfilmlar",
-    description: "Xorijiy multfilmlar",
-    key: "FOREIGN_CARTOONS",
-    poster: Content5,
-  },
-  {
-    name: "Qo'shiqlar & Raqslar",
-    description: "Qo'shiqlar va raqslar",
-    key: "SONGS_DANCES",
-    poster: Content6,
-  },
-  {
-    name: "Sog'lom Turmush",
-    description: "Sog'lom turmush tarzi haqida",
-    key: "HEALTHY_LIFESTYLE",
-    poster: Content7,
-  },
-  {
-    name: "O'yinlar",
-    description: "Ta'limiy o'yinlar",
-    key: "GAMES",
-    poster: Content8,
+    name: "Garri Potter va hikmatlar toshi",
+    poster: Harry,
   },
 ];
 
@@ -119,15 +78,15 @@ export default function ProfilePage() {
         <SkeletonCards />
       ) : (
         <div ref={listRef} className="flex flex-wrap gap-4">
-          {staticCategories.map(({ key, name, description, poster }, i) => (
+          {staticCategories.map(({ name, poster }, i) => (
             <Card
               key={i}
               title={name}
               poster={poster}
-              desc={description}
-              onClick={() => {
-                router.push(`/profile/${key}`);
-              }}
+              isAudioBook
+              isBook
+              duration={"120"}
+              bgColor={"bg-[#FF8B2D]"}
             />
           ))}
         </div>

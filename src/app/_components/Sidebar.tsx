@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useCategories } from "@/entities/Categories/api";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, usePathname } from "next/navigation";
 import { Layout, Menu, Spin } from "antd";
 import {
   VideoCameraOutlined,
@@ -12,7 +12,6 @@ import {
   MenuFoldOutlined,
   FilePdfOutlined,
   HomeOutlined,
-  AudioOutlined,
   UserOutlined,
   TeamOutlined,
   BookOutlined,
@@ -36,9 +35,22 @@ const Sidebar: React.FC = () => {
   const { data: categories, isLoading } = useCategories();
   const [collapsed, setCollapsed] = useState(false);
   const { category: categoryName } = useParams();
-  const [current, setCurrent] = useState(categoryName);
+  const pathname = usePathname();
+  const [current, setCurrent] = useState<string>("");
   const titleRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  // Current item ni pathname bo'yicha aniqlash
+  useEffect(() => {
+    if (pathname) {
+      const pathSegments = pathname.split("/");
+      const lastSegment = pathSegments[pathSegments.length - 1];
+
+      // Agar path /dashboard/ALLALAR bo'lsa, current = "ALLALAR"
+      // Agar path /dashboard bo'lsa, current = "" (Dashboard)
+      setCurrent(lastSegment === "dashboard" ? "" : lastSegment);
+    }
+  }, [pathname, categoryName]);
 
   const items = useMemo(() => {
     const videoItems = Array.isArray(categories)
@@ -89,7 +101,6 @@ const Sidebar: React.FC = () => {
             </svg>
 
             <span className="text-lg text-[#fff] font-semibold underline">
-              {" "}
               Videolar
             </span>
           </div>
@@ -100,7 +111,6 @@ const Sidebar: React.FC = () => {
             icon: <DashboardOutlined />,
             label: "Dashboard",
           },
-          ,
           ...videoItems,
         ],
       },
@@ -109,8 +119,7 @@ const Sidebar: React.FC = () => {
         label: (
           <div>
             <BookOutlined className="w-fit mr-2 text-lg text-[#fff]" />
-            <span className="text-lg font-semibold underline text-[#fff] ">
-              {" "}
+            <span className="text-lg font-semibold underline text-[#fff]">
               Kitoblar
             </span>
           </div>
@@ -174,7 +183,7 @@ const Sidebar: React.FC = () => {
         <Menu
           mode="inline"
           theme="dark"
-          selectedKeys={typeof current === "string" ? [current] : []}
+          selectedKeys={[current]}
           onClick={(info) => {
             setCurrent(info.key);
             router.push(`/dashboard/${info.key}`);

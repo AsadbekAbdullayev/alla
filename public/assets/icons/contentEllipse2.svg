@@ -1,7 +1,7 @@
 <svg width="941" height="370" viewBox="0 0 941 370" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g style="mix-blend-mode:color-dodge" opacity="0.5" clip-path="url(#clip0_629_12320)" filter="url(#filter0_f_629_12320)">
 <path d="M771 170H170V771H771V170Z" fill="black"/>
-<path d="M771 170H170V771H771V170Z" fill="#907CFF" fill-opacity="0.387813"/>
+<path d="M771 170H170V771H771V170Z" fill="#907CFF" fillOpacity="0.387813"/>
 <mask id="mask0_629_12320" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="170" y="170" width="601" height="601">
 <path d="M771 170H170V771H771V170Z" fill="white"/>
 </mask>
