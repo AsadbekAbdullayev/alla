@@ -4,6 +4,7 @@ import { useSendOtp } from "@/entities/Auth/api";
 import { Button, Form, Input } from "antd";
 import React, { useCallback } from "react";
 import { toast } from "react-toastify";
+
 type Props = {
   onNext: () => void;
 };
@@ -82,6 +83,7 @@ const PhoneNumberCard: React.FC<Props> = ({ onNext }) => {
           onNext();
         },
         onError: (error: any) => {
+          console.log(error, "error");
           toast.error(error.response?.data?.message, {
             position: "top-right",
           });

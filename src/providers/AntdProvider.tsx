@@ -1,8 +1,7 @@
 "use client";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { ConfigProvider, App as AntdApp, theme } from "antd";
 import { ReactNode, Suspense } from "react";
-import { ConfigProvider, theme } from "antd";
-import { ToastContainer } from "react-toastify";
 import Loading from "../app/loading";
 
 export const AntdProvider = ({ children }: { children: ReactNode }) => {
@@ -10,17 +9,7 @@ export const AntdProvider = ({ children }: { children: ReactNode }) => {
     <Suspense fallback={<Loading />}>
       <AntdRegistry>
         <ConfigProvider theme={{ algorithm: theme.darkAlgorithm }}>
-          <ToastContainer
-            position="top-right"
-            hideProgressBar={true}
-            autoClose={10000}
-            newestOnTop={false}
-            closeOnClick={false}
-            pauseOnFocusLoss
-            pauseOnHover
-            theme="dark"
-          />
-          {children}
+          <AntdApp>{children}</AntdApp>
         </ConfigProvider>
       </AntdRegistry>
     </Suspense>

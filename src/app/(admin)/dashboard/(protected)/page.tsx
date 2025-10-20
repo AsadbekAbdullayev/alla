@@ -434,4 +434,3 @@ const DashboardPage: React.FC = () => {
 };
 
 export default DashboardPage;
-export const dynamic = "force-dynamic";

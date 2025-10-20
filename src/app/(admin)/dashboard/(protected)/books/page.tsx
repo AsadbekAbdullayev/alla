@@ -27,8 +27,29 @@ import {
   PlayCircleOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
-import { BookForm } from "@/app/_components/BookForms";
-import { PdfModal, AudioModal } from "@/app/_components/BookModals";
+
+import nextDynamic from "next/dynamic";
+
+const BookForm = nextDynamic(
+  () => import("@/app/_components/BookForms").then((mod) => mod.BookForm),
+  {
+    ssr: false,
+  }
+);
+
+const PdfModal = nextDynamic(
+  () => import("@/app/_components/BookModals").then((mod) => mod.PdfModal),
+  {
+    ssr: false,
+  }
+);
+
+const AudioModal = nextDynamic(
+  () => import("@/app/_components/BookModals").then((mod) => mod.AudioModal),
+  {
+    ssr: false,
+  }
+);
 
 const BookPage: React.FC = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
@@ -306,7 +327,7 @@ const BookPage: React.FC = () => {
             <Button
               type="link"
               icon={<FileTextOutlined />}
-              onClick={() => handleViewPdf(record)}
+              // onClick={() => handleViewPdf(record)}
               className="text-blue-400 p-0"
               size="small"
             >
@@ -317,7 +338,7 @@ const BookPage: React.FC = () => {
             <Button
               type="link"
               icon={<PlayCircleOutlined />}
-              onClick={() => handleListenAudio(record)}
+              // onClick={() => handleListenAudio(record)}
               className="text-green-400 p-0"
               size="small"
             >
@@ -334,7 +355,7 @@ const BookPage: React.FC = () => {
       width: 150,
       render: (_: any, record: Book) => (
         <div className="flex gap-1">
-          <Button
+          {/* <Button
             type="link"
             onClick={() => handleEditBook(record)}
             icon={<EditOutlined />}
@@ -342,7 +363,7 @@ const BookPage: React.FC = () => {
             size="small"
           >
             Tahrirlash
-          </Button>
+          </Button> */}
 
           <Popconfirm
             title="Kitobni o'chirish"
@@ -476,4 +497,3 @@ const BookPage: React.FC = () => {
 };
 
 export default BookPage;
-export const dynamic = "force-dynamic";

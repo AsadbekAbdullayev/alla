@@ -593,4 +593,3 @@ const ModeratorPage: React.FC = () => {
 };
 
 export default ModeratorPage;
-export const dynamic = "force-dynamic";
