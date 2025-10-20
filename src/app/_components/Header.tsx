@@ -1,7 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
+import { RootState } from "@/redux/store/store";
+import { useSelector } from "react-redux";
 import { Button } from "antd";
 import Navbar from "./navbar";
+import Link from "next/link";
 import gsap from "gsap";
 
 const Header = () => {
@@ -21,6 +24,7 @@ const Header = () => {
   const sunRef = useRef(null);
   const rabbit1Ref = useRef(null);
   const rabbit2Ref = useRef(null);
+  const { phoneNumber } = useSelector((e: RootState) => e.generel.userDetails);
 
   useEffect(() => {
     const tl = gsap.timeline();
@@ -339,66 +343,68 @@ const Header = () => {
             Bu yerda faqat ta'limiy va tarbiyaviy kontent: multfilmlar,
             qo'shiqlar, kitoblar va interaktiv mashqlar.
           </p>
-          <Button
-            ref={buttonRef}
-            className="relative !bg-white p-4 mt-12 rounded-full text-[#162561] text-[17px] font-[800] max-w-[201px] w-full h-[50px] overflow-visible"
-            style={{
-              boxShadow:
-                "-1px -4px 0px 0px #0000001C inset, 1px 1px 1px 0px #FF8A8C4D inset",
-            }}
-          >
-            Hoziroq boshlash
-            <svg
-              width="24"
-              height="25"
-              viewBox="0 0 24 25"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+          <Link href={phoneNumber ? "/profile" : "./login"}>
+            <Button
+              ref={buttonRef}
+              className="relative !bg-white p-4 mt-12 rounded-full text-[#162561] text-[17px] font-[800] max-w-[201px] w-full h-[50px] overflow-visible"
+              style={{
+                boxShadow:
+                  "-1px -4px 0px 0px #0000001C inset, 1px 1px 1px 0px #FF8A8C4D inset",
+              }}
             >
-              <path
-                d="M14.43 6.59668L20.5 12.6667L14.43 18.7367M3.5 12.6667H20.33"
-                stroke="url(#paint0_linear_781_3776)"
-                strokeWidth="2"
-                strokeMiterlimit="10"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M14.43 6.59668L20.5 12.6667L14.43 18.7367M3.5 12.6667H20.33"
-                stroke="url(#paint1_linear_781_3776)"
-                strokeWidth="2"
-                strokeMiterlimit="10"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <defs>
-                <linearGradient
-                  id="paint0_linear_781_3776"
-                  x1="3.5"
-                  y1="12.6667"
-                  x2="20.5"
-                  y2="12.6667"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#A580E9" />
-                  <stop offset="1" stopColor="#E07FAF" />
-                </linearGradient>
-                <linearGradient
-                  id="paint1_linear_781_3776"
-                  x1="12.178"
-                  y1="6.59668"
-                  x2="12.178"
-                  y2="18.7367"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#253575" />
-                  <stop offset="1" stopColor="#162561" />
-                </linearGradient>
-              </defs>
-            </svg>
-            {buttonItem1}
-            {buttonItem2}
-          </Button>
+              Hoziroq boshlash
+              <svg
+                width="24"
+                height="25"
+                viewBox="0 0 24 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M14.43 6.59668L20.5 12.6667L14.43 18.7367M3.5 12.6667H20.33"
+                  stroke="url(#paint0_linear_781_3776)"
+                  strokeWidth="2"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path
+                  d="M14.43 6.59668L20.5 12.6667L14.43 18.7367M3.5 12.6667H20.33"
+                  stroke="url(#paint1_linear_781_3776)"
+                  strokeWidth="2"
+                  strokeMiterlimit="10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_781_3776"
+                    x1="3.5"
+                    y1="12.6667"
+                    x2="20.5"
+                    y2="12.6667"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#A580E9" />
+                    <stop offset="1" stopColor="#E07FAF" />
+                  </linearGradient>
+                  <linearGradient
+                    id="paint1_linear_781_3776"
+                    x1="12.178"
+                    y1="6.59668"
+                    x2="12.178"
+                    y2="18.7367"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#253575" />
+                    <stop offset="1" stopColor="#162561" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              {buttonItem1}
+              {buttonItem2}
+            </Button>
+          </Link>
         </div>
 
         {/* Image - Right Side */}

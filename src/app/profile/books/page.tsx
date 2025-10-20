@@ -3,52 +3,24 @@
 import { useEffect, useRef, useState } from "react";
 import SkeletonCards from "@/app/_components/shared/SkeletonCard";
 import { useRouter } from "next/navigation";
-import { gsap } from "gsap";
 import Card from "@/app/_components/shared/Card";
-
-// Static categories ma'lumotlari URL bilan
-const staticCategories = [
-  {
-    name: "Ta'limiy kontentlar va raqamli kutubxona",
-    poster: "/assets/images/peter.png", // URL bilan
-  },
-  {
-    name: "Aladdin va sehrli chiroq",
-    poster: "/assets/images/aladin.png", // URL bilan
-  },
-  {
-    name: "Garri Potter va hikmatlar toshi",
-    poster: "/assets/images/harry.png", // URL bilan
-  },
-];
+import { useGetBooks } from "@/entities/Admin/api";
+import { gsap } from "gsap";
 
 export default function ProfilePage() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const { data, isLoading } = useGetBooks({ page: 0, size: 100 });
   const router = useRouter();
-
-  // Loading state - static ma'lumotlar uchun qisqa loading
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Qisqa loading simulation
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     if (!isLoading) {
-      // Title animation
       gsap.fromTo(
         titleRef.current,
         { opacity: 0, y: -40 },
         { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
       );
 
-      // Cards animation
       const cards = listRef.current?.querySelectorAll(".video-card");
       if (cards && cards.length > 0) {
         gsap.fromTo(
@@ -86,17 +58,26 @@ export default function ProfilePage() {
         <SkeletonCards />
       ) : (
         <div ref={listRef} className="flex flex-wrap gap-6 justify-start">
-          {staticCategories.map(({ name, poster }, i) => (
-            <Card
-              key={i}
-              title={name}
-              poster={poster}
-              isAudioBook
-              isBook
-              duration={"120"}
-              bgColor={"bg-[#FF8B2D]"}
-            />
-          ))}
+          {data?.data?.content?.map((item: any, i: number) => {
+            const poster = item?.coverImageUrl?.split("/")?.pop();
+            const id = item?.pdfUrl?.split("/")?.pop();
+            return (
+              <Card
+                key={i}
+                title={item.title}
+                poster={`https://api.alla.itic.uz/api/stream/image/${
+                  poster || ""
+                }`}
+                isAudioBook={item?.audioUrl}
+                isBook={item?.pdfUrl}
+                duration={item?.duration || "120"}
+                bgColor={"bg-[#FF8B2D]"}
+                onClick={() => {
+                  router.push(`/profile/books/${item.id}`);
+                }}
+              />
+            );
+          })}
         </div>
       )}
     </div>

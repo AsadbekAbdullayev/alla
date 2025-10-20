@@ -112,7 +112,7 @@ const Card = ({
       )}
 
       <div className="relative z-10 px-1">
-        <h3 className="text-lg font-semibold line-clamp-2">
+        <h3 className="text-lg font-semibold truncate mt-1">
           {title || "Category"}
         </h3>
 
