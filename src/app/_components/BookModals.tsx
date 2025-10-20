@@ -5,9 +5,8 @@ import {
   FileTextOutlined,
   DownloadOutlined,
 } from "@ant-design/icons";
-import { useState, useEffect } from "react"; // useEffect qo'shildi
+import { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import AudioPlayer from "react-h5-audio-player";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-h5-audio-player/lib/styles.css";
@@ -34,18 +33,35 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [token, setToken] = useState<string | null>(null); // Token state
+  const [token, setToken] = useState<string | null>(null);
 
-  // useEffect bilan token olish
   useEffect(() => {
     setToken(sessionStorage.getItem("token"));
   }, []);
 
-  const pdfFileName = pdfUrl?.toString()?.split("/")?.pop() || "";
-  const pdfStreamUrl = token
-    ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/stream/pdf/${id}?token=${token}`
-    : ""; // Token bo'lmasa bo'sh string
+  // URL ni to'g'ri tayyorlash
+  const getPdfUrl = () => {
+    if (!token) return null;
 
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+    // URL formatini tekshirish va to'g'rilash
+    let url = `${baseUrl}/stream/pdf/${id}?token=${token}`;
+
+    // Agar URL noto'g'ri formatda bo'lsa, to'g'rilash
+    if (!url.startsWith("http")) {
+      url = `${window.location.origin}${url}`;
+    }
+
+    return {
+      url: url,
+      withCredentials: true,
+      httpHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  };
+
+  const pdfFileName = pdfUrl?.toString()?.split("/")?.pop() || "";
   const pdfDownloadUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/stream/pdf/${id}?download=true`;
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
@@ -54,7 +70,8 @@ export const PdfModal: React.FC<PdfModalProps> = ({
     setError(false);
   }
 
-  function onDocumentLoadError() {
+  function onDocumentLoadError(error: Error) {
+    console.error("PDF yuklashda xatolik:", error);
     setLoading(false);
     setError(true);
   }
@@ -90,7 +107,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
       ]}
     >
       <div className="h-[70vh] flex flex-col">
-        {pdfUrl && token ? ( // Token borligini tekshirish
+        {pdfUrl && token ? (
           <>
             {/* Navigation controls */}
             <div className="flex items-center justify-between mb-4 p-3 bg-gray-800 rounded-lg">
@@ -127,7 +144,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
                       PDF yuklashda xatolik
                     </p>
                     <Button
-                      href={pdfStreamUrl}
+                      href={getPdfUrl()?.url || "#"}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -139,7 +156,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
 
               {!error && (
                 <Document
-                  file={pdfStreamUrl}
+                  file={getPdfUrl()}
                   onLoadSuccess={onDocumentLoadSuccess}
                   onLoadError={onDocumentLoadError}
                   loading={
@@ -147,10 +164,15 @@ export const PdfModal: React.FC<PdfModalProps> = ({
                       <Spin size="large" />
                     </div>
                   }
+                  noData={
+                    <div className="flex items-center justify-center h-full">
+                      <p className="text-white">PDF fayl topilmadi</p>
+                    </div>
+                  }
                 >
                   <Page
                     pageNumber={pageNumber}
-                    width={800}
+                    width={Math.min(800, window.innerWidth - 100)}
                     renderTextLayer={true}
                     renderAnnotationLayer={true}
                   />
@@ -170,7 +192,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   );
 };
 
-// AudioModal o'zgarmadi, chunki u sessionStorage ishlatmaydi
+// AudioModal komponenti
 export const AudioModal: React.FC<any> = ({
   visible,
   onClose,
@@ -208,7 +230,18 @@ export const AudioModal: React.FC<any> = ({
         </Button>,
       ]}
     >
-      {/* ... AudioModal content o'zgarmadi ... */}
+      <div className="flex flex-col items-center justify-center p-4">
+        <div className="mb-4 text-center">
+          <h3 className="text-lg font-semibold">{title}</h3>
+          {author && <p className="text-gray-600">Muallif: {author}</p>}
+        </div>
+
+        <audio controls className="w-full max-w-md" src={audioStreamUrl}>
+          Sizning brauzeringiz audio elementni qo'llab-quvvatlamaydi.
+        </audio>
+
+        <p className="mt-4 text-sm text-gray-500">{audioFileName}</p>
+      </div>
     </Modal>
   );
 };

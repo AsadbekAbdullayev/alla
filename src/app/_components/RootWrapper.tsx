@@ -1,9 +1,8 @@
 // app/_components/RootWrapper.tsx (Client Component)
 "use client";
-
 import { QueryProvider } from "@/providers/QueryProvider";
-import { AntdProvider } from "@/providers/AntdProvider";
 import AuthProvider from "@/providers/AuthProvider";
+import { ToastContainer } from "react-toastify";
 
 export default function RootWrapper({
   children,
@@ -11,14 +10,22 @@ export default function RootWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <AntdProvider>
-      <QueryProvider>
-        <AuthProvider
-          ignorePaths={["/", "/profile", "/login", "/dashboard/login"]}
-        >
-          {children}
-        </AuthProvider>
-      </QueryProvider>
-    </AntdProvider>
+    <QueryProvider>
+      <AuthProvider
+        ignorePaths={["/", "/profile", "/login", "/dashboard/login"]}
+      >
+        {children}
+        <ToastContainer
+          position="top-right"
+          hideProgressBar={true}
+          autoClose={10000}
+          newestOnTop={false}
+          closeOnClick={false}
+          pauseOnFocusLoss
+          pauseOnHover
+          theme="dark"
+        />
+      </AuthProvider>
+    </QueryProvider>
   );
 }
