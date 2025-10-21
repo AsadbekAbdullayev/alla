@@ -34,8 +34,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
+    const path = window.location.pathname;
 
-    if (!token) {
+    if (!token && path !== "/" && !path.includes("login")) {
       router.push("/login");
       return;
     }

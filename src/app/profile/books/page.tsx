@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import SkeletonCards from "@/app/_components/shared/SkeletonCard";
 import { useRouter } from "next/navigation";
 import Card from "@/app/_components/shared/Card";
-import { useGetBooks } from "@/entities/Admin/api";
+import { useGetBooks } from "@/entities/Books/api";
 import { gsap } from "gsap";
 
 export default function ProfilePage() {

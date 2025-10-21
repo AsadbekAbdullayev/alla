@@ -1,16 +1,22 @@
 "use client"; // Bu qatorni eng yuqoriga qo'shing
-import React from "react";
+import React, { useRef } from "react";
 import HTMLFlipBook from "react-pageflip";
 import { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import { useParams } from "next/navigation";
+import { Button } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import Loader from "@/app/_components/Loader";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
-const Pages = React.forwardRef((props, ref) => {
+const Pages = React.forwardRef((props: any, ref: any) => {
   return (
-    <div className="demoPage" ref={ref}>
-      <p>{props.children}</p>
-      <p>Page number: {props.number}</p>
+    <div
+      ref={ref}
+      className="bg-inherit rounded-md overflow-hidden w-full h-full"
+    >
+      {props.children}
     </div>
   );
 });
@@ -19,22 +25,46 @@ Pages.displayName = "Pages";
 
 function Flipbook() {
   const [numPages, setNumPages] = useState();
+  const { id } = useParams();
+  const token = sessionStorage.getItem("token");
+  const flipBookRef = useRef();
+  const [currentPage, setCurrentPage] = useState(0);
 
-  function onDocumentLoadSuccess({ numPages }) {
+  function onDocumentLoadSuccess({ numPages }: any) {
     setNumPages(numPages);
   }
+
+  const goNext = () => flipBookRef?.current?.pageFlip()?.flipNext();
+  const goPrev = () => flipBookRef?.current?.pageFlip().flipPrev();
+
+  const onFlip = (e: any) => {
+    setCurrentPage(e.data);
+  };
+
   return (
     <>
-      <div className="h-screen w-screen flex flex-col gap-5 justify-center items-center  overflow-hidden">
-        <h1 className="text-3xl text-white text-center font-bold">FlipBook-</h1>
-        <HTMLFlipBook width={400} height={570}>
+      <div className="h-screen flex flex-col justify-start pt-[100px] items-center overflow-hidden">
+        <HTMLFlipBook
+          ref={flipBookRef}
+          width={400}
+          height={570}
+          onFlip={onFlip}
+          style={{
+            width: "400px",
+            height: "570px",
+            background: "inherit",
+          }}
+        >
           {[...Array(numPages).keys()].map((pNum) => (
-            <Pages key={pNum} number={pNum + 1}>
+            <Pages key={pNum} number={7}>
               <Document
-                file={
-                  "https://api.alla.itic.uz/api/stream/pdf/11?token=eyJhbGciOiJIUzI1NiJ9.eyJwaG9uZU51bWJlciI6Iis5OTg5MDEyMzQ1NjciLCJ1c2VySWQiOjEsInN1YiI6Iis5OTg5MDEyMzQ1NjciLCJpYXQiOjE3NjA5Nzk2NzUsImV4cCI6MTc2MTA2NjA3NX0.Xe6MlIX_7BvLc5SFo1uW-CS4txxdjbh8sgfrgWjRfwM"
-                }
+                file={`https://api.alla.itic.uz/api/stream/pdf/${id}?token=${token}`}
                 onLoadSuccess={onDocumentLoadSuccess}
+                loading={
+                  <div className="z-[999] text-black w-full h-screen bg-inherit flex justify-center items-center">
+                    <Loader />
+                  </div>
+                }
               >
                 <Page
                   pageNumber={pNum}
@@ -43,12 +73,35 @@ function Flipbook() {
                   renderTextLayer={false}
                 />
               </Document>
-              <p>
-                Page {pNum} of {numPages}
-              </p>
             </Pages>
           ))}
         </HTMLFlipBook>
+
+        <div className="flex items-center gap-4 mt-6 flex-wrap justify-center">
+          <Button
+            type="primary"
+            icon={<LeftOutlined />}
+            onClick={goPrev}
+            disabled={currentPage === 0}
+            className="!bg-purple-400 disabled:!bg-gray-400"
+          >
+            Orqaga
+          </Button>
+
+          <span className="text-lg font-medium text-white">
+            Sahifa: {currentPage + 1} / {numPages}
+          </span>
+
+          <Button
+            type="primary"
+            icon={<RightOutlined />}
+            onClick={goNext}
+            className="!bg-purple-400 disabled:!bg-gray-400"
+            disabled={currentPage + 1 === numPages}
+          >
+            Oldinga
+          </Button>
+        </div>
       </div>
     </>
   );
