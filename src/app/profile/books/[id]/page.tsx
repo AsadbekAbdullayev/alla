@@ -27,7 +27,7 @@ function Flipbook() {
   const [numPages, setNumPages] = useState();
   const { id } = useParams();
   const token = sessionStorage.getItem("token");
-  const flipBookRef = useRef();
+  const flipBookRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(0);
 
   function onDocumentLoadSuccess({ numPages }: any) {
