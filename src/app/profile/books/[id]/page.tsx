@@ -45,15 +45,35 @@ function Flipbook() {
     <>
       <div className="h-screen flex flex-col justify-start pt-[100px] items-center overflow-hidden">
         <HTMLFlipBook
-          ref={flipBookRef}
+          ref={flipBookRef as any}
           width={400}
           height={570}
+          size="stretch"
           onFlip={onFlip}
+          minWidth={280}
+          maxWidth={600}
+          minHeight={400}
+          maxHeight={800}
+          drawShadow={true}
+          flippingTime={800}
+          usePortrait={true}
+          startZIndex={0}
+          autoSize={true}
+          maxShadowOpacity={1}
+          mobileScrollSupport={true}
+          clickEventForward={true}
+          useMouseEvents={true}
+          swipeDistance={30}
+          showPageCorners={true}
+          disableFlipByClick={false}
+          showCover={false}
+          className="shadow-lg"
           style={{
             width: "400px",
             height: "570px",
             background: "inherit",
           }}
+          startPage={0}
         >
           {[...Array(numPages).keys()].map((pNum) => (
             <Pages key={pNum} number={7}>
@@ -61,7 +81,7 @@ function Flipbook() {
                 file={`https://api.alla.itic.uz/api/stream/pdf/${id}?token=${token}`}
                 onLoadSuccess={onDocumentLoadSuccess}
                 loading={
-                  <div className="z-[999] text-black w-full h-screen bg-inherit flex justify-center items-center">
+                  <div className="z-[999] w-full h-screen bg-inherit flex justify-center items-center">
                     <Loader />
                   </div>
                 }
