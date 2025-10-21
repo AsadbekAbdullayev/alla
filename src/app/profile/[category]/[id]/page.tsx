@@ -19,13 +19,12 @@ export default function ProfilePage() {
         <SkeletonCards />
       ) : (
         <div className="w-full flex gap-6">
-          <div className="!w-[80%] h-fit rounded-3xl bg-[#252527] p-2">
+          <div className="min-w-[682px] min-h-[404px]">
             <ReactPlayer
               slot="media"
               controls={true}
               src={`https://api.alla.itic.uz/api/stream/video/${id}?token=${token}`}
-              className="rounded-3xl"
-              style={{ width: "100%", height: "400px" }}
+              className="rounded-3xl !w-full !h-[95%]"
             />
           </div>
 

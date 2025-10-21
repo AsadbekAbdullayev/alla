@@ -107,23 +107,6 @@ body {
 .rhap_volume-indicator {
   background-color: #3b82f6 !important;
 }
-
-/* PDF viewer styles */
-.react-pdf__Page {
-  margin: 0 auto;
-}
-
 .react-pdf__Page__canvas {
-  border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.react-pdf__message {
-  background-color: inherit !important;
-  display: hidden;
-  color: #1c1c1e !important;
-  opacity: 0 !important;
-}
-.react-pdf__Page {
-  background-color: inherit !important;
+  width: 100% !important;
 }
