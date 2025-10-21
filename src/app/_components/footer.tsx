@@ -13,14 +13,14 @@ export default function Footer() {
       }`}
     >
       <div
-        className="px-[120px] pt-[120px] relative z-10"
+        className="px-[120px] pt-[120px] relative z-10 max-sm:px-4 sm:px-8"
         style={{
           background: isDark
             ? "linear-gradient(360deg, #211A61 0%, rgba(181, 229, 252, 0) 100%)"
             : "linear-gradient(360deg, #2D8934 0%, rgba(181, 229, 252, 0) 100%)",
         }}
       >
-        <div className="w-full flex justify-between pb-[80px] relative z-50 border-b border-[#FFFFFF33]">
+        <div className="w-full flex justify-between pb-[80px] relative z-50 border-b border-[#FFFFFF33] max-sm:flex-col max-sm:gap-12">
           <div className="max-w-[567px] w-full">
             <img
               src={isDark ? "/assets/icons/footerLogo.svg" : "/assets/icons/allaLight.svg"}
@@ -39,7 +39,7 @@ export default function Footer() {
               qilamiz.
             </p>
           </div>
-          <div className="flex justify-end gap-[24px] w-full">
+          <div className="flex justify-end gap-[24px] w-full max-sm:justify-between">
             <div className="max-w-[193px] w-full">
               <p
                 className="text-[#FFFFFF99] text-[14px] pb-[13px] font-[600]"
@@ -118,7 +118,7 @@ export default function Footer() {
       <img
         src="/assets/images/footerBg.png"
         alt=""
-        className="absolute top-[-200px] left-0 w-screen"
+        className="absolute top-[-200px] left-0 w-screen max-sm:hidden max-lg:top-[280px]"
       />
     </footer>
   );
