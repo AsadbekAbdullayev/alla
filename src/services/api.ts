@@ -42,22 +42,19 @@ request.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor
 request.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error) => {
     const status = error?.response?.status;
     if (typeof window !== "undefined") {
-      const location = window.location.pathname;
-      const isAdminRoute = location.startsWith("/dashboard");
+      const path = window.location.pathname;
 
-      if (status === 401 || status === 403) {
-        message.error("Iltimos qayta tizimga kiring.");
-        sessionStorage.clear();
+      if ([401, 403].includes(status)) {
+        const isLoginPage = path === "/" || path.includes("login");
 
-        if (isAdminRoute) {
-          window.location.pathname = "/dashboard/login";
-        } else {
+        if (!isLoginPage) {
+          message.error("Iltimos, qayta tizimga kiring.");
+          sessionStorage.clear();
           window.location.pathname = "/login";
         }
       }

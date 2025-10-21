@@ -27,8 +27,9 @@ export const useUpdateUser = () => {
 
 export const useGetUser = () => {
   return useQuery({
-    queryKey: ["useGetAdminVideos"],
+    queryKey: ["useGetUser"],
     queryFn: () => getUser(),
     refetchOnWindowFocus: false,
+    retry: false,
   });
 };

@@ -1,33 +1,26 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import gsap from "gsap";
 import { Physics2DPlugin } from "gsap/Physics2DPlugin";
+import { RootState } from "@/redux/store/store";
+import { useSelector } from "react-redux";
 import { Button, Switch } from "antd";
-import { useEffect } from "react";
+import Link from "next/link";
+import gsap from "gsap";
 
 gsap.registerPlugin(Physics2DPlugin);
 
 export default function Navbar() {
   const router = useRouter();
   const searchParams = useSearchParams();
-
+  const { phoneNumber } = useSelector((e: RootState) => e.generel.userDetails);
   const themeParam = searchParams.get("theme") || "light";
   const isDark = themeParam === "dark";
-
   const handleToggle = (checked: boolean) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("theme", checked ? "dark" : "light");
 
     router.replace(`?${params.toString()}`);
-  };
-
-  const handleStarClick = () => {
-    if (sessionStorage.getItem("token")) {
-      router.push("/profile");
-    } else {
-      router.push("/login");
-    }
   };
 
   const buttonItem1 = (
@@ -195,47 +188,48 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      <Button
-        onClick={handleStarClick}
-        className="relative p-4 !bg-white rounded-full text-[#162561] text-[17px] font-[800] max-w-[174px] w-full h-[50px]"
-        style={{
-          boxShadow:
-            "-1px -4px 0px 0px #004CFF1C inset, 1px 1px 1px 0px #004CFF4D inset",
-        }}
-      >
-        Profilga kirish
-        <svg
-          width="24"
-          height="25"
-          viewBox="0 0 24 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      <Link href={phoneNumber ? "/profile" : "./login"}>
+        <Button
+          className="relative p-4 !bg-white rounded-full text-[#162561] text-[17px] font-[800] max-w-[174px] w-full h-[50px]"
+          style={{
+            boxShadow:
+              "-1px -4px 0px 0px #004CFF1C inset, 1px 1px 1px 0px #004CFF4D inset",
+          }}
         >
-          <path
-            d="M11.68 14.756L14.24 12.196L11.68 9.63599M4 12.196H14.17M12 4.13599C16.42 4.13599 20 7.13599 20 12.136C20 17.136 16.42 20.136 12 20.136"
-            stroke="url(#paint0_linear_781_3788)"
-            strokeWidth="2"
-            strokeMiterlimit="10"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <defs>
-            <linearGradient
-              id="paint0_linear_781_3788"
-              x1="12.1675"
-              y1="4.13599"
-              x2="12.1675"
-              y2="20.136"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#253575" />
-              <stop offset="1" stopColor="#162561" />
-            </linearGradient>
-          </defs>
-        </svg>
-        {buttonItem1}
-        {buttonItem2}
-      </Button>
+          Profilga kirish
+          <svg
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.68 14.756L14.24 12.196L11.68 9.63599M4 12.196H14.17M12 4.13599C16.42 4.13599 20 7.13599 20 12.136C20 17.136 16.42 20.136 12 20.136"
+              stroke="url(#paint0_linear_781_3788)"
+              strokeWidth="2"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <defs>
+              <linearGradient
+                id="paint0_linear_781_3788"
+                x1="12.1675"
+                y1="4.13599"
+                x2="12.1675"
+                y2="20.136"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#253575" />
+                <stop offset="1" stopColor="#162561" />
+              </linearGradient>
+            </defs>
+          </svg>
+          {buttonItem1}
+          {buttonItem2}
+        </Button>
+      </Link>
     </nav>
   );
 }
