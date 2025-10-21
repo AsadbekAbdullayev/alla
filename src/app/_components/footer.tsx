@@ -28,7 +28,7 @@ export default function Footer() {
               width={120}
               height={157}
             />
-            `
+            
             <p
               className="text-[18px] font-[600] text-white leading-[24px] pt-8"
               style={{ fontFamily: "Fredoka" }}
