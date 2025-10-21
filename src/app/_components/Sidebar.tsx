@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { useCategories } from "@/entities/Categories/api";
 import { useParams, useRouter, usePathname } from "next/navigation";
+import { useCategories } from "@/entities/Categories/api";
 import { Layout, Menu, Spin } from "antd";
 import {
   VideoCameraOutlined,
@@ -17,6 +17,8 @@ import {
   BookOutlined,
 } from "@ant-design/icons";
 import gsap from "gsap";
+import { RootState } from "@/redux/store/store";
+import { useSelector } from "react-redux";
 
 const { Sider } = Layout;
 
@@ -39,6 +41,8 @@ const Sidebar: React.FC = () => {
   const [current, setCurrent] = useState<string>("");
   const titleRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const { role } = useSelector((e: RootState) => e.generel.userDetails);
 
   // Current item ni pathname bo'yicha aniqlash
   useEffect(() => {
@@ -150,6 +154,15 @@ const Sidebar: React.FC = () => {
       );
     }
   }, [collapsed]);
+
+  useEffect(() => {
+    if (!role) return;
+
+    if (role !== "ADMIN") {
+      sessionStorage.clear();
+      router.push("/login");
+    }
+  }, [role]);
 
   return (
     <Sider

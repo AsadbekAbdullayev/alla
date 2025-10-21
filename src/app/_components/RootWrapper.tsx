@@ -3,6 +3,8 @@
 import { QueryProvider } from "@/providers/QueryProvider";
 import AuthProvider from "@/providers/AuthProvider";
 import { ToastContainer } from "react-toastify";
+import store from "@/redux/store/store";
+import { Provider } from "react-redux";
 
 export default function RootWrapper({
   children,
@@ -11,21 +13,23 @@ export default function RootWrapper({
 }) {
   return (
     <QueryProvider>
-      <AuthProvider
-        ignorePaths={["/", "/profile", "/login", "/dashboard/login"]}
-      >
-        {children}
-        <ToastContainer
-          position="top-right"
-          hideProgressBar={true}
-          autoClose={10000}
-          newestOnTop={false}
-          closeOnClick={false}
-          pauseOnFocusLoss
-          pauseOnHover
-          theme="dark"
-        />
-      </AuthProvider>
+      <Provider store={store}>
+        <AuthProvider
+          ignorePaths={["/", "/profile", "/login", "/dashboard/login"]}
+        >
+          {children}
+          <ToastContainer
+            position="top-right"
+            hideProgressBar={true}
+            autoClose={10000}
+            newestOnTop={false}
+            closeOnClick={false}
+            pauseOnFocusLoss
+            pauseOnHover
+            theme="dark"
+          />
+        </AuthProvider>
+      </Provider>
     </QueryProvider>
   );
 }

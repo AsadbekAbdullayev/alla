@@ -1,13 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "api.alla.itic.uz",
-      },
-    ],
+// next.config.js
+module.exports = {
+  webpack(config, { nextRuntime }) {
+    if (nextRuntime === "nodejs") {
+      config.resolve.alias.canvas = false;
+    }
+
+    return config;
   },
 };
-
-module.exports = nextConfig;

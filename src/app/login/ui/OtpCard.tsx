@@ -93,14 +93,19 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
       { phoneNumber: formData.phoneNumber, otpCode: formData.otpCode },
       {
         onSuccess: (data) => {
-          console.log(formData, "formData");
           if (formData.phoneNumber == "+998901234567") {
-            // it means admin
             sessionStorage.setItem("token", data.data?.token || "");
             toast.success(`OTP muvaffaqiyatli tasdiqlandi!`, {
               position: "top-right",
             });
+
             router.push(`/dashboard`);
+          } else if (data?.data?.firstName) {
+            sessionStorage.setItem("token", data.data?.token || "");
+            toast.success(`OTP muvaffaqiyatli tasdiqlandi!`, {
+              position: "top-right",
+            });
+            router.push(`/profile`);
           } else {
             onNext();
             sessionStorage.setItem("token", data.data?.token || "");
@@ -119,15 +124,12 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
   };
 
   useEffect(() => {
-    // Load existing expiry time from localStorage
     const storedExpiry = localStorage.getItem(STORAGE_KEY);
     let expiryTime: number;
 
     if (storedExpiry && Date.now() < Number(storedExpiry)) {
-      // still valid, use existing expiry time
       expiryTime = Number(storedExpiry);
     } else {
-      // no valid stored expiry, start new countdown
       expiryTime = Date.now() + OTP_TIMER_DURATION;
       localStorage.setItem(STORAGE_KEY, expiryTime.toString());
     }
@@ -142,7 +144,6 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
       }
     };
 
-    // Update every second
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
 
@@ -151,6 +152,11 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
 
   const minutes = Math.floor(timeLeft / 1000 / 60);
   const seconds = Math.floor((timeLeft / 1000) % 60);
+  const maskedPhone =
+    "+998 ** *** " +
+    sessionStorage.getItem("phoneNumber")?.slice(-4, -2) +
+    " " +
+    sessionStorage.getItem("phoneNumber")?.slice(-2);
 
   return (
     <div className="bg-[#436EFF45] max-w-[500px] w-full p-8 rounded-[32px] border border-[33CEFF] flex flex-col items-center">
@@ -158,7 +164,7 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
         Tasdiqlash kodini kiriting
       </h2>
       <p className="text-[#FFFFFFCC] text-[14px] leading-[20px] font-[500] text-center pt-3">
-        Kod + 998 ** *** 45 67 raqamiga yuborildi
+        Kod {maskedPhone} raqamiga yuborildi
       </p>
       <Form form={form} layout="vertical" className="w-full pt-[48px]">
         <Form.Item

@@ -41,11 +41,8 @@ export const useSendOtp = () => {
 };
 
 // ======== Verify OTP ========
-const verifyOtp = async (body: VerifyOtpBody): Promise<VerifyOtpResponse> => {
-  const { data } = await request.post<VerifyOtpResponse>(
-    "/auth/verify-otp",
-    body
-  );
+const verifyOtp = async (body: VerifyOtpBody): Promise<any> => {
+  const { data } = await request.post<any>("/auth/verify-otp", body);
   return data;
 };
 

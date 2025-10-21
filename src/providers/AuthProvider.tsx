@@ -2,43 +2,45 @@
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useGetUser } from "@/entities/Profile/api";
+import { setUserDetails } from "@/redux/slices/generelSlice";
+import Loader from "@/app/_components/Loader";
+import { useDispatch } from "react-redux";
+import { Spin } from "antd";
+
 interface AuthProviderProps {
   children: React.ReactNode;
   ignorePaths?: string[]; // bu sahifalarda token tekshirilmaydi
 }
 
-export default function AuthProvider({
-  children,
-  ignorePaths = [],
-}: AuthProviderProps) {
+export default function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter();
   const pathname = usePathname();
-  // const { data } = useGetUser();
-  // console.log(data, "data");
+  const dispatch = useDispatch();
+  const { data, isLoading } = useGetUser();
+
+  useEffect(() => {
+    dispatch(
+      setUserDetails({
+        id: data?.data.id,
+        lastName: data?.data.lastName,
+        firstName: data?.data.firstName,
+        phoneNumber: data?.data.phoneNumber,
+        profileImageUrl: data?.data.profileImageUrl,
+        role: data?.data.role,
+        status: data?.data.status,
+      })
+    );
+  }, [data]);
+
   useEffect(() => {
     const token = sessionStorage.getItem("token");
+    const path = window.location.pathname;
 
-    // Tekshiruvni o'tkazib yuboradigan sahifalar
-    if (ignorePaths.includes(pathname)) return;
-
-    // Admin sahifalar
-    const isAdminRoute =
-      pathname.startsWith("/dashboard") && pathname !== "/dashboard/login";
-    const isLoginRoute =
-      pathname === "/login" || pathname === "/dashboard/login";
-
-    if (!token) {
-      if (isAdminRoute) router.push("/dashboard/login");
-      else if (!isLoginRoute) router.push("/login");
+    if (!token && path !== "/" && !path.includes("login")) {
+      router.push("/login");
       return;
     }
+  }, [pathname]);
 
-    if (token && isLoginRoute) {
-      if (pathname.startsWith("/dashboard")) router.push("/dashboard");
-      else router.push("/");
-      return;
-    }
-  }, [pathname, router]);
-
-  return <>{children}</>;
+  return <>{isLoading ? <Loader /> : children}</>;
 }
