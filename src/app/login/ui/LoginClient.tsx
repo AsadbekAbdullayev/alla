@@ -49,7 +49,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[866px] h-screen bg-[#211B64] relative overflow-hidden">
+    <div className="flex items-center justify-center min-h-[866px] h-screen bg-[#211B64] relative overflow-hidden max-sm:px-4">
       {step === "phone" && (
         <PhoneNumberCard onNext={() => handleNavigate("verify-otp")} />
       )}
@@ -65,25 +65,25 @@ export default function LoginPage() {
       <img
         src="/assets/images/kids3.png"
         alt=""
-        className="absolute left-[15px] top-[20%] w-[385px]"
+        className="absolute left-[15px] top-[20%] w-[385px] max-md:hidden"
       />
       <img
         src="/assets/images/tree.png"
         alt=""
-        className="absolute right-0 bottom-0 w-[500px] z-10"
+        className="absolute right-0 bottom-0 w-[500px] z-10 max-md:hidden"
       />
       <img
         src="/assets/icons/cloud2.svg"
         alt=""
-        className="absolute left-[51px] top-0 w-[243px]"
+        className="absolute left-[51px] top-0 w-[243px] max-md:hidden"
       />
       <img
         src="/assets/icons/cloud3.svg"
         alt=""
-        className="absolute right-[-27px] top-0 w-[187px] h-[98px]"
+        className="absolute right-[-27px] top-0 w-[187px] h-[98px] max-md:hidden"
       />
       <svg
-        className="absolute top-0 left-0"
+        className="absolute top-0 left-0 max-md:hidden"
         width="147"
         height="152"
         viewBox="0 0 147 152"
@@ -97,7 +97,7 @@ export default function LoginPage() {
         />
       </svg>
       <svg
-        className="absolute top-[25px] left-[331px]"
+        className="absolute top-[25px] left-[331px] max-md:hidden"
         width="155"
         height="117"
         viewBox="0 0 155 117"
@@ -116,7 +116,7 @@ export default function LoginPage() {
         />
       </svg>
       <svg
-        className="absolute top-0 left-[50%]"
+        className="absolute top-0 left-[50%] max-md:hidden"
         width="173"
         height="102"
         viewBox="0 0 173 102"
@@ -170,7 +170,7 @@ export default function LoginPage() {
         />
       </svg>
       <svg
-        className="absolute top-[28px] right-[317px]"
+        className="absolute top-[28px] right-[317px] max-md:hidden"
         width="96"
         height="107"
         viewBox="0 0 96 107"
@@ -184,7 +184,7 @@ export default function LoginPage() {
         />
       </svg>
       <svg
-        className="absolute bottom-0 left-0"
+        className="absolute bottom-0 left-0 max-md:hidden"
         width="138"
         height="153"
         viewBox="0 0 138 153"
@@ -198,7 +198,7 @@ export default function LoginPage() {
         />
       </svg>
       <svg
-        className="absolute bottom-[30px] left-[31%]"
+        className="absolute bottom-[30px] left-[31%] max-md:hidden"
         width="112"
         height="108"
         viewBox="0 0 112 108"
@@ -212,7 +212,7 @@ export default function LoginPage() {
         />
       </svg>
       <svg
-        className="absolute bottom-[-14px] left-[52%]"
+        className="absolute bottom-[-14px] left-[52%] max-md:hidden"
         width="83"
         height="98"
         viewBox="0 0 83 98"

@@ -159,7 +159,7 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
     sessionStorage.getItem("phoneNumber")?.slice(-2);
 
   return (
-    <div className="bg-[#436EFF45] max-w-[500px] w-full p-8 rounded-[32px] border border-[33CEFF] flex flex-col items-center">
+    <div className="bg-[#436EFF45] max-w-[500px] w-full p-8 rounded-[32px] border border-[33CEFF] flex flex-col items-center relative z-30 max-lg:backdrop-blur-sm">
       <h2 className="text-white text-[28px] font-[800] text-center">
         Tasdiqlash kodini kiriting
       </h2>
@@ -186,7 +186,7 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
               value={digit}
               onChange={(e) => handleChange(e.target.value, i)}
               onKeyDown={(e) => handleKeyDown(e, i)}
-              className="w-[66px] h-[52] mx-[3px] rounded-[16px] text-center text-white text-[18px] font-semibold !bg-[#2C2EA1] border border-white"
+              className="w-[66px] h-[52px] mx-[3px] rounded-[16px] text-center text-white text-[18px] font-semibold !bg-[#2C2EA1] border border-white max-sm:w-11 max-sm:mt-1"
             />
           ))}
         </Form.Item>
