@@ -12,9 +12,9 @@ export default function AdminLayout({
   return (
     <div className="bg-[#07080d] p-3 relative text-white flex h-screen gap-5 overflow-hidden">
       <ProfileSider />
-      <div className="flex flex-col flex-1 ">
+      <div className="flex flex-col flex-1 max-w-[calc(100%-250px)] h-full overflow-hidden rounded-[24px] relative">
         <ProfileHeader />
-        <main className="bg-[#1c1c1e] overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-[#333] scrollbar-track-[#1c1c1e] hover:scrollbar-thumb-[#555]">
+        <main className="bg-[#1c1c1e] overflow-y-auto overflow-hidden flex-1 scrollbar-thin scrollbar-thumb-[#333] scrollbar-track-[#1c1c1e] hover:scrollbar-thumb-[#555]">
           {children}
         </main>
         <ProfileFooter />
