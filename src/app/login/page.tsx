@@ -1,10 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Loading from "../loading";
+import Loading from "./loading";
 
 const LoginClient = dynamic(() => import("./ui/LoginClient"), {
-  loading: Loading,
+  loading: () => <Loading />,
   ssr: false,
 });
 
