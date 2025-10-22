@@ -220,11 +220,11 @@ const ChildSecurity = () => {
 
   return (
     <div
-      className={`p-[120px] w-full flex flex-col items-center relative ${
+      className={`p-[120px] w-full flex flex-col items-center relative max-sm:px-5 max-lg:px-10 ${
         isDark ? "" : "bg-gradient-to-b from-[#F2F6F5] to-[#C2D9C6]"
       }`}
     >
-      <div>
+      <div className="relative z-10">
         <h2
           ref={titleRef}
           className="text-white text-[48px] font-[800] leading-[56px] text-center"
@@ -242,7 +242,7 @@ const ChildSecurity = () => {
 
       <div>
         {/* Birinchi qator - 3 ta kartochka */}
-        <div className="flex gap-[24px] pt-[80px] justify-end pb-[24px]">
+        <div className="flex flex-wrap max-sm:justify-center gap-[24px] pt-[80px] justify-end pb-[24px] relative z-10">
           {security.slice(0, 3).map((item, index) => (
             <div
               key={item.id}
@@ -250,7 +250,7 @@ const ChildSecurity = () => {
                 isDark
                   ? "bg-[#436EFF45] hover:bg-[#436EFF65]"
                   : "bg-white hover:bg-blue-50"
-              } max-w-[309px] w-full min-h-[262px] rounded-lg ${
+              } max-w-[309px] w-full min-h-[262px] rounded-lg max-sm:max-w-full max-lg:max-w-full ${
                 item?.id === 1
                   ? "-rotate-[4deg] hover:rotate-0"
                   : "hover:rotate-1"
@@ -286,7 +286,7 @@ const ChildSecurity = () => {
         </div>
 
         {/* Ikkinchi qator - 2 ta kartochka */}
-        <div className="flex gap-[24px] pt-[24px]">
+        <div className="flex flex-wrap gap-[24px] pt-[24px]">
           {security.slice(3, 5).map((item, index) => (
             <div
               key={item.id}
@@ -294,7 +294,7 @@ const ChildSecurity = () => {
                 isDark
                   ? "bg-[#436EFF45] hover:bg-[#436EFF65]"
                   : "bg-white hover:bg-blue-50"
-              } max-w-[484px] w-full min-h-[262px] rounded-lg hover:-translate-y-2`}
+              } max-w-[484px] w-full min-h-[262px] max-lg:max-w-full rounded-lg hover:-translate-y-2`}
               style={{
                 transition: "all 0.3s ease",
               }}
@@ -328,14 +328,14 @@ const ChildSecurity = () => {
         ref={treeRef}
         src={isDark ? "/assets/icons/tree.svg" : "/assets/icons/treeLight.svg"}
         alt=""
-        className="absolute top-0 right-0 transition-all duration-300"
+        className="absolute top-0 right-0 transition-all duration-300 max-sm:hidden"
       />
 
       <img
         ref={knightRef}
         src="/assets/icons/knight.svg"
         alt=""
-        className="absolute top-[89px] left-[81px] transition-all duration-300"
+        className="absolute top-[89px] left-[81px] transition-all duration-300 max-sm:hidden"
       />
     </div>
   );

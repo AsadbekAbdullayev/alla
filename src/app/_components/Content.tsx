@@ -167,14 +167,14 @@ const Content = () => {
 
   return (
     <div
-      className={`relative z-10 pt-[80px] px-[120px] pb-[278px] w-full flex flex-col items-center min-h-[1000px] ${
+      className={`relative z-10 pt-[80px] px-[120px] pb-[278px] w-full flex flex-col items-center min-h-[1000px]  max-sm:px-4 ${
         isDark ? "" : "bg-gradient-to-b from-[#133CCA] to-[#C6D0F2]"
       }`}
     >
       <div className="max-w-[700px] w-full">
         <h2
           ref={titleRef}
-          className="text-white text-[48px] font-[800] text-center"
+          className="text-white text-[48px] font-[800] text-center max-sm:text-[36px] max-sm:leading-[44px]"
         >
           📚 Bolajonlar uchun bilim va maroqli kontent
         </h2>

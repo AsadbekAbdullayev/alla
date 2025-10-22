@@ -80,7 +80,7 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
   };
 
   return (
-    <div className="bg-[#436EFF45] max-w-[500px] w-full p-8 rounded-[32px] border border-[33CEFF] ">
+    <div className="bg-[#436EFF45] max-w-[500px] w-full p-8 rounded-[32px] border border-[33CEFF] relative z-30 max-lg:backdrop-blur-sm">
       <h2 className="text-white text-[28px] font-[800] text-center">
         Ismingizni yozing
       </h2>

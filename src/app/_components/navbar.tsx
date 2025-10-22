@@ -4,14 +4,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Physics2DPlugin } from "gsap/Physics2DPlugin";
 import { RootState } from "@/redux/store/store";
 import { useSelector } from "react-redux";
-import { Button, Switch } from "antd";
+import { Button, Drawer, Switch } from "antd";
 import Link from "next/link";
 import gsap from "gsap";
+import { useState } from "react";
 
 gsap.registerPlugin(Physics2DPlugin);
 
 export default function Navbar() {
   const router = useRouter();
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const searchParams = useSearchParams();
   const { phoneNumber } = useSelector((e: RootState) => e.generel.userDetails);
   const themeParam = searchParams.get("theme") || "light";
@@ -164,8 +166,8 @@ export default function Navbar() {
   );
 
   return (
-    <nav className="py-3 px-[64px] flex items-center justify-between border-b border-[#D1DBFF1F] h-fit relative z-10">
-      <div className="flex items-center gap-2">
+    <nav className="py-3 px-[64px] flex items-center justify-between border-b border-[#D1DBFF1F] h-fit relative z-10 max-sm:px-4">
+      <div className="flex items-center gap-2 max-lg:hidden">
         <div className="w-[72px] h-[55px]">
           <img
             src="/assets/icons/logoLight.svg"
@@ -175,7 +177,7 @@ export default function Navbar() {
         </div>
         <Switch checked={isDark} onChange={handleToggle} />
       </div>
-      <div>
+      <div className="max-lg:hidden">
         <ul className="flex items-center">
           <li className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white">
             Imkoniyatlar
@@ -188,6 +190,14 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
+      <Button
+        type="text"
+        className="hidden max-lg:flex relative z-50"
+        onClick={() => setDrawerOpen(true)}
+      >
+        <img src="/assets/icons/burgerMenu.svg" alt="" className="w-8" />
+      </Button>
+
       <Link href={phoneNumber ? "/profile" : "./login"}>
         <Button
           className="relative p-4 !bg-white rounded-full text-[#162561] text-[17px] font-[800] max-w-[174px] w-full h-[50px]"
@@ -230,6 +240,55 @@ export default function Navbar() {
           {buttonItem2}
         </Button>
       </Link>
+      <Drawer
+        placement="left"
+        closable
+        onClose={() => setDrawerOpen(false)}
+        open={drawerOpen}
+        width={"100%"}
+        className="relative z-50"
+      >
+        <div className="flex flex-col h-full">
+          {/* Menu List */}
+          <ul className="flex-1 px-6 py-4 space-y-2">
+            <li>
+              <Link
+                href="#"
+                className="block py-3 px-4 rounded-lg text-gray-800 hover:bg-gray-100"
+                onClick={() => setDrawerOpen(false)}
+              >
+                Imkoniyatlar
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#"
+                className="block py-3 px-4 rounded-lg text-gray-800 hover:bg-gray-100"
+                onClick={() => setDrawerOpen(false)}
+              >
+                Xavfsizlik
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#"
+                className="block py-3 px-4 rounded-lg text-gray-800 hover:bg-gray-100"
+                onClick={() => setDrawerOpen(false)}
+              >
+                Biz haqimizda
+              </Link>
+            </li>
+          </ul>
+
+          {/* Theme Switcher */}
+          <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+            <span className="text-gray-700 font-medium">
+              {isDark ? "Kunduzgi rejim" : "Tungi rejim"}
+            </span>
+            <Switch checked={isDark} onChange={handleToggle} />
+          </div>
+        </div>
+      </Drawer>
     </nav>
   );
 }
