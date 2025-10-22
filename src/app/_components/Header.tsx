@@ -317,20 +317,20 @@ const Header = () => {
         />
       )}
 
-      <div className="py-[120px] px-[120px] flex w-full h-full items-center justify-between relative z-10">
+      <div className="py-[120px] px-[120px] flex w-full h-full items-center justify-between relative z-10 max-sm:px-4 max-lg:px-10">
         {/* Text Content - Left Side */}
-        <div className="max-w-[50%]">
+        <div className="max-w-[50%] max-lg:max-w-full ">
           <h2
             ref={titleRef}
-            className="text-white text-[64px] font-[900] flex flex-col items-start max-w-[922px] leading-[80px]"
+            className="text-white text-[64px] font-[900] flex flex-col items-start max-w-[922px] leading-[80px] max-sm:text-[28px] max-sm:leading-[30px] max-sm:gap-2 max-sm:pt-4 max-sm:pb-2 "
           >
-            <span className="flex items-end gap-4">
+            <span className="flex items-end gap-4 w-full">
               Bolalar uchun
               <img
                 ref={kidsImageRef}
                 src="/assets/icons/kids.svg"
                 alt="Bolalar"
-                className="w-[184px] h-[122px]"
+                className="w-[184px] h-[122px] max-sm:hidden"
               />
             </span>
             <span className="flex items-end">xavfsiz internet makoni</span>
@@ -414,7 +414,7 @@ const Header = () => {
               ref={yojikImageRef}
               src="/assets/images/yojik.png"
               alt="Yojik"
-              className="w-[500px] h-[500px] object-contain"
+              className="w-[500px] h-[500px] object-contain max-sm:hidden"
             />
           </div>
         )}
@@ -439,7 +439,7 @@ const Header = () => {
             ref={sunRef}
             src="/assets/icons/headerSun.svg"
             alt="Sun"
-            className="absolute opacity-30 top-[39px] left-0 w-[180px] h-auto z-20"
+            className="absolute opacity-30 top-[39px] left-0 w-[180px] h-auto "
           />
           <img
             ref={rabbit1Ref}

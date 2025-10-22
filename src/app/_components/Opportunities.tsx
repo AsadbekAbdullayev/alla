@@ -215,7 +215,7 @@ const Opportunitites = () => {
 
   return (
     <div
-      className={`p-[120px] w-full flex flex-col items-center relative ${
+      className={`p-[120px] w-full flex flex-col items-center relative max-sm:px-4 ${
         isDark ? "" : "bg-gradient-to-b from-[#C6D0F2] to-[#F2F6F5]"
       }`}
     >
@@ -236,11 +236,11 @@ const Opportunitites = () => {
         </p>
       </div>
 
-      <div className="flex flex-col items-center justify-center w-full space-y-[-35px] mt-[80px]">
+      <div className="flex flex-col items-center justify-center w-full space-y-[-35px] mt-[80px] max-lg:space-y-10 ">
         {/* Birinchi rectangle */}
         <div
           ref={rectangle1Ref}
-          className="max-w-[1200px] w-full h-[282px] flex items-start gap-[30px] px-9 transition-all duration-300 cursor-pointer"
+          className="max-w-[1200px] w-full h-[282px] flex items-start gap-[30px] px-9 transition-all duration-300 cursor-pointer max-sm:hidden max-lg:hidden"
           style={{
             background: isDark
               ? `url(${"/assets/icons/rectangle1.svg"})`
@@ -311,11 +311,80 @@ const Opportunitites = () => {
             </p>
           </div>
         </div>
+        {/* Birinchi rectangle mobile */}
+        <div
+          ref={rectangle1Ref}
+          className="max-w-[1200px] w-full h-fit flex-wrap  items-start gap-[30px] p-5 transition-all duration-300 cursor-pointer max-lg:flex hidden bg-white rounded-2xl"
+        >
+          <h2
+            className={`${
+              isDark ? "text-white" : "text-[#3D3D3D]"
+            } text-[48px] font-[900] leading-[60px]  w-full mt-[64px] transition-colors duration-300`}
+          >
+            <span className={isDark ? "" : "text-[#89C423]"}>Ota-onalar</span>{" "}
+            nazorati
+          </h2>
+          <div className="max-w-[270px] mt-[74px] h-[118px]">
+            <p
+              className={`${
+                isDark ? "text-white" : "text-[#505050]"
+              } text-[24px] font-[800] leading-[36px] transition-colors duration-300`}
+            >
+              Yoshga mos tavsiyalar
+            </p>
+            <p
+              className={`${
+                isDark ? "text-[#FFFFFFCC]" : "text-[#505050CC]"
+              } text-[16px] font-[600] pt-3 transition-colors duration-300`}
+            >
+              Farzandingiz ko'radigan kontentni siz belgilaysiz. Yoshga mos
+              filtrlar yordamida faqat foydali va xavfsiz materiallarni tanlash
+              mumkin.
+            </p>
+          </div>
+          <div className="max-w-[270px] mt-[35px]">
+            <p
+              className={`${
+                isDark ? "text-white" : "text-[#505050]"
+              } text-[24px] font-[800] leading-[36px] transition-colors duration-300`}
+            >
+              Xavfsiz kontent muhiti
+            </p>
+            <p
+              className={`${
+                isDark ? "text-[#FFFFFFCC]" : "text-[#505050CC]"
+              } text-[16px] font-[600] pt-3 transition-colors duration-300`}
+            >
+              Platformada zararli yoki nomaqbul materiallar yo'q. Bolalar
+              bemalol ko'rishi mumkin bo'lgan kontent ehtiyotkorlik bilan tanlab
+              qo'yilgan.
+            </p>
+          </div>
+          <div className="max-w-[270px] mt-[74px] mr-[-20px]">
+            <p
+              className={`${
+                isDark ? "text-white" : "text-[#505050]"
+              } text-[24px] font-[800] leading-[36px] transition-colors duration-300`}
+            >
+              Xavsizlik
+            </p>
+            <p
+              className={`${
+                isDark ? "text-[#FFFFFFCC]" : "text-[#505050CC]"
+              } text-[16px] font-[600] pt-3 transition-colors duration-300`}
+            >
+              Farzandingiz ko'radigan kontentni siz belgilaysiz. Yoshga mos
+              filtrlar yordamida faqat foydali va xavfsiz materiallarni tanlash
+              mumkin.
+            </p>
+          </div>
+        </div>
 
         {/* Ikkinchi rectangle */}
+        {/* Ikkinchi rectangle desktop */}
         <div
           ref={rectangle2Ref}
-          className="max-w-[1200px] w-full h-[282px] flex items-start gap-[30px] px-9 transition-all duration-300 cursor-pointer"
+          className="max-w-[1200px] w-full h-[282px] flex items-start gap-[30px] px-9 transition-all duration-300 cursor-pointer max-lg:hidden max-sm:hidden"
           style={{
             background: isDark
               ? `url(${"/assets/icons/rectangle2.svg"})`
@@ -383,6 +452,72 @@ const Opportunitites = () => {
             </p>
           </div>
         </div>
+
+        {/* Ikkinchi rectangle mobile */}
+        <div
+          ref={rectangle2Ref}
+          className="max-w-[1200px] w-full h-fit flex-wrap items-start gap-[30px] p-5 transition-all duration-300 cursor-pointer max-sm:flex max-lg:flex hidden bg-white rounded-2xl "
+        >
+          <h2
+            className={`${
+              isDark ? "text-white" : "text-[#3D3D3D]"
+            } text-[48px] font-[900] leading-[60px] w-full mt-[64px] transition-colors duration-300`}
+          >
+            <span className={isDark ? "" : "text-[#89C423]"}>Raqamli</span>{" "}
+            kutubxona
+          </h2>
+          <div className="max-w-[270px] mt-[74px] h-[118px]">
+            <p
+              className={`${
+                isDark ? "text-white" : "text-[#505050]"
+              } text-[24px] font-[800] leading-[36px] transition-colors duration-300`}
+            >
+              Interaktiv tavsiyalar
+            </p>
+            <p
+              className={`${
+                isDark ? "text-[#FFFFFFCC]" : "text-[#505050CC]"
+              } text-[16px] font-[600] pt-3 transition-colors duration-300`}
+            >
+              Interaktiv ertaklar, darsliklar va ta'limiy videolar orqali
+              farzandingiz bilimini oshiradi va qiziqishlarini kengaytiradi.
+            </p>
+          </div>
+          <div className="max-w-[270px] mt-[35px]">
+            <p
+              className={`${
+                isDark ? "text-white" : "text-[#505050]"
+              } text-[24px] font-[800] leading-[36px] transition-colors duration-300`}
+            >
+              Ko'p turdagi media
+            </p>
+            <p
+              className={`${
+                isDark ? "text-[#FFFFFFCC]" : "text-[#505050CC]"
+              } text-[16px] font-[600] pt-3 transition-colors duration-300`}
+            >
+              Allalar, qo'shiqlar, raqslar, milliy va xorijiy multfilmlar,
+              badiiy filmlar – barchasi bir joyda jamlangan.
+            </p>
+          </div>
+          <div className="max-w-[270px] mt-[74px] mr-[-20px]">
+            <p
+              className={`${
+                isDark ? "text-white" : "text-[#505050]"
+              } text-[24px] font-[800] leading-[36px] transition-colors duration-300`}
+            >
+              Milliy qadriyatlar targ'iboti
+            </p>
+            <p
+              className={`${
+                isDark ? "text-[#FFFFFFCC]" : "text-[#505050CC]"
+              } text-[16px] font-[600] pt-3 transition-colors duration-300`}
+            >
+              Alla bolalarga milliy qadriyatlarni singdiruvchi, tarbiyaviy va
+              foydali kontentlarni taqdim etadi.
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Dekorativ elementlar */}
@@ -390,11 +525,11 @@ const Opportunitites = () => {
         ref={kidsRef}
         src="/assets/icons/kids2.svg"
         alt=""
-        className="absolute top-0 left-0 transition-all duration-300"
+        className="absolute top-0 left-0 transition-all duration-300 max-sm:hidden"
       />
 
       <svg
-        className="absolute top-[97px] left-[250px] transition-all duration-300"
+        className="absolute top-[97px] left-[250px] transition-all duration-300 max-sm:hidden"
         width="112"
         height="108"
         viewBox="0 0 112 108"
@@ -412,14 +547,14 @@ const Opportunitites = () => {
         ref={treeRef}
         src="/assets/icons/tree.svg"
         alt=""
-        className="absolute top-0 right-0 transition-all duration-300"
+        className="absolute top-0 right-0 transition-all duration-300 max-sm:hidden"
       />
 
       <img
         ref={pupilRef}
         src="/assets/icons/pupil.svg"
         alt=""
-        className="absolute top-[226px] right-[160px] transition-all duration-300"
+        className="absolute top-[226px] right-[160px] transition-all duration-300 max-sm:hidden"
       />
     </div>
   );
