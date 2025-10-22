@@ -19,7 +19,7 @@ export default function ProfilePage() {
         <SkeletonCards />
       ) : (
         <div className="w-full flex gap-6">
-          <div className="min-w-[682px] min-h-[404px]">
+          <div className="min-w-[682px] min-h-[404px] max-h-[404px]">
             <ReactPlayer
               slot="media"
               controls={true}
