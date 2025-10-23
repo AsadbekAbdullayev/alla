@@ -78,7 +78,7 @@ const CartoonSlides = () => {
           {images.map((src, i) => (
             <SwiperSlide
               key={i}
-              className="!w-[400px] !h-[560px] transition-transform duration-500 ease-out"
+              className="!w-[400px] !h-[560px] transition-transform duration-500 ease-out max-sm:!w-[300px] max-sm:!h-[360px] max-sm:!object-contain"
             >
               <div className="relative w-full h-full group">
                 <Image

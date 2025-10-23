@@ -221,6 +221,7 @@ const ChildSecurity = () => {
 
   return (
     <div
+      id="childSecurity"
       className={`p-[120px] w-full flex flex-col items-center relative max-sm:px-5 max-lg:px-10 ${
         isDark ? "" : "bg-gradient-to-b from-[#F2F6F5] to-[#C2D9C6]"
       }`}

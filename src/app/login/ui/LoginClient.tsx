@@ -66,7 +66,7 @@ export default function LoginPage() {
         alt="Kids"
         width={385}
         height={400}
-        className="absolute top-[20%] left-[15px]"
+        className="absolute top-[20%] left-[15px] z-20"
       />
 
       {/* Tree */}
@@ -75,7 +75,7 @@ export default function LoginPage() {
         alt="Tree"
         width={500}
         height={500}
-        className="absolute bottom-0 right-0 z-10"
+        className="absolute bottom-0 right-0 z-50"
       />
 
       {/* Clouds */}

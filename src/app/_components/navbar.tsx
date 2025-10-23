@@ -10,9 +10,13 @@ import Link from "next/link";
 import gsap from "gsap";
 import { useState } from "react";
 
+interface NavbarProps {
+  onNavigate: (section: string) => void;
+}
+
 gsap.registerPlugin(Physics2DPlugin);
 
-export default function Navbar() {
+export default function Navbar({ onNavigate }: NavbarProps) {
   const router = useRouter();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const searchParams = useSearchParams();
@@ -24,6 +28,13 @@ export default function Navbar() {
     const params = new URLSearchParams(searchParams.toString());
     params.set("theme", checked ? "dark" : "light");
     router.replace(`?${params.toString()}`);
+  };
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -48,13 +59,28 @@ export default function Navbar() {
       {/* Center nav links */}
       <div className="max-lg:hidden">
         <ul className="flex items-center">
-          <li className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white">
+          <li
+            onClick={() => {
+              scrollToSection("opportunites");
+            }}
+            className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white"
+          >
             Imkoniyatlar
           </li>
-          <li className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white">
+          <li
+            onClick={() => {
+              scrollToSection("childSecurity");
+            }}
+            className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white"
+          >
             Xavfsizlik
           </li>
-          <li className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white">
+          <li
+            onClick={() => {
+              scrollToSection("content");
+            }}
+            className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white"
+          >
             Biz haqimizda
           </li>
         </ul>

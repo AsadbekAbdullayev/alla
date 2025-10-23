@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,7 +10,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const Content = () => {
+const Content = forwardRef<HTMLDivElement>((_, ref) => {
   const searchParams = useSearchParams();
   const theme = searchParams.get("theme") || "light";
   const isDark = theme === "dark";
@@ -154,6 +154,8 @@ const Content = () => {
 
   return (
     <div
+      ref={ref}
+      id="content"
       className={`relative z-10 pt-[80px] px-[120px] pb-[278px] w-full flex flex-col items-center min-h-[1000px] max-sm:px-4 ${
         isDark ? "" : "bg-gradient-to-b from-[#133CCA] to-[#C6D0F2]"
       }`}
@@ -230,17 +232,17 @@ const Content = () => {
         alt="Cloud"
         width={200}
         height={200}
-        className="absolute top-1 left-0"
+        className="absolute top-1 left-0 max-sm:w-[100px]"
       />
       <Image
         src="/assets/icons/questionMark.svg"
         alt="Question"
         width={100}
         height={100}
-        className="absolute right-[200px] top-8"
+        className="absolute right-[200px] top-8 max-sm:right-0 max-sm:top-0 max-sm:w-[80px]"
       />
     </div>
   );
-};
-
+});
+Content.displayName = "Content";
 export default Content;

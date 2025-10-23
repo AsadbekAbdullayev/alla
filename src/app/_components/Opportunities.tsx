@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React, { forwardRef, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
@@ -11,7 +11,7 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const Opportunitites = () => {
+const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
   const searchParams = useSearchParams();
   const theme = searchParams.get("theme") || "light";
   const isDark = theme === "dark";
@@ -216,14 +216,16 @@ const Opportunitites = () => {
 
   return (
     <div
+      ref={ref}
+      id="opportunities"
       className={`p-[120px] w-full flex flex-col items-center relative max-sm:px-4 ${
         isDark ? "" : "bg-gradient-to-b from-[#C6D0F2] to-[#F2F6F5]"
       }`}
     >
-      <div>
+      <div className="">
         <h2
           ref={titleRef}
-          className="text-white text-[48px] font-[800] leading-[56px] text-center"
+          className="text-white text-[48px] font-[800] leading-[56px] text-center relative z-10"
         >
           Platforma imkoniyatlari
         </h2>
@@ -462,7 +464,7 @@ const Opportunitites = () => {
           <h2
             className={`${
               isDark ? "text-white" : "text-[#3D3D3D]"
-            } text-[48px] font-[900] leading-[60px] w-full mt-[64px] transition-colors duration-300`}
+            } text-[48px] font-[900] leading-[60px] w-full mt-[64px] transition-colors duration-300 z-20`}
           >
             <span className={isDark ? "" : "text-[#89C423]"}>Raqamli</span>{" "}
             kutubxona
@@ -528,7 +530,7 @@ const Opportunitites = () => {
         alt="Kids Icon"
         width={200}
         height={200}
-        className="absolute top-0 left-0 transition-all duration-300 max-sm:hidden"
+        className="absolute top-0 left-0 transition-all duration-300 max-sm:"
       />
 
       <svg
@@ -552,7 +554,7 @@ const Opportunitites = () => {
         alt="Tree Icon"
         width={200}
         height={200}
-        className="absolute top-0 right-0 transition-all duration-300 max-sm:hidden"
+        className="absolute top-0 right-0 transition-all duration-300 z-0"
       />
 
       <Image
@@ -565,6 +567,7 @@ const Opportunitites = () => {
       />
     </div>
   );
-};
+});
 
+Opportunitites.displayName = "Opportunitites";
 export default Opportunitites;
