@@ -12,22 +12,19 @@ import {
   Button,
   Drawer,
   message,
-  Spin,
   Table,
-  Tag,
   Image,
   Select,
   Popconfirm,
   Form,
 } from "antd";
 import {
-  EditOutlined,
   DeleteOutlined,
   FileTextOutlined,
   PlayCircleOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
-
+import Loader from "@/app/loading";
 import nextDynamic from "next/dynamic";
 
 const BookForm = nextDynamic(
@@ -194,21 +191,6 @@ const BookPage: React.FC = () => {
     }
   };
 
-  const handleEditBook = (book: Book) => {
-    setSelectedBook(book);
-    editForm.setFieldsValue({
-      title: book.title,
-      author: book.author,
-      description: book.description,
-      ageLimit: book.ageLimit,
-      totalPages: book.totalPages,
-      duration: book.duration,
-      status: book.status,
-      tags: book.tags || [],
-    });
-    setEditDrawerVisible(true);
-  };
-
   const handleDeleteBook = async (bookId: number) => {
     try {
       await deleteBookMutation.mutateAsync(bookId);
@@ -217,16 +199,6 @@ const BookPage: React.FC = () => {
     } catch {
       message.error("Kitob o'chirishda xatolik yuz berdi!");
     }
-  };
-
-  const handleViewPdf = (book: Book) => {
-    setSelectedBook(book);
-    setPdfModalVisible(true);
-  };
-
-  const handleListenAudio = (book: Book) => {
-    setSelectedBook(book);
-    setAudioModalVisible(true);
   };
 
   const handleStatusChange = async (bookId: number, newStatus: string) => {
@@ -393,11 +365,7 @@ const BookPage: React.FC = () => {
   }, []);
 
   if (!isClient || isLoading) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <Spin size="large" />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (

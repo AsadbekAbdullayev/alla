@@ -1,12 +1,13 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import PhoneNumberCard from "./PhoneNumberCard";
 import { useEffect, useState, useRef } from "react";
+import PhoneNumberCard from "./PhoneNumberCard";
+import Loader from "@/app/loading";
 import UserAuth from "./UserAuth";
 import OtpCard from "./OtpCard";
 import gsap from "gsap";
-import { Spin } from "antd";
+import Image from "next/image";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -41,11 +42,7 @@ export default function LoginPage() {
   }, []);
 
   if (!isClient) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <Spin size="large" />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
@@ -62,25 +59,39 @@ export default function LoginPage() {
       {step === "verify-user" && (
         <UserAuth onBack={() => handleNavigate("profile")} />
       )}
-      <img
+
+      {/* Kids */}
+      <Image
         src="/assets/images/kids3.png"
-        alt=""
-        className="absolute left-[15px] top-[20%] w-[385px] max-md:hidden"
+        alt="Kids"
+        width={385}
+        height={400}
+        className="absolute top-[20%] left-[15px]"
       />
-      <img
+
+      {/* Tree */}
+      <Image
         src="/assets/images/tree.png"
-        alt=""
-        className="absolute right-0 bottom-0 w-[500px] z-10 max-md:hidden"
+        alt="Tree"
+        width={500}
+        height={500}
+        className="absolute bottom-0 right-0 z-10"
       />
-      <img
+
+      {/* Clouds */}
+      <Image
         src="/assets/icons/cloud2.svg"
-        alt=""
-        className="absolute left-[51px] top-0 w-[243px] max-md:hidden"
+        alt="Cloud Left"
+        width={243}
+        height={120}
+        className="absolute top-0 left-[51px]"
       />
-      <img
+      <Image
         src="/assets/icons/cloud3.svg"
-        alt=""
-        className="absolute right-[-27px] top-0 w-[187px] h-[98px] max-md:hidden"
+        alt="Cloud Right"
+        width={187}
+        height={98}
+        className="absolute top-0 right-[-27px]"
       />
       <svg
         className="absolute top-0 left-0 max-md:hidden"
@@ -225,9 +236,11 @@ export default function LoginPage() {
           fillOpacity="0.2"
         />
       </svg>
-      <img
+      <Image
         src="/assets/icons/headerSun.svg"
-        alt=""
+        alt="Sun"
+        width={120}
+        height={120}
         className="absolute top-[15px] right-[-20px]"
       />
     </div>

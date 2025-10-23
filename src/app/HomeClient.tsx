@@ -1,14 +1,22 @@
 "use client";
-
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
-import Footer from "@/app/_components/footer";
-import Header from "./_components/Header";
-import CartoonSlides from "./_components/CartoonSlides";
-import Content from "./_components/Content";
-import Opportunitites from "./_components/Opportunities";
-import ChildSecurity from "./_components/ChildSecurity";
 import { useSearchParams } from "next/navigation";
-import { Spin } from "antd";
+import Header from "./_components/Header";
+import Loader from "@/app/loading";
+import Footer from "@/app/_components/footer";
+
+// dynamic imports
+const CartoonSlides = dynamic(() => import("./_components/CartoonSlides"), {
+  ssr: false,
+});
+const Opportunitites = dynamic(() => import("./_components/Opportunities"), {
+  ssr: false,
+});
+const ChildSecurity = dynamic(() => import("./_components/ChildSecurity"), {
+  ssr: false,
+});
+const Content = dynamic(() => import("./_components/Content"), { ssr: false });
 
 export default function HomeClient() {
   const searchParams = useSearchParams();
@@ -20,13 +28,7 @@ export default function HomeClient() {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <Spin size="large" />
-      </div>
-    );
-  }
+  if (!isMounted) return <Loader />;
 
   return (
     <div

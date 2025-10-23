@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 // GSAP ScrollTrigger ni registratsiya qilish
 if (typeof window !== "undefined") {
@@ -260,13 +261,16 @@ const ChildSecurity = () => {
                 transition: "all 0.3s ease",
               }}
             >
-              <img
+              <Image
                 src={item.icon}
                 alt=""
+                width={64}
+                height={64}
                 className={`transition-transform duration-300 hover:scale-110 ${
                   item?.id === 1 ? "rotate-[4deg] hover:rotate-0" : ""
                 }`}
               />
+
               <h2
                 className={`text-[24px] font-[700] leading-[28px] pt-[24px] transition-colors duration-300 ${
                   isDark ? "text-white" : "text-[#505050]"
@@ -299,9 +303,11 @@ const ChildSecurity = () => {
                 transition: "all 0.3s ease",
               }}
             >
-              <img
+              <Image
                 src={item.icon}
                 alt=""
+                width={64}
+                height={64}
                 className="transition-transform duration-300 hover:scale-110"
               />
               <h2
@@ -324,17 +330,21 @@ const ChildSecurity = () => {
       </div>
 
       {/* Dekorativ elementlar */}
-      <img
+      <Image
         ref={treeRef}
         src={isDark ? "/assets/icons/tree.svg" : "/assets/icons/treeLight.svg"}
         alt=""
+        width={200}
+        height={200}
         className="absolute top-0 right-0 transition-all duration-300 max-sm:hidden"
       />
 
-      <img
+      <Image
         ref={knightRef}
         src="/assets/icons/knight.svg"
         alt=""
+        width={200}
+        height={200}
         className="absolute top-[89px] left-[81px] transition-all duration-300 max-sm:hidden"
       />
     </div>

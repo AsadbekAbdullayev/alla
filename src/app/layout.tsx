@@ -1,6 +1,7 @@
 // app/layout.tsx (Server Component)
 import type { Metadata, Viewport } from "next";
 import RootWrapper from "./_components/RootWrapper";
+import ProgressBar from "./_components/ProgressBar";
 import "./globals.css";
 
 // 🔹 SEO metadata (umumiy sayt uchun)
@@ -88,7 +89,10 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#0f0f0f] text-white antialiased">
-        <RootWrapper>{children}</RootWrapper>
+        <RootWrapper>
+          <ProgressBar />
+          {children}
+        </RootWrapper>
       </body>
     </html>
   );
