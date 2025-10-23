@@ -89,12 +89,12 @@ function Flipbook() {
           <div
             ref={containerRef}
             className={`w-full h-fit flex ${
-              fullScreen && "items-center"
+              fullScreen && "items-center "
             } justify-center`}
           >
             <HTMLFlipBook
               ref={flipBookRef as any}
-              width={500}
+              width={fullScreen ? 600 : 500}
               height={700}
               size="stretch"
               onFlip={onFlip}
@@ -117,7 +117,7 @@ function Flipbook() {
               showCover={false}
               className="w-[90vw] h-[85vh] rounded-md"
               style={{
-                width: "500px",
+                width: fullScreen ? "800px" : "800px",
                 height: "730px",
                 background: "inherit",
                 overflow: "hidden",

@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 // GSAP ScrollTrigger ni registratsiya qilish
 if (typeof window !== "undefined") {
@@ -521,10 +522,12 @@ const Opportunitites = () => {
       </div>
 
       {/* Dekorativ elementlar */}
-      <img
+      <Image
         ref={kidsRef}
         src="/assets/icons/kids2.svg"
-        alt=""
+        alt="Kids Icon"
+        width={200}
+        height={200}
         className="absolute top-0 left-0 transition-all duration-300 max-sm:hidden"
       />
 
@@ -543,17 +546,21 @@ const Opportunitites = () => {
         />
       </svg>
 
-      <img
+      <Image
         ref={treeRef}
         src="/assets/icons/tree.svg"
-        alt=""
+        alt="Tree Icon"
+        width={200}
+        height={200}
         className="absolute top-0 right-0 transition-all duration-300 max-sm:hidden"
       />
 
-      <img
+      <Image
         ref={pupilRef}
         src="/assets/icons/pupil.svg"
-        alt=""
+        alt="Pupil Icon"
+        width={200}
+        height={200}
         className="absolute top-[226px] right-[160px] transition-all duration-300 max-sm:hidden"
       />
     </div>

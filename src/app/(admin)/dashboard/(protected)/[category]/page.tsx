@@ -1,6 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { LoadingOutlined, EyeOutlined, EditOutlined } from "@ant-design/icons";
+import VideoModal from "@/app/_components/VideoModal";
+import { useDeleteVideo } from "@/entities/Admin/api";
+import { DeleteOutlined } from "@ant-design/icons";
+import { useParams } from "next/navigation";
+import Loader from "@/app/loading";
 import {
   useUploadFile,
   useCreateVideo,
@@ -8,7 +14,7 @@ import {
   useUpdateVideo,
   Video,
 } from "@/entities/Admin/api";
-import { useParams } from "next/navigation";
+import moment from "moment";
 import {
   Button,
   Drawer,
@@ -16,18 +22,11 @@ import {
   Input,
   Upload,
   message,
-  Spin,
   Table,
-  Tag,
   Image,
   Select,
   Popconfirm,
 } from "antd";
-import { LoadingOutlined, EyeOutlined, EditOutlined } from "@ant-design/icons";
-import moment from "moment";
-import VideoModal from "@/app/_components/VideoModal";
-import { useDeleteVideo } from "@/entities/Admin/api";
-import { DeleteOutlined } from "@ant-design/icons";
 
 const CategoryPage: React.FC = () => {
   const { TextArea } = Input;
@@ -57,19 +56,6 @@ const CategoryPage: React.FC = () => {
     { value: "APPROVED", label: "✅ Tasdiqlangan" },
     { value: "REJECTED", label: "❌ Rad etilgan" },
   ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "APPROVED":
-        return "green";
-      case "REJECTED":
-        return "red";
-      case "PENDING":
-        return "orange";
-      default:
-        return "default";
-    }
-  };
 
   const handleUpload = async (file: File, type: "video" | "image") => {
     try {
@@ -345,11 +331,7 @@ const CategoryPage: React.FC = () => {
   ];
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <Spin size="large" />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (

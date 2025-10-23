@@ -18,7 +18,6 @@ import {
   Input,
   Popconfirm,
   message,
-  Spin,
   Card,
   Row,
   Col,
@@ -34,7 +33,8 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
-import { useDebounce } from "@/hooks";
+import Loader from "@/app/loading";
+import Image from "next/image";
 
 const UserPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -43,7 +43,6 @@ const UserPage: React.FC = () => {
   const [size] = useState(20);
   const [userDetailModal, setUserDetailModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const debouncedSearchText = useDebounce(searchText, 500);
 
   // Faqat search text o'zgarganda ishlaydi
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -183,7 +182,7 @@ const UserPage: React.FC = () => {
   useEffect(() => {
     setPage(0); // Sahifani boshiga qaytarish
     refetch();
-  }, [debouncedSearchText, statusFilter]);
+  }, [statusFilter]);
   // Jadval ustunlari
   const columns = [
     {
@@ -296,16 +295,6 @@ const UserPage: React.FC = () => {
             </Button>
           )}
 
-          <Button
-            type="link"
-            onClick={() => handleResetPassword(record.id)}
-            icon={<KeyOutlined />}
-            className="text-purple-400 hover:text-purple-300 px-2"
-            size="small"
-          >
-            Parolni tiklash
-          </Button>
-
           <Popconfirm
             title="Userni o'chirish"
             description="Haqiqatan ham bu userni o'chirmoqchimisiz?"
@@ -333,19 +322,19 @@ const UserPage: React.FC = () => {
   const totalElements = data?.data?.totalElements || 0;
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <Spin size="large" />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
     <div className="p-6 space-y-6">
       {/* Sarlavha */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white">Userlar Boshqaruvi</h1>
-        <p className="text-gray-400">Platformadagi barcha userlar ro'yxati</p>
+        <h1 className="text-2xl font-bold text-white">
+          Foydalanuvchilar Boshqaruvi
+        </h1>
+        <p className="text-gray-400">
+          Platformadagi barcha foydalanuvchilar ro'yxati
+        </p>
       </div>
 
       {/* Filterlar */}
@@ -360,11 +349,6 @@ const UserPage: React.FC = () => {
               prefix={<SearchOutlined />}
               allowClear
             />
-            {searchText && (
-              <div className="text-xs text-gray-400 mt-1">
-                Qidiruv: {debouncedSearchText}
-              </div>
-            )}
           </Col>
           <Col xs={24} sm={12} md={6}>
             <Select
@@ -509,10 +493,12 @@ const UserPage: React.FC = () => {
                         className="flex items-center gap-3 p-2 bg-gray-800 rounded"
                       >
                         {child.avatarUrl && (
-                          <img
+                          <Image
                             src={child.avatarUrl}
                             alt={child.name}
-                            className="w-8 h-8 rounded-full"
+                            width={32}
+                            height={32}
+                            className="rounded-full"
                           />
                         )}
                         <div>

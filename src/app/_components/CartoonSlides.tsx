@@ -4,6 +4,7 @@ import { EffectCoverflow, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 const CartoonSlides = () => {
   const searchParams = useSearchParams();
@@ -80,9 +81,11 @@ const CartoonSlides = () => {
               className="!w-[400px] !h-[560px] transition-transform duration-500 ease-out"
             >
               <div className="relative w-full h-full group">
-                <img
+                <Image
                   src={src}
                   alt={`Slide ${i + 1}`}
+                  width={1920}
+                  height={1080}
                   className="w-full h-full object-cover rounded-2xl shadow-2xl transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-3xl"
                   style={{
                     boxShadow: isDark

@@ -2,10 +2,10 @@
 
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// GSAP ScrollTrigger ni registratsiya qilish
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -15,9 +15,9 @@ const Content = () => {
   const theme = searchParams.get("theme") || "light";
   const isDark = theme === "dark";
 
-  const cardsRef = useRef([]);
-  const titleRef = useRef(null);
-  const descRef = useRef(null);
+  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
 
   const contents = [
     {
@@ -71,7 +71,8 @@ const Content = () => {
   ];
 
   useEffect(() => {
-    // Sarlavha va tavsif animatsiyasi
+    if (!titleRef.current || !descRef.current) return;
+
     gsap.fromTo(
       titleRef.current,
       { opacity: 0, y: 50 },
@@ -107,80 +108,66 @@ const Content = () => {
       }
     );
 
-    // Kartochkalar animatsiyasi
-    cardsRef.current.forEach((card: any, index) => {
-      if (card) {
-        gsap.fromTo(
-          card,
-          {
-            opacity: 0,
-            y: 60,
-            scale: 0.9,
+    cardsRef.current.forEach((card, index) => {
+      if (!card) return;
+
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 60, scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          delay: index * 0.1,
+          ease: "back.out(1.2)",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
           },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.6,
-            delay: index * 0.1,
-            ease: "back.out(1.2)",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              end: "bottom 20%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-
-        // Hover animatsiyasi
-        card.addEventListener("mouseenter", () => {
-          gsap.to(card, {
-            y: -8,
-            scale: 1.02,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
-
-        card.addEventListener("mouseleave", () => {
-          gsap.to(card, {
-            y: 0,
-            scale: 1,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        });
-      }
-    });
-
-    return () => {
-      // Cleanup
-      cardsRef.current.forEach((card: any) => {
-        if (card) {
-          card.removeEventListener("mouseenter", () => {});
-          card.removeEventListener("mouseleave", () => {});
         }
-      });
-    };
+      );
+
+      const handleEnter = () => {
+        gsap.to(card, {
+          y: -8,
+          scale: 1.02,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+      const handleLeave = () => {
+        gsap.to(card, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" });
+      };
+
+      card.addEventListener("mouseenter", handleEnter);
+      card.addEventListener("mouseleave", handleLeave);
+
+      return () => {
+        card.removeEventListener("mouseenter", handleEnter);
+        card.removeEventListener("mouseleave", handleLeave);
+      };
+    });
   }, []);
 
   return (
     <div
-      className={`relative z-10 pt-[80px] px-[120px] pb-[278px] w-full flex flex-col items-center min-h-[1000px]  max-sm:px-4 ${
+      className={`relative z-10 pt-[80px] px-[120px] pb-[278px] w-full flex flex-col items-center min-h-[1000px] max-sm:px-4 ${
         isDark ? "" : "bg-gradient-to-b from-[#133CCA] to-[#C6D0F2]"
       }`}
     >
-      <div className="max-w-[700px] w-full">
+      <div className="max-w-[700px] w-full text-center">
         <h2
           ref={titleRef}
-          className="text-white text-[48px] font-[800] text-center max-sm:text-[36px] max-sm:leading-[44px]"
+          className="text-white text-[48px] font-[800] max-sm:text-[36px] max-sm:leading-[44px]"
         >
           📚 Bolajonlar uchun bilim va maroqli kontent
         </h2>
         <p
           ref={descRef}
-          className="text-[#FFFFFFCC] text-[20px] font-[500] leading-[28px] text-center pt-[20px]"
+          className="text-[#FFFFFFCC] text-[20px] font-[500] leading-[28px] pt-[20px]"
         >
           Alla platformasi 7 ta maxsus bo'limdan iborat bo'lib, unda milliy
           allalar, multfilmlar, badiiy filmlar, ta'limiy materiallar, xorijiy
@@ -189,62 +176,67 @@ const Content = () => {
         </p>
       </div>
 
-      <div className="w-full flex items-center justify-center flex-wrap gap-[20px] pt-[80px] relative z-30">
-        {contents?.map((item, index) => (
+      <div className="w-full flex flex-wrap justify-center gap-[20px] pt-[80px] relative z-30">
+        {contents.map((item, index) => (
           <div
-            key={item?.id}
+            key={item.id}
+            ref={(el) => {
+              if (el) cardsRef.current[index] = el;
+            }}
             className={`max-w-[285px] w-full h-[434px] rounded-[16px] flex flex-col items-center p-5 transition-all duration-100 cursor-pointer ${
               isDark
                 ? "bg-[#436EFF45] hover:bg-[#436EFF65] hover:shadow-2xl hover:shadow-blue-500/20"
                 : "bg-white hover:bg-blue-50 hover:shadow-2xl hover:shadow-blue-200/50"
             }`}
-            style={{
-              transform: "translateY(0)",
-              transition: "all 0.3s ease",
-            }}
           >
             <span
-              className={`text-[48px] font-[400] leading-[68%] pb-[24px] transition-all duration-300 ${
+              className={`text-[48px] font-[400] leading-[68%] pb-[24px] ${
                 isDark ? "text-white" : "text-[#505050]"
               }`}
               style={{ fontFamily: "Barcelona" }}
             >
-              #0{item?.id}
+              #0{item.id}
             </span>
 
-            <img
+            <Image
               src={item.image}
               alt={item.title}
-              className="transition-all duration-300 "
+              width={200}
+              height={200}
+              className="transition-all duration-300"
             />
 
             <p
-              className={`text-[22px] font-[800] leading-[28px] pt-6 text-center transition-all duration-300 ${
+              className={`text-[22px] font-[800] leading-[28px] pt-6 text-center ${
                 isDark ? "text-[#FFDBDB]" : "text-[#505050]"
               }`}
             >
-              {item?.title}
+              {item.title}
             </p>
 
             <p
-              className={`text-[14px] font-[600] leading-[20px] pt-4 text-center line-clamp-3 transition-all duration-300 ${
+              className={`text-[14px] font-[600] leading-[20px] pt-4 text-center line-clamp-3 ${
                 isDark ? "text-[#FFDBDBE5]" : "text-[#505050CC]"
               }`}
             >
-              {item?.desc}
+              {item.desc}
             </p>
           </div>
         ))}
       </div>
 
-      <img
+      <Image
         src="/assets/icons/cloud.svg"
-        alt=""
+        alt="Cloud"
+        width={200}
+        height={200}
         className="absolute top-1 left-0"
       />
-      <img
+      <Image
         src="/assets/icons/questionMark.svg"
-        alt=""
+        alt="Question"
+        width={100}
+        height={100}
         className="absolute right-[200px] top-8"
       />
     </div>

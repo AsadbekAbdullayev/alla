@@ -19,7 +19,6 @@ import {
   Input,
   Popconfirm,
   message,
-  Spin,
   Card,
   Row,
   Col,
@@ -41,6 +40,7 @@ import {
 import moment from "moment";
 import { useDebounce } from "@/hooks";
 import { ModeratorForm } from "@/app/_components/ModeratorForm";
+import Loader from "@/app/loading";
 
 const ModeratorPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -359,16 +359,6 @@ const ModeratorPage: React.FC = () => {
             </Button>
           )}
 
-          <Button
-            type="link"
-            onClick={() => handleResetPassword(record.id)}
-            icon={<KeyOutlined />}
-            className="text-purple-400 hover:text-purple-300 px-2"
-            size="small"
-          >
-            Parolni tiklash
-          </Button>
-
           <Popconfirm
             title="Moderatorni o'chirish"
             description="Haqiqatan ham bu moderatorni o'chirmoqchimisiz?"
@@ -396,11 +386,7 @@ const ModeratorPage: React.FC = () => {
   const totalElements = data?.data?.totalElements || 0;
 
   if (!isClient || isLoading) {
-    return (
-      <div className="flex justify-center items-center h-full">
-        <Spin size="large" />
-      </div>
-    );
+    return <Loader />;
   }
 
   return (

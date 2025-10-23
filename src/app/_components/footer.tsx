@@ -1,11 +1,13 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 export default function Footer() {
   const searchParams = useSearchParams();
   const theme = searchParams.get("theme") || "light";
   const isDark = theme === "dark";
+
   return (
     <footer
       className={`w-full relative min-h-[900px] flex flex-col justify-end ${
@@ -22,13 +24,17 @@ export default function Footer() {
       >
         <div className="w-full flex justify-between pb-[80px] relative z-50 border-b border-[#FFFFFF33] max-sm:flex-col max-sm:gap-12">
           <div className="max-w-[567px] w-full">
-            <img
-              src={isDark ? "/assets/icons/footerLogo.svg" : "/assets/icons/allaLight.svg"}
-              alt=""
+            <Image
+              src={
+                isDark
+                  ? "/assets/icons/footerLogo.svg"
+                  : "/assets/icons/allaLight.svg"
+              }
+              alt="Footer Logo"
               width={120}
               height={157}
             />
-            
+
             <p
               className="text-[18px] font-[600] text-white leading-[24px] pt-8"
               style={{ fontFamily: "Fredoka" }}
@@ -39,85 +45,77 @@ export default function Footer() {
               qilamiz.
             </p>
           </div>
+
           <div className="flex justify-end gap-[24px] w-full max-sm:justify-between">
             <div className="max-w-[193px] w-full">
-              <p
-                className="text-[#FFFFFF99] text-[14px] pb-[13px] font-[600]"
-                style={{ fontFamily: "Fredoka" }}
-              >
+              <p className="text-[#FFFFFF99] text-[14px] pb-[13px] font-[600]">
                 Asosiy
               </p>
               <ul className="space-y-[13px]">
-                <li
-                  className="text-white text-[16px] cursor-pointer font-[600]"
-                  style={{ fontFamily: "Fredoka" }}
-                >
-                  Bo’limlar
-                </li>
-                <li
-                  className="text-white text-[16px] cursor-pointer font-[600]"
-                  style={{ fontFamily: "Fredoka" }}
-                >
-                  Platforma imkoniyatlari
-                </li>
-                <li
-                  className="text-white text-[16px] cursor-pointer font-[600]"
-                  style={{ fontFamily: "Fredoka" }}
-                >
-                  Bolalar xavfsizligi
-                </li>
+                {[
+                  "Bo’limlar",
+                  "Platforma imkoniyatlari",
+                  "Bolalar xavfsizligi",
+                ].map((text) => (
+                  <li
+                    key={text}
+                    className="text-white text-[16px] cursor-pointer font-[600]"
+                  >
+                    {text}
+                  </li>
+                ))}
               </ul>
             </div>
+
             <div className="max-w-[180px] w-full">
-              <p
-                className="text-[#FFFFFF99] text-[14px] font-[600] pb-[13px]"
-                style={{ fontFamily: "Fredoka" }}
-              >
+              <p className="text-[#FFFFFF99] text-[14px] font-[600] pb-[13px]">
                 Faoliyat
               </p>
               <ul className="space-y-[13px]">
-                <li
-                  className="text-white text-[16px] cursor-pointer font-[600]"
-                  style={{ fontFamily: "Fredoka" }}
-                >
-                  Biz haqimizda
-                </li>
-                <li
-                  className="text-white text-[16px] cursor-pointer font-[600]"
-                  style={{ fontFamily: "Fredoka" }}
-                >
-                  Rahbariyat
-                </li>
+                {["Biz haqimizda", "Rahbariyat"].map((text) => (
+                  <li
+                    key={text}
+                    className="text-white text-[16px] cursor-pointer font-[600]"
+                  >
+                    {text}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
+
         <div className="py-[34px] flex justify-between">
-          <p
-            className="text-[#FFFFFF99] text-[14px] font-[500]"
-            style={{ fontFamily: "Inter" }}
-          >
-            © 2025 Alla platformasi
+          <p className="text-[#FFFFFF99] text-[14px] font-[500]">
+            © 2025 Alla platformasi
           </p>
+
           <div className="flex items-center gap-4">
-            <a href="">
-              <img src="/assets/icons/footerInstagram.svg" alt="Instagram" />
-            </a>
-            <a href="">
-              <img src="/assets/icons/footerTelegram.svg" alt="Telegram" />
-            </a>
-            <a href="">
-              <img src="/assets/icons/footerTwitter.svg" alt="Twitter" />
-            </a>
-            <a href="">
-              <img src="/assets/icons/footerFacebook.svg" alt="Facebook" />
-            </a>
+            {[
+              { src: "/assets/icons/footerInstagram.svg", alt: "Instagram" },
+              { src: "/assets/icons/footerTelegram.svg", alt: "Telegram" },
+              { src: "/assets/icons/footerTwitter.svg", alt: "Twitter" },
+              { src: "/assets/icons/footerFacebook.svg", alt: "Facebook" },
+            ].map((icon) => (
+              <a key={icon.alt} href="#">
+                <Image
+                  src={icon.src}
+                  alt={icon.alt}
+                  width={24}
+                  height={24}
+                  loading="lazy"
+                />
+              </a>
+            ))}
           </div>
         </div>
       </div>
-      <img
+
+      <Image
         src="/assets/images/footerBg.png"
-        alt=""
+        alt="Footer Background"
+        width={1920}
+        height={1080}
         className="absolute top-[-200px] left-0 w-screen max-sm:hidden max-lg:top-[280px]"
       />
     </footer>
