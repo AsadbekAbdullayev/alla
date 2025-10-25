@@ -230,7 +230,7 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
         </h2>
         <p
           ref={descRef}
-          className="text-[#FFFFFFCC] text-[20px] leading-[28px] font-[500] text-center max-w-[700px] pt-[20px]"
+          className="text-[#FFFFFFCC] text-[20px] leading-[28px] font-[500] text-center max-w-[700px] pt-[20px] relative z-10"
         >
           Alla – bolalar uchun yaratilgan xavfsiz va quvnoq media platforma
           bo'lib, unda ota-onalar uchun qulayliklar, bolalar uchun esa bilim va
@@ -326,7 +326,7 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
             <span className={isDark ? "" : "text-[#89C423]"}>Ota-onalar</span>{" "}
             nazorati
           </h2>
-          <div className="max-w-[270px] mt-[74px] h-[118px]">
+          <div className="max-w-[370px] mt-[74px] h-[118px]">
             <p
               className={`${
                 isDark ? "text-white" : "text-[#505050]"
@@ -344,7 +344,7 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
               mumkin.
             </p>
           </div>
-          <div className="max-w-[270px] mt-[35px]">
+          <div className="max-w-[370px] mt-[35px]">
             <p
               className={`${
                 isDark ? "text-white" : "text-[#505050]"
@@ -362,7 +362,7 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
               qo'yilgan.
             </p>
           </div>
-          <div className="max-w-[270px] mt-[74px] mr-[-20px]">
+          <div className="max-w-[370px] mt-[74px] mr-[-20px]">
             <p
               className={`${
                 isDark ? "text-white" : "text-[#505050]"
@@ -468,7 +468,7 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
             <span className={isDark ? "" : "text-[#89C423]"}>Raqamli</span>{" "}
             kutubxona
           </h2>
-          <div className="max-w-[270px] mt-[74px] h-[118px]">
+          <div className="max-w-[370px] mt-[74px] h-[118px]">
             <p
               className={`${
                 isDark ? "text-white" : "text-[#505050]"
@@ -485,7 +485,7 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
               farzandingiz bilimini oshiradi va qiziqishlarini kengaytiradi.
             </p>
           </div>
-          <div className="max-w-[270px] mt-[35px]">
+          <div className="max-w-[370px] mt-[35px]">
             <p
               className={`${
                 isDark ? "text-white" : "text-[#505050]"
@@ -502,7 +502,7 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
               badiiy filmlar – barchasi bir joyda jamlangan.
             </p>
           </div>
-          <div className="max-w-[270px] mt-[74px] mr-[-20px]">
+          <div className="max-w-[370px] mt-[74px] mr-[-20px]">
             <p
               className={`${
                 isDark ? "text-white" : "text-[#505050]"
@@ -529,7 +529,7 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
         alt="Kids Icon"
         width={200}
         height={200}
-        className="absolute top-0 left-0 transition-all duration-300 max-sm:"
+        className="absolute top-0 left-0 transition-all duration-300 max-sm:w-[100px]"
       />
 
       <svg
@@ -562,11 +562,10 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
         alt="Pupil Icon"
         width={200}
         height={200}
-        className="absolute top-[226px] right-[160px] transition-all duration-300 max-sm:hidden"
+        className="absolute top-[226px] right-[160px] transition-all duration-300 max-sm:w-[100px] max-sm:right-0 max-sm:top-[350px]"
       />
     </div>
   );
 });
 
-Opportunitites.displayName = "Opportunitites";
 export default Opportunitites;

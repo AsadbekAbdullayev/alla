@@ -252,13 +252,13 @@ const ChildSecurity = () => {
                 isDark
                   ? "bg-[#436EFF45] hover:bg-[#436EFF65]"
                   : "bg-white hover:bg-blue-50"
-              } max-w-[309px] w-full min-h-[262px] rounded-lg max-sm:max-w-full max-lg:max-w-full ${
+              } max-w-[309px] w-full min-h-[262px] rounded-lg max-sm:max-w-full max-xl:max-w-full ${
                 item?.id === 1
-                  ? "-rotate-[4deg] hover:rotate-0"
+                  ? "-rotate-[4deg] hover:rotate-0 max-sm:rotate-0 max-xl:rotate-0"
                   : "hover:rotate-1"
               }`}
               style={{
-                transform: item?.id === 1 ? "rotate(-4deg)" : "none",
+                transform: item?.id === 1 ? (window.innerWidth < 1200 ? "rotate(0)" : "rotate(-4deg)") : "none",
                 transition: "all 0.3s ease",
               }}
             >
@@ -299,7 +299,7 @@ const ChildSecurity = () => {
                 isDark
                   ? "bg-[#436EFF45] hover:bg-[#436EFF65]"
                   : "bg-white hover:bg-blue-50"
-              } max-w-[484px] w-full min-h-[262px] max-lg:max-w-full rounded-lg hover:-translate-y-2`}
+              } max-w-[484px] w-full min-h-[262px] max-xl:max-w-full rounded-lg hover:-translate-y-2`}
               style={{
                 transition: "all 0.3s ease",
               }}
@@ -337,7 +337,7 @@ const ChildSecurity = () => {
         alt=""
         width={200}
         height={200}
-        className="absolute top-0 right-0 transition-all duration-300 max-sm:hidden"
+        className="absolute top-0 right-0 transition-all duration-300"
       />
 
       <Image
@@ -346,7 +346,7 @@ const ChildSecurity = () => {
         alt=""
         width={200}
         height={200}
-        className="absolute top-[89px] left-[81px] transition-all duration-300 max-sm:hidden"
+        className="absolute top-[89px] left-[81px] transition-all duration-300 max-sm:top-0 max-sm:left-0 max-sm:w-[150px]"
       />
     </div>
   );

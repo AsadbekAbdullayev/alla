@@ -65,7 +65,7 @@ export default function Navbar() {
         <ul className="flex items-center">
           <li
             onClick={() => {
-              scrollToSection("opportunites");
+              scrollToSection("opportunities");
             }}
             className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white"
           >

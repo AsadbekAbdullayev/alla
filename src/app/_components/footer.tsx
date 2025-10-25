@@ -116,7 +116,7 @@ export default function Footer() {
         alt="Footer Background"
         width={1920}
         height={1080}
-        className="absolute top-[-200px] left-0 w-screen max-sm:hidden max-lg:top-[280px]"
+        className="absolute top-[-200px] left-0 w-screen max-sm:top-[400px] max-lg:top-[280px]"
       />
     </footer>
   );
