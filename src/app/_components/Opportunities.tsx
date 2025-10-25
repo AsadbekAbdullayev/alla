@@ -216,7 +216,6 @@ const Opportunitites = forwardRef<HTMLDivElement>((_, ref) => {
 
   return (
     <div
-      ref={ref}
       id="opportunities"
       className={`p-[120px] w-full flex flex-col items-center relative max-sm:px-4 ${
         isDark ? "" : "bg-gradient-to-b from-[#C6D0F2] to-[#F2F6F5]"

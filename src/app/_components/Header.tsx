@@ -10,11 +10,8 @@ import Link from "next/link";
 import gsap from "gsap";
 import Image from "next/image";
 
-interface HeaderProps {
-  onNavigate: (section: string) => void;
-}
 
-const Header = ({ onNavigate }: HeaderProps) => {
+const Header = () => {
   const searchParams = useSearchParams();
   const theme = searchParams.get("theme") || "light";
   const isLight = theme === "light";
@@ -132,7 +129,7 @@ const Header = ({ onNavigate }: HeaderProps) => {
         background: "linear-gradient(180deg, #133CCA 0%, #4767d6 63.33%)",
       }}
     >
-      <Navbar onNavigate={onNavigate} />
+      <Navbar />
 
       {!isLight && (
         <Image

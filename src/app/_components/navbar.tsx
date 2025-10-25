@@ -10,13 +10,9 @@ import Link from "next/link";
 import gsap from "gsap";
 import { useState } from "react";
 
-interface NavbarProps {
-  onNavigate: (section: string) => void;
-}
-
 gsap.registerPlugin(Physics2DPlugin);
 
-export default function Navbar({ onNavigate }: NavbarProps) {
+export default function Navbar() {
   const router = useRouter();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const searchParams = useSearchParams();
@@ -33,7 +29,15 @@ export default function Navbar({ onNavigate }: NavbarProps) {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const navbarHeight = 80; // adjust to your navbar height
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
     }
   };
 

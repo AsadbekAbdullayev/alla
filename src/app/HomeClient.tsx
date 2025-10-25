@@ -19,7 +19,6 @@ const ChildSecurity = dynamic(() => import("./_components/ChildSecurity"), {
   ssr: false,
 });
 const Content = dynamic(() => import("./_components/Content"), { ssr: false });
-gsap.registerPlugin(ScrollToPlugin);
 
 export default function HomeClient() {
   const searchParams = useSearchParams();
@@ -30,22 +29,22 @@ export default function HomeClient() {
   const childSecurityRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   // function that scrolls smoothly
-  const scrollToSection = (section: string) => {
-    const sectionMap: Record<string, React.RefObject<HTMLDivElement>> = {
-      opportunites: opportunitiesRef,
-      childSecurity: childSecurityRef,
-      content: contentRef,
-    };
+  // const scrollToSection = (section: string) => {
+  //   const sectionMap: Record<string, React.RefObject<HTMLDivElement>> = {
+  //     opportunites: opportunitiesRef,
+  //     childSecurity: childSecurityRef,
+  //     content: contentRef,
+  //   };
 
-    const target = sectionMap[section]?.current;
-    if (target) {
-      gsap.to(window, {
-        duration: 1.2,
-        scrollTo: { y: target, offsetY: 70 },
-        ease: "power3.inOut",
-      });
-    }
-  };
+  //   const target = sectionMap[section]?.current;
+  //   if (target) {
+  //     gsap.to(window, {
+  //       duration: 1.2,
+  //       scrollTo: { y: target, offsetY: 70 },
+  //       ease: "power3.inOut",
+  //     });
+  //   }
+  // };
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -58,7 +57,7 @@ export default function HomeClient() {
         isDark ? "bg-[#001145]" : ""
       }`}
     >
-      <Header onNavigate={scrollToSection} />
+      <Header />
       <CartoonSlides />
       <Content ref={contentRef} />
       <Opportunitites />
