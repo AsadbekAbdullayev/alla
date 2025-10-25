@@ -86,6 +86,7 @@ const CartoonSlides = () => {
                   alt={`Slide ${i + 1}`}
                   width={1920}
                   height={1080}
+                  loading="lazy"
                   className="w-full h-full object-cover rounded-2xl shadow-2xl transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-3xl"
                   style={{
                     boxShadow: isDark

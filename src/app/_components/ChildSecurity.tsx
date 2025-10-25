@@ -265,6 +265,7 @@ const ChildSecurity = () => {
                 src={item.icon}
                 alt=""
                 width={64}
+                loading="lazy"
                 height={64}
                 className={`transition-transform duration-300 hover:scale-110 ${
                   item?.id === 1 ? "rotate-[4deg] hover:rotate-0" : ""
@@ -307,6 +308,7 @@ const ChildSecurity = () => {
                 src={item.icon}
                 alt=""
                 width={64}
+                loading="lazy"
                 height={64}
                 className="transition-transform duration-300 hover:scale-110"
               />
@@ -335,6 +337,7 @@ const ChildSecurity = () => {
         src={isDark ? "/assets/icons/tree.svg" : "/assets/icons/treeLight.svg"}
         alt=""
         width={200}
+        loading="lazy"
         height={200}
         className="absolute top-0 right-0 transition-all duration-300 max-sm:hidden"
       />
@@ -344,6 +347,7 @@ const ChildSecurity = () => {
         src="/assets/icons/knight.svg"
         alt=""
         width={200}
+        loading="lazy"
         height={200}
         className="absolute top-[89px] left-[81px] transition-all duration-300 max-sm:hidden"
       />

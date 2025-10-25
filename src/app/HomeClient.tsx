@@ -1,22 +1,31 @@
 "use client";
-import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Header from "./_components/Header";
+import dynamic from "next/dynamic";
 import Loader from "@/app/loading";
-import Footer from "@/app/_components/footer";
 
 // dynamic imports
 const CartoonSlides = dynamic(() => import("./_components/CartoonSlides"), {
   ssr: false,
+  loading: () => <h1>CartoonSlides Loading ...</h1>,
 });
 const Opportunitites = dynamic(() => import("./_components/Opportunities"), {
   ssr: false,
+  loading: () => <h1>Opportunities Loading ...</h1>,
 });
 const ChildSecurity = dynamic(() => import("./_components/ChildSecurity"), {
   ssr: false,
+  loading: () => <h1>ChildSecurity Loading ...</h1>,
 });
-const Content = dynamic(() => import("./_components/Content"), { ssr: false });
+const Content = dynamic(() => import("./_components/Content"), {
+  ssr: false,
+  loading: () => <h1>Content Loading ...</h1>,
+});
+const Footer = dynamic(() => import("./_components/footer"), {
+  ssr: false,
+  loading: () => <h1>footer Loading ...</h1>,
+});
 
 export default function HomeClient() {
   const searchParams = useSearchParams();
@@ -31,7 +40,7 @@ export default function HomeClient() {
   if (!isMounted) return <Loader />;
 
   return (
-    <div
+    <main
       className={`relative min-h-screen overflow-hidden ${
         isDark ? "bg-[#001145]" : ""
       }`}
@@ -42,6 +51,6 @@ export default function HomeClient() {
       <Opportunitites />
       <ChildSecurity />
       <Footer />
-    </div>
+    </main>
   );
 }

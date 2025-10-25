@@ -238,6 +238,7 @@ const BookPage: React.FC = () => {
           }`}
           alt="cover"
           width={60}
+          loading="lazy"
           height={80}
           className="rounded-md object-cover border-purple-400 border"
           preview={false}
