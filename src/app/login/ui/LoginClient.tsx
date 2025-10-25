@@ -66,7 +66,7 @@ export default function LoginPage() {
         alt="Kids"
         width={385}
         height={400}
-        className="absolute top-[20%] left-[15px] z-20"
+        className="absolute top-[20%] left-[15px] z-20 max-sm:w-[205px] max-sm:top-[5%]"
       />
 
       {/* Tree */}
@@ -75,7 +75,7 @@ export default function LoginPage() {
         alt="Tree"
         width={500}
         height={500}
-        className="absolute bottom-0 right-0 z-50"
+        className="absolute bottom-0 right-0 z-20 max-sm:w-[200px]"
       />
 
       {/* Clouds */}
@@ -84,14 +84,14 @@ export default function LoginPage() {
         alt="Cloud Left"
         width={243}
         height={120}
-        className="absolute top-0 left-[51px]"
+        className="absolute top-0 left-[51px] max-sm:left-0 max-sm:w-[180px]"
       />
       <Image
         src="/assets/icons/cloud3.svg"
         alt="Cloud Right"
         width={187}
         height={98}
-        className="absolute top-0 right-[-27px]"
+        className="absolute top-0 right-[-27px] max-sm:w-[150px]"
       />
       <svg
         className="absolute top-0 left-0 max-md:hidden"
