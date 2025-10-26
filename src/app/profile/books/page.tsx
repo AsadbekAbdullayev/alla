@@ -60,7 +60,6 @@ export default function ProfilePage() {
         <div ref={listRef} className="flex flex-wrap gap-6 justify-start">
           {data?.data?.content?.map((item: any, i: number) => {
             const poster = item?.coverImageUrl?.split("/")?.pop();
-            const id = item?.pdfUrl?.split("/")?.pop();
             return (
               <Card
                 key={i}

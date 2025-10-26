@@ -20,7 +20,7 @@ const request = axios.create({
 request.interceptors.request.use(
   (config: RequestConfig) => {
     const token =
-      typeof window !== "undefined" ? sessionStorage.getItem("token") : null;
+      typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
     let rawLang =
       config.headers?.["Accept-Language"] ??
@@ -54,7 +54,7 @@ request.interceptors.response.use(
 
         if (!isLoginPage) {
           message.error("Iltimos, qayta tizimga kiring.");
-          sessionStorage.clear();
+          localStorage.clear();
           window.location.pathname = "/login";
         }
       }

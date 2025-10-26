@@ -15,7 +15,7 @@ interface VideoModalProps {
 const VideoModal: React.FC<VideoModalProps> = ({ video, visible, onClose }) => {
   const [playing, setPlaying] = useState(false);
   const token =
-    typeof window !== "undefined" ? sessionStorage.getItem("token") : "";
+    typeof window !== "undefined" ? localStorage.getItem("token") : "";
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const getStatusColor = (status: string) => {

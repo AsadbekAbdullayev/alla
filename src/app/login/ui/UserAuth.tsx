@@ -125,7 +125,7 @@ const UserAuth: React.FC<Props> = ({ onBack }) => {
               <Button
                 type="link"
                 onClick={() => {
-                  onBack(), sessionStorage.removeItem("phoneNumber");
+                  onBack(), localStorage.removeItem("phoneNumber");
                 }}
                 className="!text-white h-fit p-0 font-[800] text-[17px] text-center w-full mt-[20px] hover:underline"
               >

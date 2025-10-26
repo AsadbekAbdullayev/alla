@@ -159,7 +159,7 @@ const Sidebar: React.FC = () => {
     if (!role) return;
 
     if (role !== "ADMIN") {
-      sessionStorage.clear();
+      localStorage.clear();
       router.push("/login");
     }
   }, [role]);

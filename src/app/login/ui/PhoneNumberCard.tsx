@@ -76,7 +76,7 @@ const PhoneNumberCard: React.FC<Props> = ({ onNext }) => {
       { phoneNumber: phoneNumber },
       {
         onSuccess: (res: any) => {
-          sessionStorage.setItem("phoneNumber", phoneNumber);
+          localStorage.setItem("phoneNumber", phoneNumber);
           toast.success(`${res.message}: ${res.data}`, {
             position: "top-right",
           });

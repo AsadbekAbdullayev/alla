@@ -8,7 +8,7 @@ import { formatDuration } from "@/lib";
 
 export default function ProfilePage() {
   const { id } = useParams();
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const { data: videoData, isLoading: videosLoading } = useVideoById(
     id as string
   );
