@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   useGetUsers,
   useUpdateUser,
   useDeleteUser,
   useBlockUser,
   useUnblockUser,
-  useResetPassword,
   User,
 } from "@/entities/AdminUsers/api";
 import {
@@ -28,7 +27,6 @@ import {
   DeleteOutlined,
   BlockOutlined,
   UnlockOutlined,
-  KeyOutlined,
   UserOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
@@ -39,31 +37,40 @@ import Image from "next/image";
 const UserPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("");
-  const [page, setPage] = useState(0);
-  const [size] = useState(20);
   const [userDetailModal, setUserDetailModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // Faqat search text o'zgarganda ishlaydi
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
 
-  // Filter parametrlari
-  const params = {
-    page,
-    size,
-    role: "USER",
-    status: statusFilter || undefined,
-    search: searchText || undefined,
+  const handleTableChange = (pagination: any) => {
+    setCurrentPage(pagination.current);
+    setPageSize(pagination.pageSize);
   };
 
-  const { data, isLoading, refetch } = useGetUsers(params);
+  const { data, isLoading, refetch } = useGetUsers({
+    page: currentPage - 1,
+    size: pageSize,
+    role: "USER",
+  });
   const updateUserMutation = useUpdateUser();
   const deleteUserMutation = useDeleteUser();
   const blockUserMutation = useBlockUser();
   const unblockUserMutation = useUnblockUser();
-  const resetPasswordMutation = useResetPassword();
+
+  const paginationConfig = {
+    current: currentPage,
+    pageSize: pageSize,
+    total: data?.data?.totalElements || 0,
+    showSizeChanger: true,
+    showQuickJumper: true,
+    showTotal: (total: number, range: [number, number]) =>
+      `${range[0]}-${range[1]} of ${total} items`,
+    pageSizeOptions: ["10", "20", "50", "100"],
+  };
 
   const STATUS_OPTIONS = [
     { value: "", label: "Barchasi" },
@@ -134,16 +141,6 @@ const UserPage: React.FC = () => {
     }
   };
 
-  // Parolni tiklash
-  const handleResetPassword = async (userId: number) => {
-    try {
-      await resetPasswordMutation.mutateAsync(userId);
-      message.success("Parol muvaffaqiyatli tiklandi!");
-    } catch {
-      message.error("Parolni tiklashda xatolik yuz berdi!");
-    }
-  };
-
   // Userni o'chirish
   const handleDeleteUser = async (userId: number) => {
     try {
@@ -162,36 +159,17 @@ const UserPage: React.FC = () => {
   };
 
   // Search va filterlarni qayta yuklash
-  const handleSearch = () => {
-    setPage(0);
-    refetch();
-  };
+  const handleSearch = () => {};
 
   const handleResetFilters = () => {
     setSearchText("");
     setStatusFilter("");
-    setPage(0);
   };
 
   // Enter bosganda ham ishlashi uchun
-  const handlePressEnter = () => {
-    setPage(0);
-    refetch();
-  };
-  // Debounced search o'zgarganda avtomatik qidiruv
-  useEffect(() => {
-    setPage(0); // Sahifani boshiga qaytarish
-    refetch();
-  }, [statusFilter]);
-  // Jadval ustunlari
+  const handlePressEnter = () => {};
+
   const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      width: 80,
-      render: (id: number) => <span className="text-gray-400">#{id}</span>,
-    },
     {
       title: "Telefon",
       dataIndex: "phoneNumber",
@@ -244,18 +222,6 @@ const UserPage: React.FC = () => {
         </span>
       ),
     },
-    // {
-    //   title: "Oxirgi kirish",
-    //   dataIndex: "lastLoginAt",
-    //   key: "lastLoginAt",
-    //   render: (lastLoginAt: string) => (
-    //     <span className="text-gray-400">
-    //       {lastLoginAt
-    //         ? moment(lastLoginAt).format("DD MMM YYYY HH:mm")
-    //         : "Hali emas"}
-    //     </span>
-    //   ),
-    // },
     {
       title: "Amallar",
       key: "actions",
@@ -338,7 +304,7 @@ const UserPage: React.FC = () => {
       </div>
 
       {/* Filterlar */}
-      <Card className="bg-[#1f1f1f] border-gray-700">
+      {/* <Card className="bg-[#1f1f1f] border-gray-700">
         <Row gutter={[16, 16]} align="middle">
           <Col xs={24} sm={12} md={8}>
             <Input
@@ -370,7 +336,7 @@ const UserPage: React.FC = () => {
             </Button>
           </Col>
         </Row>
-      </Card>
+      </Card> */}
 
       {/* Statistikalar */}
       <Row gutter={[16, 16]}>
@@ -407,13 +373,8 @@ const UserPage: React.FC = () => {
           columns={columns}
           dataSource={users}
           rowKey="id"
-          pagination={{
-            current: page + 1,
-            pageSize: size,
-            total: totalElements,
-            onChange: (page) => setPage(page - 1),
-            showSizeChanger: false,
-          }}
+          pagination={paginationConfig}
+          onChange={handleTableChange}
           className="!text-white"
           scroll={{ x: 1200 }}
         />
