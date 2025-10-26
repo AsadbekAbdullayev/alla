@@ -13,8 +13,9 @@ export default function ProfilePage() {
     id as string
   );
 
+  // min-h-screen
   return (
-    <div className="min-h-screen flex-1 p-6 md:px-16">
+    <div className=" flex-1 p-6 md:px-16">
       {videosLoading ? (
         <SkeletonCards />
       ) : (

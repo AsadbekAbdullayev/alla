@@ -1,5 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import nextDynamic from "next/dynamic";
+import Loader from "@/app/loading";
 import {
   useUploadFile,
   useCreateBook,
@@ -9,6 +11,13 @@ import {
   Book,
 } from "@/entities/Admin/api";
 import {
+  DeleteOutlined,
+  EditOutlined,
+  FileTextOutlined,
+  PlayCircleOutlined,
+} from "@ant-design/icons";
+import moment from "moment";
+import {
   Button,
   Drawer,
   message,
@@ -17,15 +26,8 @@ import {
   Select,
   Popconfirm,
   Form,
+  Spin,
 } from "antd";
-import {
-  DeleteOutlined,
-  FileTextOutlined,
-  PlayCircleOutlined,
-} from "@ant-design/icons";
-import moment from "moment";
-import Loader from "@/app/loading";
-import nextDynamic from "next/dynamic";
 
 const BookForm = nextDynamic(
   () => import("@/app/_components/BookForms").then((mod) => mod.BookForm),
@@ -63,15 +65,40 @@ const BookPage: React.FC = () => {
   const [uploadingCover, setUploadingCover] = useState(false);
   const [uploadingPdf, setUploadingPdf] = useState(false);
   const [uploadingAudio, setUploadingAudio] = useState(false);
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
 
+  // ***** Forms *****
   const [form] = Form.useForm();
   const [editForm] = Form.useForm();
 
+  // ***** Mutations *****
   const uploadMutation = useUploadFile();
   const createBookMutation = useCreateBook();
   const updateBookMutation = useUpdateBook();
   const deleteBookMutation = useDeleteBook();
-  const { data, isLoading, refetch } = useGetBooks({ page: 0, size: 20 });
+
+  // ***** Queraies *****
+  const { data, isLoading, refetch } = useGetBooks({
+    page: currentPage - 1,
+    size: pageSize,
+  });
+
+  const handleTableChange = (pagination: any) => {
+    setCurrentPage(pagination.current);
+    setPageSize(pagination.pageSize);
+  };
+
+  const paginationConfig = {
+    current: currentPage,
+    pageSize: pageSize,
+    total: data?.data?.totalElements || 0,
+    showSizeChanger: true,
+    showQuickJumper: true,
+    showTotal: (total: number, range: [number, number]) =>
+      `${range[0]}-${range[1]} of ${total} items`,
+    pageSizeOptions: ["10", "20", "50", "100"],
+  };
 
   const STATUS_OPTIONS = [
     { value: "PENDING", label: "⏳ Kutilmoqda" },
@@ -146,6 +173,27 @@ const BookPage: React.FC = () => {
     } catch {
       message.error("Kitob yaratishda xatolik yuz berdi!");
     }
+  };
+
+  const handleEditBook = (book: Book) => {
+    setSelectedBook(book);
+    setEditDrawerVisible(true);
+    editForm.setFieldsValue({
+      ...book,
+      ageLimit: book.ageLimit?.toString(),
+      totalPages: book.totalPages?.toString(),
+      duration: book.duration?.toString(),
+    });
+  };
+
+  const handleViewPdf = (book: Book) => {
+    setSelectedBook(book);
+    setPdfModalVisible(true);
+  };
+
+  const handleListenAudio = (book: Book) => {
+    setSelectedBook(book);
+    setAudioModalVisible(true);
   };
 
   const handleEditFinish = async (values: any) => {
@@ -264,7 +312,7 @@ const BookPage: React.FC = () => {
       dataIndex: "totalPages",
       key: "totalPages",
       render: (pages: number) => (
-        <span className="text-blue-400">{pages} sah</span>
+        <span className="text-blue-400">{pages} sahifa</span>
       ),
     },
     {
@@ -291,44 +339,43 @@ const BookPage: React.FC = () => {
         />
       ),
     },
-    {
-      title: "Formatlar",
-      key: "formats",
-      render: (_: any, record: Book) => (
-        <div className="flex gap-1">
-          {record.pdfUrl && (
-            <Button
-              type="link"
-              icon={<FileTextOutlined />}
-              // onClick={() => handleViewPdf(record)}
-              className="text-blue-400 p-0"
-              size="small"
-            >
-              PDF
-            </Button>
-          )}
-          {record.audioUrl && (
-            <Button
-              type="link"
-              icon={<PlayCircleOutlined />}
-              // onClick={() => handleListenAudio(record)}
-              className="text-green-400 p-0"
-              size="small"
-            >
-              Audio
-            </Button>
-          )}
-        </div>
-      ),
-    },
+    // {
+    //   title: "Formatlar",
+    //   key: "formats",
+    //   render: (_: any, record: Book) => (
+    //     <div className="flex gap-1">
+    //       {record.pdfUrl && (
+    //         <Button
+    //           type="link"
+    //           icon={<FileTextOutlined />}
+    //           onClick={() => handleViewPdf(record)}
+    //           className="text-blue-400 p-0"
+    //           size="small"
+    //         >
+    //           PDF
+    //         </Button>
+    //       )}
+    //       {record.audioUrl && (
+    //         <Button
+    //           type="link"
+    //           icon={<PlayCircleOutlined />}
+    //           onClick={() => handleListenAudio(record)}
+    //           className="text-green-400 p-0"
+    //           size="small"
+    //         >
+    //           Audio
+    //         </Button>
+    //       )}
+    //     </div>
+    //   ),
+    // },
     {
       title: "Amallar",
       key: "actions",
-      fixed: "right" as const,
       width: 150,
       render: (_: any, record: Book) => (
         <div className="flex gap-1">
-          {/* <Button
+          <Button
             type="link"
             onClick={() => handleEditBook(record)}
             icon={<EditOutlined />}
@@ -336,7 +383,7 @@ const BookPage: React.FC = () => {
             size="small"
           >
             Tahrirlash
-          </Button> */}
+          </Button>
 
           <Popconfirm
             title="Kitobni o'chirish"
@@ -365,7 +412,7 @@ const BookPage: React.FC = () => {
     setIsClient(true);
   }, []);
 
-  if (!isClient || isLoading) {
+  if (!isClient) {
     return <Loader />;
   }
 
@@ -375,22 +422,27 @@ const BookPage: React.FC = () => {
         Kitob qo'shish
       </Button>
 
-      {/* Jadval */}
       <div className="bg-[#141414] p-4 rounded-xl border border-gray-800 shadow-md">
         <h3 className="text-lg font-semibold text-white mb-4">
           Kitoblar ro'yxati
         </h3>
-        <Table
-          columns={columns}
-          dataSource={data?.data?.content || []}
-          rowKey="id"
-          pagination={{ pageSize: 10 }}
-          className="!text-white"
-          scroll={{ x: 1200 }}
-        />
+        <Spin
+          spinning={isLoading}
+          size="large"
+          className="w-full h-full"
+          tip="Yuklanmoqda ..."
+        >
+          <Table
+            columns={columns}
+            dataSource={data?.data?.content || []}
+            rowKey="id"
+            className="!text-white"
+            pagination={paginationConfig}
+            onChange={handleTableChange}
+          />
+        </Spin>
       </div>
 
-      {/* Kitob qo'shish drawer */}
       <Drawer
         title="Yangi kitob qo'shish"
         width={500}
@@ -413,7 +465,6 @@ const BookPage: React.FC = () => {
         />
       </Drawer>
 
-      {/* Kitob tahrirlash drawer */}
       <Drawer
         title={`Kitob tahrirlash - ${selectedBook?.title}`}
         width={500}
@@ -440,7 +491,6 @@ const BookPage: React.FC = () => {
         )}
       </Drawer>
 
-      {/* Modallar */}
       {selectedBook && (
         <>
           <PdfModal

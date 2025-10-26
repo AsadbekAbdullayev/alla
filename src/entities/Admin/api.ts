@@ -152,6 +152,7 @@ export const useGetAdminVideos = (search: string) => {
     queryKey: ["useGetAdminVideos", search],
     queryFn: () => fetchVideos(search),
     refetchOnWindowFocus: false,
+    cacheTime: 0,
   });
 };
 
@@ -196,6 +197,7 @@ export const useGetBooks = (params: { page?: number; size?: number }) => {
     queryKey: ["useGetBooks", params],
     queryFn: () => fetchBooks(params),
     refetchOnWindowFocus: false,
+    cacheTime: 0,
   });
 };
 

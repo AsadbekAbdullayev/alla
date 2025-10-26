@@ -1,6 +1,8 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
+import { ModeratorForm } from "@/app/_components/ModeratorForm";
+import { useDebounce } from "@/hooks";
+import Loader from "@/app/loading";
 import {
   useGetUsers,
   useCreateUser,
@@ -32,15 +34,11 @@ import {
   DeleteOutlined,
   BlockOutlined,
   UnlockOutlined,
-  KeyOutlined,
   UserOutlined,
   EyeOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import moment from "moment";
-import { useDebounce } from "@/hooks";
-import { ModeratorForm } from "@/app/_components/ModeratorForm";
-import Loader from "@/app/loading";
 
 const ModeratorPage: React.FC = () => {
   const [searchText, setSearchText] = useState("");
@@ -52,6 +50,9 @@ const ModeratorPage: React.FC = () => {
   const [userDetailModal, setUserDetailModal] = useState(false);
   const [selectedModerator, setSelectedModerator] = useState<User | null>(null);
   const [isClient, setIsClient] = useState(false);
+
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   // Debounce qilingan search
   const debouncedSearchText = useDebounce(searchText, 500);
 
@@ -59,16 +60,28 @@ const ModeratorPage: React.FC = () => {
   const [form] = Form.useForm();
   const [editForm] = Form.useForm();
 
-  // Filter parametrlari
-  const params = {
-    page,
-    size,
+  const { data, isLoading, refetch } = useGetUsers({
+    page: currentPage - 1,
+    size: pageSize,
     role: "MODERATOR",
-    status: statusFilter || undefined,
-    search: debouncedSearchText || undefined,
+  });
+
+  const handleTableChange = (pagination: any) => {
+    setCurrentPage(pagination.current);
+    setPageSize(pagination.pageSize);
   };
 
-  const { data, isLoading, refetch } = useGetUsers(params);
+  const paginationConfig = {
+    current: currentPage,
+    pageSize: pageSize,
+    total: data?.data?.totalElements || 0,
+    showSizeChanger: true,
+    showQuickJumper: true,
+    showTotal: (total: number, range: [number, number]) =>
+      `${range[0]}-${range[1]} of ${total} items`,
+    pageSizeOptions: ["10", "20", "50", "100"],
+  };
+
   const createUserMutation = useCreateUser();
   const updateUserMutation = useUpdateUser();
   const deleteUserMutation = useDeleteUser();
@@ -240,20 +253,13 @@ const ModeratorPage: React.FC = () => {
   // Jadval ustunlari
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      width: 80,
-      render: (id: number) => <span className="text-gray-400">#{id}</span>,
-    },
-    {
       title: "Telefon",
       dataIndex: "phoneNumber",
       key: "phoneNumber",
       render: (phone: string) => {
         const formatted = phone.replace(
           /(\d{3})(\d{2})(\d{3})(\d{2})(\d{2})/,
-          "+$1 $2 $3 $4 $5"
+          "$1 $2 $3 $4 $5"
         );
         return <span className="text-white font-medium">{formatted}</span>;
       },
@@ -402,7 +408,7 @@ const ModeratorPage: React.FC = () => {
       </div>
 
       {/* Filterlar va Create button */}
-      <Card className="bg-[#1f1f1f] border-gray-700">
+      {/* <Card className="bg-[#1f1f1f] border-gray-700">
         <Row gutter={[16, 16]} align="middle">
           <Col xs={24} sm={12} md={8}>
             <Input
@@ -433,7 +439,7 @@ const ModeratorPage: React.FC = () => {
             </Button>
           </Col>
         </Row>
-      </Card>
+      </Card> */}
 
       {/* Statistikalar */}
       <Row gutter={[16, 16]}>
@@ -470,13 +476,8 @@ const ModeratorPage: React.FC = () => {
           columns={columns}
           dataSource={moderators}
           rowKey="id"
-          pagination={{
-            current: page + 1,
-            pageSize: size,
-            total: totalElements,
-            onChange: (page) => setPage(page - 1),
-            showSizeChanger: false,
-          }}
+          pagination={paginationConfig}
+          onChange={handleTableChange}
           className="!text-white"
           scroll={{ x: 1200 }}
         />
