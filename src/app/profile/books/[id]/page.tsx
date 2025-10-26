@@ -63,7 +63,6 @@ const BookPage: React.FC<BookPageProps> = ({ params }) => {
             coverImageUrl={`https://api.alla.itic.uz/api/stream/image/${
               poster || ""
             }`}
-            isLoading={isLoading}
             bookTitle={data?.data?.title}
           />
         );
