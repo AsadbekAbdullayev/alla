@@ -232,6 +232,7 @@ const CategoryPage: React.FC = () => {
             height={60}
             className="rounded-md object-cover border-purple-400 border"
             preview={false}
+            loading="lazy"
           />
         );
       },
@@ -563,6 +564,7 @@ const CategoryPage: React.FC = () => {
                       .pop()}`}
                     alt="thumbnail"
                     width={80}
+                    loading="lazy"
                     height={60}
                     className="rounded-md object-cover mt-1"
                     preview={false}

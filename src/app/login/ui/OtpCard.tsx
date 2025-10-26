@@ -86,7 +86,7 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
 
   const handleSubmitOtpVerification = () => {
     const formData = {
-      phoneNumber: sessionStorage.getItem("phoneNumber") || "",
+      phoneNumber: localStorage.getItem("phoneNumber") || "",
       otpCode: otp.join(""),
     };
     verifyOtp(
@@ -94,21 +94,21 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
       {
         onSuccess: (data) => {
           if (formData.phoneNumber == "+998901234567") {
-            sessionStorage.setItem("token", data.data?.token || "");
+            localStorage.setItem("token", data.data?.token || "");
             toast.success(`OTP muvaffaqiyatli tasdiqlandi!`, {
               position: "top-right",
             });
 
             router.push(`/dashboard`);
           } else if (data?.data?.firstName) {
-            sessionStorage.setItem("token", data.data?.token || "");
+            localStorage.setItem("token", data.data?.token || "");
             toast.success(`OTP muvaffaqiyatli tasdiqlandi!`, {
               position: "top-right",
             });
             router.push(`/profile`);
           } else {
             onNext();
-            sessionStorage.setItem("token", data.data?.token || "");
+            localStorage.setItem("token", data.data?.token || "");
             toast.success(`OTP muvaffaqiyatli tasdiqlandi!`, {
               position: "top-right",
             });
@@ -154,9 +154,9 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
   const seconds = Math.floor((timeLeft / 1000) % 60);
   const maskedPhone =
     "+998 ** *** " +
-    sessionStorage.getItem("phoneNumber")?.slice(-4, -2) +
+    localStorage.getItem("phoneNumber")?.slice(-4, -2) +
     " " +
-    sessionStorage.getItem("phoneNumber")?.slice(-2);
+    localStorage.getItem("phoneNumber")?.slice(-2);
 
   return (
     <div className="bg-[#436EFF45] max-w-[500px] w-full p-8 rounded-[32px] border border-[33CEFF] flex flex-col items-center relative z-30 max-lg:backdrop-blur-sm">
@@ -226,7 +226,7 @@ const OtpCard: React.FC<Props> = ({ onNext, onBack }) => {
               <Button
                 type="link"
                 onClick={() => {
-                  onBack(), sessionStorage.removeItem("phoneNumber");
+                  onBack(), localStorage.removeItem("phoneNumber");
                 }}
                 className="!text-white h-fit p-0 font-[800] text-[17px] text-center w-full mt-[20px] hover:underline"
               >

@@ -33,6 +33,7 @@ export default function Footer() {
               alt="Footer Logo"
               width={120}
               height={157}
+              loading="lazy"
             />
 
             <p
@@ -116,6 +117,7 @@ export default function Footer() {
         alt="Footer Background"
         width={1920}
         height={1080}
+        loading="lazy"
         className="absolute top-[-200px] left-0 w-screen max-sm:hidden max-lg:top-[280px]"
       />
     </footer>

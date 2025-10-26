@@ -11,5 +11,20 @@ export const useGetBooks = (params: { page?: number; size?: number }) => {
     queryKey: ["useGetBooks", params],
     queryFn: () => fetchBooks(params),
     refetchOnWindowFocus: false,
+    cacheTime: 0,
+  });
+};
+
+const fetchBookById = async (id: number) => {
+  const { data } = await request.get(`/books/${id}`);
+  return data;
+};
+
+export const useGetBookById = (id: number) => {
+  return useQuery({
+    queryKey: ["fetchBookById", id],
+    queryFn: () => fetchBookById(id),
+    refetchOnWindowFocus: false,
+    cacheTime: 0,
   });
 };

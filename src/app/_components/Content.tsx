@@ -202,6 +202,7 @@ const Content = () => {
               src={item.image}
               alt={item.title}
               width={200}
+              loading="lazy"
               height={200}
               className="transition-all duration-300"
             />
@@ -230,12 +231,14 @@ const Content = () => {
         alt="Cloud"
         width={200}
         height={200}
+        loading="lazy"
         className="absolute top-1 left-0"
       />
       <Image
         src="/assets/icons/questionMark.svg"
         alt="Question"
         width={100}
+        loading="lazy"
         height={100}
         className="absolute right-[200px] top-8"
       />

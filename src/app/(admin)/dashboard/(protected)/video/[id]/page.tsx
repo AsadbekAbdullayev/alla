@@ -3,7 +3,7 @@ import ReactPlayer from "react-player";
 import { useParams } from "next/navigation";
 
 export default function Player() {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const { id } = useParams();
   const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
