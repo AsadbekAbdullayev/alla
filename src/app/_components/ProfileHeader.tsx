@@ -1,10 +1,47 @@
 "use client";
+import { usePathname } from "next/navigation";
+// const Separator = () => (
+//   <svg
+//     width="6"
+//     height="10"
+//     viewBox="0 0 6 10"
+//     fill="none"
+//     xmlns="http://www.w3.org/2000/svg"
+//     className="mx-2"
+//   >
+//     <path
+//       d="M1 9L5 5L1 1"
+//       stroke="#FFFFFF80"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     />
+//   </svg>
+// );
 
 export default function AdminHeader() {
+  const pathname = usePathname();
+  const getHeaderTitle = (path: string): string => {
+    if (path === "/") {
+      return "Bosh sahifa";
+    }
+    if (path.includes("/profile/books")) {
+      return "Kitoblar";
+    }
+
+    if (path.includes("/profile/user")) {
+      return "Foydaluvchi ma'lumotlari";
+    }
+    return "Bosh sahifa";
+  };
+
+  const currentTitle = getHeaderTitle(pathname);
+
+  const textClasses = `font-nunito text-[20px] italic font-extrabold leading-[26px] tracking-[0.2px] transition-colors  `;
   return (
-    <header className="bg-[#1c1c1e] px-6 py-3 h-[65px] rounded-t-[24px]  shadow-md flex flex-col justify-between items-start">
-      <div className="text-gray-400 flex gap-2 items-center">
-        <div className="p-1  rounded-md bg-[linear-gradient(90deg,#A580E9_0%,#E07FAF_100%)]">
+    <header className="bg-[#1c1c1e] px-6 rounded-t-[24px] h-[70px] shadow-md flex flex-col justify-center items-start">
+      <div className="text-gray-400 flex gap-2 items-center h-[69px]">
+        <div className="p-1 rounded-md bg-[linear-gradient(90deg,#A580E9_0%,#E07FAF_100%)]">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -18,10 +55,26 @@ export default function AdminHeader() {
             />
           </svg>
         </div>
+        <p className={textClasses}>{currentTitle}</p>
+        {/* {breadcrumbItems.map((item: any, index: number) => {
+          const isLast = index === breadcrumbItems.length - 1;
+          const isLink = !!item.href && !isLast;
 
-        <p className="text-white font-nunito text-[20px] italic font-extrabold leading-[26px] tracking-[0.2px]">
-          Bosh sahifa
-        </p>
+         
+
+          return (
+            <div key={item.title + index} className="flex items-center">
+              {isLink ? (
+                <Link href={item.href} className={textClasses}>
+                  {item.title}
+                </Link>
+              ) : (
+                <p className={textClasses}>{item.title}</p>
+              )}
+              {!isLast && <Separator />}
+            </div>
+          );
+        })} */}
       </div>
       <div className="w-full h-[1px] bg-[#FFFFFF1A]"></div>
     </header>

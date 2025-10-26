@@ -126,7 +126,7 @@ const Sidebar: React.FC = () => {
         <div className="w-full h-px my-3 min-h-[1px] bg-gradient-to-r from-transparent via-[#A580E9] to-transparent" />
 
         {!collapsed && (
-          <div className="px-4 mt-1 uppercase text-[#979797] text-[10px] italic font-bold leading-[14px] tracking-[0.1px]">
+          <div className="px-4 mb-1 uppercase text-[#979797] text-[10px] italic font-bold leading-[14px] tracking-[0.1px]">
             Asosiy
           </div>
         )}
@@ -141,8 +141,10 @@ const Sidebar: React.FC = () => {
             flex: 1,
             background: "transparent",
             border: "none",
-            color: "#979797",
+            color: "#FFFFFF",
             fontSize: collapsed ? 12 : 14,
+            fontWeight: 700,
+            fontStyle: "italic",
           }}
           inlineCollapsed={collapsed}
           className="!bg-transparent z-10 select-none !border-none !text-[#979797] !text-[12px] md:!text-[14px]"
