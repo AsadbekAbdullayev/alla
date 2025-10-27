@@ -36,7 +36,7 @@ export const PdfModal: React.FC<PdfModalProps> = ({
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    setToken(sessionStorage.getItem("token"));
+    setToken(localStorage.getItem("token"));
   }, []);
 
   // URL ni to'g'ri tayyorlash

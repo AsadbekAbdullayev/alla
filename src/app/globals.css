@@ -1,22 +1,8 @@
+/* BU KODLAR O'ZGARMASLIGI KERAK !!! */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* @font-face {
-  font-family: "Nunito";
-  src: url("/fonts/Nunito-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Nunito";
-  src: url("/fonts/Nunito-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-} */
 
 @font-face {
   font-family: "Nunito";
@@ -81,7 +67,6 @@ body {
   background-color: #2d2d2d !important;
 }
 
-/* Audio player custom styles */
 .rhap_container {
   background-color: transparent !important;
   box-shadow: none !important;
@@ -109,4 +94,27 @@ body {
 }
 .react-pdf__Page__canvas {
   width: 100% !important;
+}
+
+.ant-menu-item-selected {
+  background-image: linear-gradient(90deg, #a580e9 0%, #e07faf 100%);
+  background-color: transparent !important;
+}
+
+@keyframes rotating-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border-spin {
+  background: linear-gradient(90deg, #0043ff, #e50813, #0043ff, #e50813);
+  background-size: 400% 400%;
+  animation: rotating-border 8s ease infinite;
 }

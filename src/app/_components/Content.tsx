@@ -204,6 +204,7 @@ const Content = forwardRef<HTMLDivElement>((_, ref) => {
               src={item.image}
               alt={item.title}
               width={200}
+              loading="lazy"
               height={200}
               className="transition-all duration-300"
             />
@@ -232,12 +233,15 @@ const Content = forwardRef<HTMLDivElement>((_, ref) => {
         alt="Cloud"
         width={200}
         height={200}
+        loading="lazy"
+        className="absolute top-1 left-0"
         className="absolute top-1 left-0 max-sm:w-[100px]"
       />
       <Image
         src="/assets/icons/questionMark.svg"
         alt="Question"
         width={100}
+        loading="lazy"
         height={100}
         className="absolute right-[200px] top-8 max-sm:right-0 max-sm:top-0 max-sm:w-[80px]"
       />

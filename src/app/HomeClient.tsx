@@ -1,60 +1,72 @@
 "use client";
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useLayoutEffect, useState } from "react";
 import Header from "./_components/Header";
+import dynamic from "next/dynamic";
 import Loader from "@/app/loading";
-import Footer from "@/app/_components/footer";
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
-// dynamic imports
 const CartoonSlides = dynamic(() => import("./_components/CartoonSlides"), {
   ssr: false,
+  loading: () => <h1>CartoonSlides Loading ...</h1>,
 });
 const Opportunitites = dynamic(() => import("./_components/Opportunities"), {
   ssr: false,
+  loading: () => <h1>Opportunities Loading ...</h1>,
 });
 const ChildSecurity = dynamic(() => import("./_components/ChildSecurity"), {
   ssr: false,
+  loading: () => <h1>ChildSecurity Loading ...</h1>,
 });
-const Content = dynamic(() => import("./_components/Content"), { ssr: false });
+const Content = dynamic(() => import("./_components/Content"), {
+  ssr: false,
+  loading: () => <h1>Content Loading ...</h1>,
+});
+const Footer = dynamic(() => import("./_components/footer"), {
+  ssr: false,
+  loading: () => <h1>footer Loading ...</h1>,
+});
 
 export default function HomeClient() {
-  const searchParams = useSearchParams();
-  const theme = searchParams.get("theme") || "light";
-  const isDark = theme === "dark";
+  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
-  const opportunitiesRef = useRef<HTMLDivElement>(null);
-  const childSecurityRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  // function that scrolls smoothly
-  // const scrollToSection = (section: string) => {
-  //   const sectionMap: Record<string, React.RefObject<HTMLDivElement>> = {
-  //     opportunites: opportunitiesRef,
-  //     childSecurity: childSecurityRef,
-  //     content: contentRef,
-  //   };
+  const [theme, setTheme] = useState("light");
 
-  //   const target = sectionMap[section]?.current;
-  //   if (target) {
-  //     gsap.to(window, {
-  //       duration: 1.2,
-  //       scrollTo: { y: target, offsetY: 70 },
-  //       ease: "power3.inOut",
-  //     });
-  //   }
-  // };
-  useEffect(() => {
+  const getAutoTheme = () => {
+    const hour = new Date().getHours();
+    return hour >= 17 || hour < 7 ? "dark" : "light";
+  };
+
+  useLayoutEffect(() => {
     setIsMounted(true);
+
+    const autoTheme = getAutoTheme();
+    setTheme(autoTheme);
+    const params = new URLSearchParams();
+    params.set("theme", autoTheme);
+    router.replace(`?${params.toString()}`, { scroll: false });
   }, []);
+
+  useLayoutEffect(() => {
+    const interval = setInterval(() => {
+      const autoTheme = getAutoTheme();
+      setTheme(autoTheme);
+
+      const params = new URLSearchParams();
+      params.set("theme", autoTheme);
+      router.replace(`?${params.toString()}`, { scroll: false });
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, [router]);
 
   if (!isMounted) return <Loader />;
 
+  const isDark = theme === "dark";
+
   return (
-    <div
-      className={`relative h-full overflow-hidden ${
-        isDark ? "bg-[#001145]" : ""
+    <main
+      className={`relative min-h-screen overflow-hidden ${
+        isDark ? "bg-[#001145] text-white" : "bg-white text-black"
       }`}
     >
       <Header />
@@ -63,6 +75,6 @@ export default function HomeClient() {
       <Opportunitites />
       <ChildSecurity />
       <Footer />
-    </div>
+    </main>
   );
 }

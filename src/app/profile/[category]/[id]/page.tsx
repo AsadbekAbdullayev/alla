@@ -8,13 +8,14 @@ import { formatDuration } from "@/lib";
 
 export default function ProfilePage() {
   const { id } = useParams();
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const { data: videoData, isLoading: videosLoading } = useVideoById(
     id as string
   );
 
+  // min-h-screen
   return (
-    <div className="min-h-screen flex-1 p-6 md:px-16">
+    <div className=" flex-1 p-6 md:px-16">
       {videosLoading ? (
         <SkeletonCards />
       ) : (

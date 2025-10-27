@@ -33,7 +33,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
   }, [data]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const path = window.location.pathname;
 
     if (!token && path !== "/" && !path.includes("login")) {

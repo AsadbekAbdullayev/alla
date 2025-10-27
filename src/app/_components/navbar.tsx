@@ -52,12 +52,11 @@ export default function Navbar() {
           <Image
             src="/assets/icons/logoLight.svg"
             alt="Logo"
-            width={72}
+            width={82}
             height={55}
             priority
           />
         </div>
-        <Switch checked={isDark} onChange={handleToggle} />
       </div>
 
       {/* Center nav links */}

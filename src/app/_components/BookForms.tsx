@@ -38,8 +38,6 @@ export const BookForm: React.FC<BookFormProps> = ({
   isEdit = false,
   selectedBook,
 }) => {
-  const STATIC_TAGS = ["bolalar", "ertak", "ta'lim", "sarguzasht", "milliy"];
-
   const handleBeforeUpload = (file: File, type: "image" | "pdf" | "audio") => {
     const allowedTypes =
       type === "image" ? ["image"] : type === "pdf" ? ["pdf"] : ["audio"];

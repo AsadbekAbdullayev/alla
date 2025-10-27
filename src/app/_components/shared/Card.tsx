@@ -32,7 +32,7 @@ const Card = ({
   return (
     <div
       onClick={onClick}
-      className=" flex relative  min-w-[273px] max-w-[273px] h-[272px] !p-2 flex-col justify-start 
+      className=" flex relative  min-w-[273px] max-w-[273px] h-[282px] !p-2 flex-col justify-start 
                  items-start rounded-[24px_64px_24px_24px] bg-[#252527] text-white font-nunito 
                  text-[20px] font-bold tracking-tight cursor-pointer overflow-hidden 
                  shadow-[3px_5px_0_0_rgba(7,8,13,0.15),_0_-4px_0_0_rgba(255,106,0,0.13)_inset] 
@@ -111,8 +111,8 @@ const Card = ({
         </div>
       )}
 
-      <div className="relative z-10 px-1">
-        <h3 className="text-lg font-semibold truncate mt-1">
+      <div className="relative z-10 px-1 max-w-[99%]">
+        <h3 className="text-lg font-semibold truncate mt-1 ">
           {title || "Category"}
         </h3>
 

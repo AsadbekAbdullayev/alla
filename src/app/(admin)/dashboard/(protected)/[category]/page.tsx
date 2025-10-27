@@ -45,9 +45,28 @@ const CategoryPage: React.FC = () => {
   const uploadMutation = useUploadFile();
   const createVideoMutation = useCreateVideo();
   const updateVideoMutation = useUpdateVideo();
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const { data, isLoading, refetch } = useGetAdminVideos(
     `?category=${category}`
   );
+
+  const handleTableChange = (pagination: any) => {
+    setCurrentPage(pagination.current);
+    setPageSize(pagination.pageSize);
+  };
+
+  const paginationConfig = {
+    current: currentPage,
+    pageSize: pageSize,
+    total: data?.data?.totalElements || 0,
+    showSizeChanger: true,
+    showQuickJumper: true,
+    showTotal: (total: number, range: [number, number]) =>
+      `${range[0]}-${range[1]} of ${total} items`,
+    pageSizeOptions: ["10", "20", "50", "100"],
+  };
 
   const STATIC_TAGS = ["bolalar", "music", "qiziqarli", "dance", "top"];
 
@@ -232,6 +251,7 @@ const CategoryPage: React.FC = () => {
             height={60}
             className="rounded-md object-cover border-purple-400 border"
             preview={false}
+            loading="lazy"
           />
         );
       },
@@ -349,7 +369,8 @@ const CategoryPage: React.FC = () => {
           columns={columns}
           dataSource={data?.data?.content || []}
           rowKey="id"
-          pagination={{ pageSize: 6 }}
+          pagination={paginationConfig}
+          onChange={handleTableChange}
           className="!text-white"
           scroll={{ y: "calc(100vh - 200px)" }}
         />
@@ -563,6 +584,7 @@ const CategoryPage: React.FC = () => {
                       .pop()}`}
                     alt="thumbnail"
                     width={80}
+                    loading="lazy"
                     height={60}
                     className="rounded-md object-cover mt-1"
                     preview={false}

@@ -40,27 +40,13 @@ export default function ProfilePage() {
   }, [isLoading]);
 
   return (
-    <div className="min-h-screen flex-1 p-6 md:px-16">
-      {/* Sarlavha qo'shildi */}
-      <div className="mb-8">
-        <h1
-          ref={titleRef}
-          className="text-3xl font-bold text-white text-center"
-        >
-          Kitoblar
-        </h1>
-        <p className="text-gray-300 text-center mt-2">
-          Audio va elektron kitoblar
-        </p>
-      </div>
-
+    <div className="min-h-screen flex-1 p-4">
       {isLoading ? (
         <SkeletonCards />
       ) : (
         <div ref={listRef} className="flex flex-wrap gap-6 justify-start">
           {data?.data?.content?.map((item: any, i: number) => {
             const poster = item?.coverImageUrl?.split("/")?.pop();
-            const id = item?.pdfUrl?.split("/")?.pop();
             return (
               <Card
                 key={i}

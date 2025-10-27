@@ -29,7 +29,7 @@ const Loader: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen bg-[#0e0e10] flex flex-col items-center justify-center relative overflow-hidden">
+    <div className="w-full h-screen bg-[#1c1c1e] flex flex-col items-center justify-center relative overflow-hidden">
       {/* Yorqin doira */}
       <div
         ref={circleRef}

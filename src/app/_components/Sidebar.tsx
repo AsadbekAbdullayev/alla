@@ -3,7 +3,9 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useParams, useRouter, usePathname } from "next/navigation";
 import { useCategories } from "@/entities/Categories/api";
+import { RootState } from "@/redux/store/store";
 import { Layout, Menu, Spin } from "antd";
+import { useSelector } from "react-redux";
 import {
   VideoCameraOutlined,
   PlayCircleOutlined,
@@ -17,8 +19,6 @@ import {
   BookOutlined,
 } from "@ant-design/icons";
 import gsap from "gsap";
-import { RootState } from "@/redux/store/store";
-import { useSelector } from "react-redux";
 
 const { Sider } = Layout;
 
@@ -43,18 +43,6 @@ const Sidebar: React.FC = () => {
   const router = useRouter();
 
   const { role } = useSelector((e: RootState) => e.generel.userDetails);
-
-  // Current item ni pathname bo'yicha aniqlash
-  useEffect(() => {
-    if (pathname) {
-      const pathSegments = pathname.split("/");
-      const lastSegment = pathSegments[pathSegments.length - 1];
-
-      // Agar path /dashboard/ALLALAR bo'lsa, current = "ALLALAR"
-      // Agar path /dashboard bo'lsa, current = "" (Dashboard)
-      setCurrent(lastSegment === "dashboard" ? "" : lastSegment);
-    }
-  }, [pathname, categoryName]);
 
   const items: any = useMemo(() => {
     const videoItems = Array.isArray(categories)
@@ -146,6 +134,14 @@ const Sidebar: React.FC = () => {
   }, [categories]);
 
   useEffect(() => {
+    if (pathname) {
+      const pathSegments = pathname.split("/");
+      const lastSegment = pathSegments[pathSegments.length - 1];
+      setCurrent(lastSegment === "dashboard" ? "" : lastSegment);
+    }
+  }, [pathname, categoryName]);
+
+  useEffect(() => {
     if (titleRef.current) {
       gsap.fromTo(
         titleRef.current,
@@ -159,7 +155,7 @@ const Sidebar: React.FC = () => {
     if (!role) return;
 
     if (role !== "ADMIN") {
-      sessionStorage.clear();
+      localStorage.clear();
       router.push("/login");
     }
   }, [role]);
