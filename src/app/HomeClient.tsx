@@ -71,7 +71,7 @@ export default function HomeClient() {
     >
       <Header />
       <CartoonSlides />
-      <Content ref={contentRef} />
+      <Content />
       <Opportunitites />
       <ChildSecurity />
       <Footer />
