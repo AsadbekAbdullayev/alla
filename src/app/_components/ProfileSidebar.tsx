@@ -152,44 +152,47 @@ const Sidebar: React.FC = () => {
       </>
       {!collapsed && (
         <div className="w-full px-3 pb-5">
-          <div className="relative flex overflow-hidden text-center flex-col items-start gap-1 self-stretch p-6 pt-4 pb-4 w-full h-[400px] rounded-2xl border  border-[#A580E9] bg-gradient-to-r from-[rgba(165,128,233,0.10)] to-[rgba(224,127,175,0.10)] shadow-[0_64px_64px_-32px_rgba(102,37,0,0.65)]">
-            <h3 className="text-[14px] font-bold truncate">
-              Ilovani hozir yuklab oling!
-            </h3>
+          <div className="relative inline-block p-[1px] rounded-2xl animate-border-spin  shadow-[0_64px_64px_-32px_rgba(102,37,0,0.65)]">
+            {/* Ichki Konteyner (Kontent) - O'zgarishsiz */}
+            <div className="relative flex overflow-hidden text-center flex-col items-start gap-1 self-stretch p-6 pt-4 pb-4 w-full h-[400px] rounded-[15px] bg-[#2e1719]">
+              <h3 className="text-[14px] font-bold truncate">
+                Ilovani hozir yuklab oling!
+              </h3>
 
-            <span className="block text-[11px] font-normal opacity-80 ">
-              Barcha imkoniyatlardan hoziroq foydalaning.
-            </span>
+              <span className="block text-[11px] font-normal opacity-80 ">
+                Barcha imkoniyatlardan hoziroq foydalaning.
+              </span>
 
-            {/* URL bilan ishlang */}
-            <Image
-              src="/assets/imgs/bg1.png" // URL bilan
-              fill
-              unoptimized
-              alt="rasm1"
-              className="absolute !top-[100px] z-30 !left-6 w-16 h-16 rotate-[9.23deg]"
-            />
-
-            <Image
-              src="/assets/imgs/coverphone2.png" // URL bilan
-              fill
-              unoptimized
-              alt="rasm1"
-              className="absolute !top-[112px] z-20 !-left-10 w-16 h-16 rotate-[9.23deg]"
-            />
-            <Link
-              href="https://play.google.com/store/apps"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
               <Image
-                src="/assets/icons/download_button.svg" // URL bilan
+                src="/assets/imgs/bg1.png"
                 fill
                 unoptimized
-                alt="Download button"
-                className="!w-[230px] !h-[80px] !absolute !top-[300px] !z-40 hover:scale-[1.05] duration-300 cursor-pointer"
+                alt="rasm1"
+                className="absolute !top-[100px] z-30 !left-6 w-16 h-16 rotate-[9.23deg]"
               />
-            </Link>
+
+              <Image
+                src="/assets/imgs/coverphone2.png"
+                fill
+                unoptimized
+                alt="rasm1"
+                className="absolute !top-[112px] z-20 !-left-10 w-16 h-16 rotate-[9.23deg]"
+              />
+
+              <Link
+                href="https://play.google.com/store/apps"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src="/assets/icons/download_button.svg"
+                  fill
+                  unoptimized
+                  alt="Download button"
+                  className="!w-[230px] !h-[80px] !absolute !top-[300px] !z-40 hover:scale-[1.05] duration-300 cursor-pointer"
+                />
+              </Link>
+            </div>
           </div>
         </div>
       )}
