@@ -1,11 +1,10 @@
 "use client";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useLayoutEffect, useState } from "react";
 import Header from "./_components/Header";
 import dynamic from "next/dynamic";
 import Loader from "@/app/loading";
 
-// dynamic imports
 const CartoonSlides = dynamic(() => import("./_components/CartoonSlides"), {
   ssr: false,
   loading: () => <h1>CartoonSlides Loading ...</h1>,
@@ -28,21 +27,46 @@ const Footer = dynamic(() => import("./_components/footer"), {
 });
 
 export default function HomeClient() {
-  const searchParams = useSearchParams();
-  const theme = searchParams.get("theme") || "light";
-  const isDark = theme === "dark";
+  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
+  const [theme, setTheme] = useState("light");
 
-  useEffect(() => {
+  const getAutoTheme = () => {
+    const hour = new Date().getHours();
+    return hour >= 17 || hour < 7 ? "dark" : "light";
+  };
+
+  useLayoutEffect(() => {
     setIsMounted(true);
+
+    const autoTheme = getAutoTheme();
+    setTheme(autoTheme);
+    const params = new URLSearchParams();
+    params.set("theme", autoTheme);
+    router.replace(`?${params.toString()}`, { scroll: false });
   }, []);
 
+  useLayoutEffect(() => {
+    const interval = setInterval(() => {
+      const autoTheme = getAutoTheme();
+      setTheme(autoTheme);
+
+      const params = new URLSearchParams();
+      params.set("theme", autoTheme);
+      router.replace(`?${params.toString()}`, { scroll: false });
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, [router]);
+
   if (!isMounted) return <Loader />;
+
+  const isDark = theme === "dark";
 
   return (
     <main
       className={`relative min-h-screen overflow-hidden ${
-        isDark ? "bg-[#001145]" : ""
+        isDark ? "bg-[#001145] text-white" : "bg-white text-black"
       }`}
     >
       <Header />
