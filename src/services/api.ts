@@ -53,7 +53,7 @@ request.interceptors.response.use(
         const isLoginPage = path === "/" || path.includes("login");
 
         if (!isLoginPage) {
-          message.error("Iltimos, qayta tizimga kiring.");
+          // message.error("Iltimos, qayta tizimga kiring.");
           localStorage.clear();
           window.location.pathname = "/login";
         }
