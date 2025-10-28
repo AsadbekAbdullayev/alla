@@ -1,18 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Upload,
-  Avatar,
-} from "antd";
-import { UploadOutlined, UserOutlined } from "@ant-design/icons";
 import { useGetUser, useUpdateUser } from "@/entities/Profile/api";
+import { Button, Form, Input, message } from "antd";
+import { gsap } from "gsap";
 
 export default function ProfilePage() {
   const [form] = Form.useForm();
@@ -32,11 +23,11 @@ export default function ProfilePage() {
         firstName: values.firstName,
         lastName: values.lastName,
         age: values.age,
-        profileImageUrl: imageUrl, // ✅ only send URL
+        profileImageUrl: imageUrl, // ✅ only send URL, yag'eee
       };
 
       await updateUser(payload);
-      message.success("Profile updated successfully!");
+      message.success("Profil muvaffaqiyatli yangilandi!");
     } catch (error: any) {
       message.error(error.message || "Failed to update profile");
     }
@@ -96,12 +87,12 @@ export default function ProfilePage() {
         <div className="profile-section w-full bg-[#1E1E1E] rounded-2xl p-6 shadow-lg border border-white/10">
           {/* Avatar */}
           <div className="flex flex-col items-center mb-6">
-            <Avatar
+            {/* <Avatar
               size={96}
               icon={<UserOutlined />}
               src={userData?.data?.profileImageUrl}
               className="border-2 border-white/20"
-            />
+            /> */}
             <p className="mt-3 text-white/80 text-lg font-medium">
               {userData?.data?.firstName || "User"} {userData?.data?.lastName}
             </p>
@@ -117,50 +108,53 @@ export default function ProfilePage() {
           >
             <div className="flex flex-col md:flex-row gap-4">
               <Form.Item
-                label={<span className="text-white/70">First Name</span>}
+                label={<span className="text-white/70">Ism</span>}
                 name="firstName"
                 rules={[
-                  { required: true, message: "Please enter your first name" },
+                  { required: true, message: "Iltimos, ismingizni kiriting" },
                 ]}
                 className="flex-1"
               >
                 <Input
-                  placeholder="Enter first name"
+                  placeholder="Ismingizni kiriting"
                   className="!bg-[#2B2B2B] !border-none !text-white !rounded-xl h-10 placeholder:!text-white/70"
                 />
               </Form.Item>
 
               <Form.Item
-                label={<span className="text-white/70">Last Name</span>}
+                label={<span className="text-white/70">Familiya</span>}
                 name="lastName"
                 rules={[
-                  { required: true, message: "Please enter your last name" },
+                  {
+                    required: true,
+                    message: "Iltimos, familiyangizni kiriting",
+                  },
                 ]}
                 className="flex-1"
               >
                 <Input
-                  placeholder="Enter last name"
+                  placeholder="Familiyangizni kiriting"
                   className="!bg-[#2B2B2B] !border-none !text-white !rounded-xl h-10 placeholder:!text-white/70"
                 />
               </Form.Item>
             </div>
 
             <Form.Item
-              label={<span className="text-white/70">Age</span>}
+              label={<span className="text-white/70">Yosh</span>}
               name="age"
               rules={[
-                { required: true, message: "Please enter your age" },
+                { required: true, message: "Iltimos, yoshingizni kiriting" },
                 // { type: "number", min: 0, message: "Age must be a positive number" },
               ]}
             >
               <Input
-                placeholder="Enter age"
+                placeholder="Yoshingizni kiriting"
                 className="!w-full !bg-[#2B2B2B] !border-none !text-white !rounded-xl h-10 placeholder:!text-white/70"
                 min={0}
               />
             </Form.Item>
 
-            <Form.Item
+            {/* <Form.Item
               label={<span className="text-white/70">Image</span>}
               name="image"
               valuePropName="fileList"
@@ -179,7 +173,7 @@ export default function ProfilePage() {
                   Rasm yuklash
                 </Button>
               </Upload>
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item>
               <Button
@@ -188,7 +182,7 @@ export default function ProfilePage() {
                 block
                 loading={isUpdating}
                 disabled={isUserLoading}
-                className="!bg-blue-600 hover:!bg-blue-700 !h-11 !text-base !rounded-xl"
+                className="!bg-gradient-to-r !from-[#A580E9] !to-[#E07FAF] hover:!opacity-90 !h-11 !text-base !rounded-xl"
               >
                 Saqlash
               </Button>
