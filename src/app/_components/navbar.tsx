@@ -26,6 +26,21 @@ export default function Navbar() {
     router.replace(`?${params.toString()}`);
   };
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const navbarHeight = 80; // adjust to your navbar height
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <nav className="py-3 px-[64px] flex items-center justify-between border-b border-[#D1DBFF1F] relative z-10 max-sm:px-4">
       {/* Left logo and theme toggle */}
@@ -47,13 +62,28 @@ export default function Navbar() {
       {/* Center nav links */}
       <div className="max-lg:hidden">
         <ul className="flex items-center">
-          <li className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white">
+          <li
+            onClick={() => {
+              scrollToSection("opportunities");
+            }}
+            className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white"
+          >
             Imkoniyatlar
           </li>
-          <li className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white">
+          <li
+            onClick={() => {
+              scrollToSection("childSecurity");
+            }}
+            className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white"
+          >
             Xavfsizlik
           </li>
-          <li className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white">
+          <li
+            onClick={() => {
+              scrollToSection("content");
+            }}
+            className="py-2 px-4 cursor-pointer text-[18px] font-[700] text-white"
+          >
             Biz haqimizda
           </li>
         </ul>

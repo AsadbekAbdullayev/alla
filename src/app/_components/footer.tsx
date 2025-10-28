@@ -118,7 +118,7 @@ export default function Footer() {
         width={1920}
         height={1080}
         loading="lazy"
-        className="absolute top-[-200px] left-0 w-screen max-sm:hidden max-lg:top-[280px]"
+        className="absolute top-[-400px] left-0 w-screen max-sm:top-[400px] max-lg:top-[280px]"
       />
     </footer>
   );

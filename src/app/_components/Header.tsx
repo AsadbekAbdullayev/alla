@@ -10,6 +10,7 @@ import Link from "next/link";
 import gsap from "gsap";
 import Image from "next/image";
 
+
 const Header = () => {
   const searchParams = useSearchParams();
   const theme = searchParams.get("theme") || "light";
@@ -155,7 +156,7 @@ const Header = () => {
                 alt="Bolalar"
                 width={184}
                 height={122}
-                className="max-sm:hidden"
+                className="max-sm:w-[120px]"
               />
             </span>
             <span>xavfsiz internet makoni</span>
@@ -181,14 +182,14 @@ const Header = () => {
         </div>
 
         {isLight && (
-          <div className="flex justify-end max-w-[50%]">
+          <div className="flex justify-end max-w-[50%] max-sm:max-w-[30%]">
             <Image
               ref={refs.yojik}
               src="/assets/images/yojik.png"
               alt="Yojik"
               width={500}
               height={500}
-              className="object-contain max-sm:hidden"
+              className="object-contain "
               priority
             />
           </div>
@@ -200,7 +201,7 @@ const Header = () => {
           <img
             ref={refs.cloud}
             src="/assets/icons/headerCloud.svg"
-            className="absolute top-[191px] right-[108px] w-[200px]"
+            className="absolute top-[191px] right-[108px] w-[200px] max-sm:right-6 max-sm:w-[130px]"
             alt="Cloud"
           />
           <img
