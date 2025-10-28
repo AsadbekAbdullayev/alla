@@ -234,7 +234,6 @@ const Content = forwardRef<HTMLDivElement>((_, ref) => {
         width={200}
         height={200}
         loading="lazy"
-        className="absolute top-1 left-0"
         className="absolute top-1 left-0 max-sm:w-[100px]"
       />
       <Image
