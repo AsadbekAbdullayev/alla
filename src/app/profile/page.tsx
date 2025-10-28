@@ -104,7 +104,7 @@ export default function ProfilePage() {
   }, [isLoading]);
 
   return (
-    <div className="min-h-screen flex-1 p-4">
+    <div className=" flex-1 p-4">
       {isLoading ? (
         <SkeletonCards />
       ) : (
