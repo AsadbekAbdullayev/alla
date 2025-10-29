@@ -91,38 +91,21 @@ const Sidebar: React.FC = () => {
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={`absolute top-7 -right-4 cursor-pointer ${
+        cursor="pointer"
+        className={`absolute top-6 -right-3 cursor-pointer ${
           collapsed ? "rotate-180" : ""
         }`}
         onClick={() => setCollapsed(!collapsed)}
       >
-        <rect
-          width="24"
-          height="24"
-          rx="12"
-          fill="url(#paint0_linear_862_3449)"
-        />
+        <rect width="24" height="24" rx="12" fill="#436EFF" />
         <path
-          d="M14 17.28L9.65333 12.9333C9.13999 12.42 9.13999 11.58 9.65333 11.0666L14 6.71997"
+          d="M14 17.2802L9.65334 12.9335C9.14001 12.4202 9.14001 11.5802 9.65334 11.0669L14 6.72021"
           stroke="white"
           stroke-width="1.5"
           stroke-miterlimit="10"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
-        <defs>
-          <linearGradient
-            id="paint0_linear_862_3449"
-            x1="0"
-            y1="12"
-            x2="24"
-            y2="12"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stop-color="#A580E9" />
-            <stop offset="1" stop-color="#E07FAF" />
-          </linearGradient>
-        </defs>
       </svg>
 
       <div className="p-4 h-[60px] z-10 relative flex items-center justify-between rounded-[24px]">

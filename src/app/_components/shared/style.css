@@ -1,0 +1,8 @@
+:where(.ant-tabs-top) > .ant-tabs-nav::before,
+:where(.ant-tabs-top) > div > .ant-tabs-nav::before {
+  border-bottom: 1px solid #323234 !important; /* Tailwind blue-500 */
+}
+
+.custom-tabs .ant-tabs-ink-bar {
+  background-image: linear-gradient(90deg, #a580e9 0%, #e07faf 100%);
+}

@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { setBreadcrumb, BreadcrumbItem } from "@/redux/slices/generelSlice";
 import SkeletonCards from "@/app/_components/shared/SkeletonCard";
-import { useRouter } from "next/navigation";
-import { gsap } from "gsap";
+import Tabs from "@/app/_components/shared/Tabs";
 import Card from "@/app/_components/shared/Card";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { gsap } from "gsap";
 
 // Static categories ma'lumotlari URL bilan
 const staticCategories = [
@@ -65,6 +68,7 @@ export default function ProfilePage() {
 
   // Loading state - static ma'lumotlar uchun qisqa loading
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // Qisqa loading simulation
@@ -103,8 +107,17 @@ export default function ProfilePage() {
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    const newBreadcrumb: BreadcrumbItem[] = [
+      { title: "Bosh sahifa", href: "/" },
+    ];
+
+    dispatch(setBreadcrumb(newBreadcrumb));
+  }, []);
+
   return (
-    <div className=" flex-1 p-4">
+    <div className="flex flex-col flex-1 p-4">
+      <Tabs />
       {isLoading ? (
         <SkeletonCards />
       ) : (
