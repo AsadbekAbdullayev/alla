@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { setBreadcrumb, BreadcrumbItem } from "@/redux/slices/generelSlice";
 import SkeletonCards from "@/app/_components/shared/SkeletonCard";
 import { useVideosByCategory } from "@/entities/Videos/api";
 import { useRouter, useParams } from "next/navigation";
 import Card from "@/app/_components/shared/Card";
 import { useDispatch } from "react-redux";
-import { setBreadcrumb, BreadcrumbItem } from "@/redux/slices/generelSlice";
 import { gsap } from "gsap";
 
 export default function ProfilePage() {
@@ -18,6 +18,8 @@ export default function ProfilePage() {
   const { data: videos, isLoading: videosLoading } = useVideosByCategory(
     category as string
   );
+
+  console.log(videos, "videos");
 
   useEffect(() => {
     gsap.fromTo(
